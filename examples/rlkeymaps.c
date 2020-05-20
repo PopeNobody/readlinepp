@@ -4,11 +4,11 @@
 #include <string.h>
 
 #if defined (READLINE_LIBRARY)
-#  include "readline.h"
-#  include "history.h"
+#  include "readline.hh"
+#  include "history.hh"
 #else
-#  include <readline/readline.h>
-#  include <readline/history.h>
+#  include <readline/readline.hh>
+#  include <readline/history.hh>
 #endif
 
 int

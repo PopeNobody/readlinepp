@@ -25,7 +25,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
@@ -33,7 +33,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_UNISTD_H)
@@ -45,10 +45,10 @@
 
 #include <errno.h>
 
-#include "history.h"
-#include "histlib.h"
+#include "history.hh"
+#include "histlib.hh"
 
-#include "xmalloc.h"
+#include "xmalloc.hh"
 
 #if !defined (errno)
 extern int errno;
@@ -418,9 +418,9 @@ _hs_append_history_line (int which, const char *line)
     }
   else
     newlen = minlen;
-  /* Assume that realloc returns the same pointer and doesn't try a new
-     alloc/copy if the new size is the same as the one last passed. */
-  newline = realloc (hent->line, newlen);
+  /* Assume that realloc returns the same pointer and doesn't try a _new
+     alloc/copy if the _new size is the same as the one last passed. */
+  newline = (char*)realloc (hent->line, newlen);
   if (newline)
     {
       hent->line = newline;
@@ -430,13 +430,13 @@ _hs_append_history_line (int which, const char *line)
 }
 
 /* Replace the DATA in the specified history entries, replacing OLD with
-   NEW.  WHICH says which one(s) to replace:  WHICH == -1 means to replace
+   _new.  WHICH says which one(s) to replace:  WHICH == -1 means to replace
    all of the history entries where entry->data == OLD; WHICH == -2 means
    to replace the `newest' history entry where entry->data == OLD; and
    WHICH >= 0 means to replace that particular history entry's data, as
    long as it matches OLD. */
 void
-_hs_replace_history_data (int which, histdata_t *old, histdata_t *new)
+_hs_replace_history_data (int which, histdata_t *old, histdata_t *_new)
 {
   HIST_ENTRY *entry;
   register int i, last;
@@ -448,7 +448,7 @@ _hs_replace_history_data (int which, histdata_t *old, histdata_t *new)
     {
       entry = the_history[which];
       if (entry && entry->data == old)
-	entry->data = new;
+	entry->data = _new;
       return;
     }
 
@@ -462,13 +462,13 @@ _hs_replace_history_data (int which, histdata_t *old, histdata_t *new)
 	{
 	  last = i;
 	  if (which == -1)
-	    entry->data = new;
+	    entry->data = _new;
 	}
     }
   if (which == -2 && last >= 0)
     {
       entry = the_history[last];
-      entry->data = new;	/* XXX - we don't check entry->old */
+      entry->data = _new;	/* XXX - we don't check entry->old */
     }
 }      
   

@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>		/* Just for NULL.  Yuck. */
@@ -34,17 +34,17 @@
 #endif /* HAVE_UNISTD_H */
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
+#include "rldefs.hh"
 
 #if defined (GWINSZ_IN_SYS_IOCTL)
 #  include <sys/ioctl.h>
 #endif /* GWINSZ_IN_SYS_IOCTL */
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
+#include "rlprivate.hh"
 
 #if defined (HANDLE_SIGNALS)
 
@@ -62,9 +62,11 @@
 #  define SIGHANDLER_RETURN return (0)
 #endif
 
-/* This typedef is equivalent to the one for Function; it allows us
-   to say SigHandler *foo = signal (SIGKILL, SIG_IGN); */
-typedef RETSIGTYPE SigHandler ();
+ typedef void (SigHandler)(int);
+
+//   /* This typedef is equivalent to the one for Function; it allows us
+//      to say SigHandler *foo = signal (SIGKILL, SIG_IGN); */
+//   typedef RETSIGTYPE SigHandler ();
 
 #if defined (HAVE_POSIX_SIGNALS)
 typedef struct sigaction sighandler_cxt;

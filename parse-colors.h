@@ -27,7 +27,7 @@
 #ifndef _PARSE_COLORS_H_
 #define _PARSE_COLORS_H_
 
-#include "readline.h"
+#include "readline.hh"
 
 #define LEN_STR_PAIR(s) sizeof (s) - 1, s
 

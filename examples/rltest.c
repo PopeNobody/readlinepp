@@ -23,71 +23,70 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined (HAVE_CONFIG_H)
-#include <config.h>
+#if defined( HAVE_CONFIG_H )
+#include <config.hh>
 #endif
 
 #include <stdio.h>
 #include <sys/types.h>
 
 #ifdef HAVE_STDLIB_H
-#  include <stdlib.h>
-#else 
+#include <stdlib.h>
+#else
 extern void exit();
 #endif
 
 #ifdef READLINE_LIBRARY
-#  include "readline.h"
-#  include "history.h"
+#include "history.hh"
+#include "readline.hh"
 #else
-#  include <readline/readline.h>
-#  include <readline/history.h>
+#include <readline/history.hh>
+#include <readline/readline.hh>
 #endif
 
-extern HIST_ENTRY **history_list ();
+extern HIST_ENTRY** history_list();
 
-int
-main ()
+int main()
 {
-  char *temp, *prompt;
+  const char *temp, *prompt;
   int done;
 
-  temp = (char *)NULL;
+  temp = (char*)NULL;
   prompt = "readline$ ";
   done = 0;
 
-  while (!done)
+  while ( !done )
+  {
+    temp = readline( prompt );
+
+    /* Test for EOF. */
+    if ( !temp )
+      exit( 1 );
+
+    /* If there is anything on the line, print it and remember it. */
+    if ( *temp )
     {
-      temp = readline (prompt);
-
-      /* Test for EOF. */
-      if (!temp)
-	exit (1);
-
-      /* If there is anything on the line, print it and remember it. */
-      if (*temp)
-	{
-	  fprintf (stderr, "%s\r\n", temp);
-	  add_history (temp);
-	}
-
-      /* Check for `command' that we handle. */
-      if (strcmp (temp, "quit") == 0)
-	done = 1;
-
-      if (strcmp (temp, "list") == 0)
-	{
-	  HIST_ENTRY **list;
-	  register int i;
-
-	  list = history_list ();
-	  if (list)
-	    {
-	      for (i = 0; list[i]; i++)
-		fprintf (stderr, "%d: %s\r\n", i, list[i]->line);
-	    }
-	}
-      free (temp);
+      fprintf( stderr, "%s\r\n", temp );
+      add_history( temp );
     }
-  exit (0);
+
+    /* Check for `command' that we handle. */
+    if ( strcmp( temp, "quit" ) == 0 )
+      done = 1;
+
+    if ( strcmp( temp, "list" ) == 0 )
+    {
+      HIST_ENTRY** list;
+      register int i;
+
+      list = history_list();
+      if ( list )
+      {
+        for ( i = 0; list[ i ]; i++ )
+          fprintf( stderr, "%d: %s\r\n", i, list[ i ]->line );
+      }
+    }
+    free( (void*)temp );
+  }
+  exit( 0 );
 }

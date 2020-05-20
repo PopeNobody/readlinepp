@@ -22,9 +22,9 @@
 #include <stdio.h>
 
 #ifdef READLINE_LIBRARY
-#  include "history.h"
+#  include "history.hh"
 #else
-#  include <readline/history.h>
+#  include <readline/history.hh>
 #endif
 
 #include <unistd.h>
@@ -32,9 +32,7 @@
 #include <string.h>
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main ( int argc, char **argv)
 {
   char line[1024], *t;
   int len, done;

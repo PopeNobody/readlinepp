@@ -25,7 +25,7 @@
 */
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <unistd.h>
@@ -39,13 +39,13 @@ extern void exit();
 #endif
 
 #if defined (READLINE_LIBRARY)
-#  include "posixstat.h"
-#  include "readline.h"
-#  include "history.h"
+#  include "posixstat.hh"
+#  include "readline.hh"
+#  include "history.hh"
 #else
 #  include <sys/stat.h>
-#  include <readline/readline.h>
-#  include <readline/history.h>
+#  include <readline/readline.hh>
+#  include <readline/history.hh>
 #endif
 
 extern int optind;
@@ -55,8 +55,8 @@ extern char *optarg;
 extern char *strrchr();
 #endif
 
-static char *progname;
-static char *deftext;
+static const char *progname;
+static const char *deftext;
 
 static int
 set_deftext ()
@@ -78,16 +78,14 @@ usage()
 }
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main ( int argc, const char **argv)
 {
-  char *temp, *prompt;
+  const char *temp, *prompt;
   struct stat sb;
   int opt, fd, nch;
   FILE *ifp;
 
-  progname = strrchr(argv[0], '/');
+  progname = strrchr((char*)argv[0], '/');
   if (progname == 0)
     progname = argv[0];
   else
@@ -98,7 +96,7 @@ main (argc, argv)
   fd = nch = 0;
   deftext = (char *)0;
 
-  while ((opt = getopt(argc, argv, "p:u:d:n:")) != EOF)
+  while ((opt = getopt(argc, (char*const*)argv, "p:u:d:n:")) != EOF)
     {
       switch (opt)
 	{

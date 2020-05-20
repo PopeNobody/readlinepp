@@ -22,12 +22,12 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
 #include <fcntl.h>
-#include "posixjmp.h"
+#include "posixjmp.hh"
 
 #if defined (HAVE_UNISTD_H)
 #  include <unistd.h>           /* for _POSIX_VERSION */
@@ -36,26 +36,26 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include <stdio.h>
 #include <ctype.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
 #if defined (TIOCSTAT_IN_SYS_IOCTL)
 #  include <sys/ioctl.h>
 #endif /* TIOCSTAT_IN_SYS_IOCTL */
 
 /* Some standard library routines. */
-#include "readline.h"
+#include "readline.hh"
 
-#include "rlprivate.h"
-#include "xmalloc.h"
-#include "rlshell.h"
+#include "rlprivate.hh"
+#include "xmalloc.hh"
+#include "rlshell.hh"
 
 /* **************************************************************** */
 /*								    */

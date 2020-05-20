@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
@@ -30,7 +30,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_UNISTD_H)
@@ -40,14 +40,14 @@
 #  include <unistd.h>
 #endif
 
-#include "rlmbutil.h"
+#include "rlmbutil.hh"
 
-#include "history.h"
-#include "histlib.h"
-#include "chardefs.h"
+#include "history.hh"
+#include "histlib.hh"
+#include "chardefs.hh"
 
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 #define HISTORY_WORD_DELIMITERS		" \t\n;&()|<>"
 #define HISTORY_QUOTE_CHARACTERS	"\"'`"
@@ -486,17 +486,17 @@ get_subst_pattern (char *str, int *iptr, int delimiter, int is_rhs, int *lenptr)
 static void
 postproc_subst_rhs (void)
 {
-  char *new;
+  char *_new;
   int i, j, new_size;
 
-  new = (char *)xmalloc (new_size = subst_rhs_len + subst_lhs_len);
+  _new = (char *)xmalloc (new_size = subst_rhs_len + subst_lhs_len);
   for (i = j = 0; i < subst_rhs_len; i++)
     {
       if (subst_rhs[i] == '&')
 	{
 	  if (j + subst_lhs_len >= new_size)
-	    new = (char *)xrealloc (new, (new_size = new_size * 2 + subst_lhs_len));
-	  strcpy (new + j, subst_lhs);
+	    _new = (char *)xrealloc (_new, (new_size = new_size * 2 + subst_lhs_len));
+	  strcpy (_new + j, subst_lhs);
 	  j += subst_lhs_len;
 	}
       else
@@ -505,20 +505,20 @@ postproc_subst_rhs (void)
 	  if (subst_rhs[i] == '\\' && subst_rhs[i + 1] == '&')
 	    i++;
 	  if (j >= new_size)
-	    new = (char *)xrealloc (new, new_size *= 2);
-	  new[j++] = subst_rhs[i];
+	    _new = (char *)xrealloc (_new, new_size *= 2);
+	  _new[j++] = subst_rhs[i];
 	}
     }
-  new[j] = '\0';
+  _new[j] = '\0';
   xfree (subst_rhs);
-  subst_rhs = new;
+  subst_rhs = _new;
   subst_rhs_len = j;
 }
 
 /* Expand the bulk of a history specifier starting at STRING[START].
    Returns 0 if everything is OK, -1 if an error occurred, and 1
    if the `p' modifier was supplied and the caller should just print
-   the returned string.  Returns the new index into string in
+   the returned string.  Returns the _new index into string in
    *END_INDEX_PTR, and the expanded specifier in *RET_STRING. */
 /* need current line for !# */
 static int

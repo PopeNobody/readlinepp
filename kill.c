@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -34,20 +34,20 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include <stdio.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
+#include "rldefs.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "xmalloc.hh"
 
 /* **************************************************************** */
 /*								    */
@@ -83,20 +83,20 @@ rl_set_retained_kills (int num)
   return 0;
 }
 
-/* Add TEXT to the kill ring, allocating a new kill ring slot as necessary.
+/* Add TEXT to the kill ring, allocating a _new kill ring slot as necessary.
    This uses TEXT directly, so the caller must not free it.  If APPEND is
    non-zero, and the last command was a kill, the text is appended to the
    current kill ring slot, otherwise prepended. */
 static int
 _rl_copy_to_kill_ring (char *text, int append)
 {
-  char *old, *new;
+  char *old, *_new;
   int slot;
 
   /* First, find the slot to work with. */
   if (_rl_last_command_was_kill == 0 || rl_kill_ring == 0)
     {
-      /* Get a new slot.  */
+      /* Get a _new slot.  */
       if (rl_kill_ring == 0)
 	{
 	  /* If we don't have any defined, then make one. */
@@ -106,7 +106,7 @@ _rl_copy_to_kill_ring (char *text, int append)
 	}
       else
 	{
-	  /* We have to add a new slot on the end, unless we have
+	  /* We have to add a _new slot on the end, unless we have
 	     exceeded the max limit for remembering kills. */
 	  slot = rl_kill_ring_length;
 	  if (slot == rl_max_kills)
@@ -131,21 +131,21 @@ _rl_copy_to_kill_ring (char *text, int append)
   if (_rl_last_command_was_kill && rl_kill_ring[slot] && rl_editing_mode != vi_mode)
     {
       old = rl_kill_ring[slot];
-      new = (char *)xmalloc (1 + strlen (old) + strlen (text));
+      _new = (char *)xmalloc (1 + strlen (old) + strlen (text));
 
       if (append)
 	{
-	  strcpy (new, old);
-	  strcat (new, text);
+	  strcpy (_new, old);
+	  strcat (_new, text);
 	}
       else
 	{
-	  strcpy (new, text);
-	  strcat (new, old);
+	  strcpy (_new, text);
+	  strcat (_new, old);
 	}
       xfree (old);
       xfree (text);
-      rl_kill_ring[slot] = new;
+      rl_kill_ring[slot] = _new;
     }
   else
     rl_kill_ring[slot] = text;
@@ -157,7 +157,7 @@ _rl_copy_to_kill_ring (char *text, int append)
 /* The way to kill something.  This appends or prepends to the last
    kill, if the last command was a kill command.  if FROM is less
    than TO, then the text is appended, otherwise prepended.  If the
-   last command was not a kill command, then a new slot is made for
+   last command was not a kill command, then a _new slot is made for
    this kill. */
 int
 rl_kill_text (int from, int to)
@@ -396,14 +396,14 @@ rl_unix_line_discard (int count, int key)
 /* Copy the text in the `region' to the kill ring.  If DELETE is non-zero,
    delete the text from the line as well. */
 static int
-region_kill_internal (int delete)
+region_kill_internal (int _delete)
 {
   char *text;
 
   if (rl_mark != rl_point)
     {
       text = rl_copy_text (rl_point, rl_mark);
-      if (delete)
+      if (_delete)
 	rl_delete_text (rl_point, rl_mark);
       _rl_copy_to_kill_ring (text, rl_point < rl_mark);
     }
@@ -497,7 +497,7 @@ rl_yank (int count, int key)
 
 /* If the last command was yank, or yank_pop, and the text just
    before point is identical to the current kill item, then
-   delete that text from the line, rotate the index down, and
+   _delete that text from the line, rotate the index down, and
    yank back some other text. */
 int
 rl_yank_pop (int count, int key)
@@ -678,7 +678,7 @@ _rl_bracketed_text (size_t *lenp)
   char *buf;
 
   len = 0;
-  buf = xmalloc (cap = 64);
+  buf = (char*)xmalloc (cap = 64);
   buf[0] = '\0';
 
   RL_SETSTATE (RL_STATE_MOREINPUT);
@@ -691,7 +691,7 @@ _rl_bracketed_text (size_t *lenp)
 	c = '\n';
 
       if (len == cap)
-	buf = xrealloc (buf, cap *= 2);
+	buf = (char*)xrealloc (buf, cap *= 2);
 
       buf[len++] = c;
       if (len >= BRACK_PASTE_SLEN && c == BRACK_PASTE_LAST &&
@@ -706,7 +706,7 @@ _rl_bracketed_text (size_t *lenp)
   if (c >= 0)
     {
       if (len == cap)
-	buf = xrealloc (buf, cap + 1);
+	buf = (char*)xrealloc (buf, cap + 1);
       buf[len] = '\0';
     }
 

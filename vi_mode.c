@@ -27,12 +27,12 @@
 /*			VI Emulation Mode			    */
 /*								    */
 /* **************************************************************** */
-#include "rlconf.h"
+#include "rlconf.hh"
 
 #if defined (VI_MODE)
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -50,14 +50,14 @@
 #include <stdio.h>
 
 /* Some standard library routines. */
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "xmalloc.hh"
 
 #ifndef member
 #define member(c, s) ((c) ? (char *)strchr ((s), (c)) != (char *)NULL : 0)
@@ -1141,7 +1141,7 @@ _rl_mvcxt_alloc (int op, int key)
 {
   _rl_vimotion_cxt *m;
 
-  m = xmalloc (sizeof (_rl_vimotion_cxt));
+  m = (_rl_vimotion_cxt*)xmalloc (sizeof (_rl_vimotion_cxt));
   _rl_mvcxt_init (m, op, key);
   return m;
 }

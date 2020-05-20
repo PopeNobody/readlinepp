@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #if defined (HAVE_STDLIB_H)
@@ -33,16 +33,16 @@
 
 #include <stdio.h>	/* for FILE * definition for readline.h */
 
-#include "readline.h"
-#include "rlconf.h"
+#include "readline.hh"
+#include "rlconf.hh"
 
-#include "emacs_keymap.c"
+#include "emacs_keymap.cc"
 
 #if defined (VI_MODE)
-#include "vi_keymap.c"
+#include "vi_keymap.cc"
 #endif
 
-#include "xmalloc.h"
+#include "xmalloc.hh"
 
 /* **************************************************************** */
 /*								    */

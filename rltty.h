@@ -40,7 +40,7 @@
 #  include <sgtty.h>
 #endif
 
-#include "rlwinsize.h"
+#include "rlwinsize.hh"
 
 /* Define _POSIX_VDISABLE if we are not using the `new' tty driver and
    it is not already defined.  It is used both to determine if a

@@ -30,9 +30,9 @@
 #include <regex.h>
 
 #ifdef READLINE_LIBRARY
-#  include "history.h"
+#  include "history.hh"
 #else
-#  include <readline/history.h>
+#  include <readline/history.hh>
 #endif
 
 #include <string.h>
@@ -53,9 +53,7 @@ usage()
 }
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main ( int argc, char **argv)
 {
   char *fn;
   int r, flags;
@@ -109,9 +107,7 @@ main (argc, argv)
 }
 
 int
-hist_purgecmd (cmd, flags)
-     char *cmd;
-     int flags;
+hist_purgecmd ( char *cmd, int flags)
 {
   int r, n, rflags;
   HIST_ENTRY *temp;

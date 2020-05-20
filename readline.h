@@ -22,20 +22,17 @@
 #if !defined (_READLINE_H_)
 #define _READLINE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #if defined (READLINE_LIBRARY)
-#  include "rlstdc.h"
-#  include "rltypedefs.h"
-#  include "keymaps.h"
-#  include "tilde.h"
+#  include "rlstdc.hh"
+#  include "rltypedefs.hh"
+#  include "keymaps.hh"
+#  include "tilde.hh"
 #else
-#  include <readline/rlstdc.h>
-#  include <readline/rltypedefs.h>
-#  include <readline/keymaps.h>
-#  include <readline/tilde.h>
+#  include <readline/rlstdc.hh>
+#  include <readline/rltypedefs.hh>
+#  include <readline/keymaps.hh>
+#  include <readline/tilde.hh>
 #endif
 
 /* Hex-encoded Readline version number. */
@@ -952,8 +949,5 @@ struct readline_state {
 extern int rl_save_state PARAMS((struct readline_state *));
 extern int rl_restore_state PARAMS((struct readline_state *));
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _READLINE_H_ */

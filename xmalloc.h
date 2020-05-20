@@ -23,9 +23,9 @@
 #define _XMALLOC_H_
 
 #if defined (READLINE_LIBRARY)
-#  include "rlstdc.h"
+#  include "rlstdc.hh"
 #else
-#  include <readline/rlstdc.h>
+#  include <readline/rlstdc.hh>
 #endif
 
 #ifndef PTR_T

@@ -25,10 +25,10 @@
 #  include <floss.h>
 #endif
 
-#include "rlconf.h"
+#include "rlconf.hh"
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
@@ -38,7 +38,7 @@
 #  include <unistd.h>
 #endif
 
-#include "posixselect.h"
+#include "posixselect.hh"
 
 #if defined (HAVE_STRING_H)
 #  include <string.h>
@@ -50,8 +50,8 @@
 extern char *strchr (), *strrchr ();
 #endif /* !strchr && !__STDC__ */
 
-#include "readline.h"
-#include "rlprivate.h"
+#include "readline.hh"
+#include "rlprivate.hh"
 
 static int find_matching_open PARAMS((char *, int, int));
 

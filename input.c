@@ -26,7 +26,7 @@
 #endif
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -42,12 +42,12 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include <signal.h>
 
-#include "posixselect.h"
+#include "posixselect.hh"
 
 #if defined (FIONREAD_IN_SYS_IOCTL)
 #  include <sys/ioctl.h>
@@ -61,15 +61,15 @@ extern int errno;
 #endif /* !errno */
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
+#include "readline.hh"
 
-#include "rlprivate.h"
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 /* What kind of non-blocking I/O do we have? */
 #if !defined (O_NDELAY) && defined (O_NONBLOCK)

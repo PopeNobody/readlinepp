@@ -23,7 +23,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -35,7 +35,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_STRING_H)
@@ -57,11 +57,11 @@
 
 #include <stdio.h>
 
-#include "rlstdc.h"
-#include "rlshell.h"
-#include "rldefs.h"
+#include "rlstdc.hh"
+#include "rlshell.hh"
+#include "rldefs.hh"
 
-#include "xmalloc.h"
+#include "xmalloc.hh"
 
 #if defined (HAVE_GETPWUID) && !defined (HAVE_GETPW_DECLS)
 extern struct passwd *getpwuid PARAMS((uid_t));

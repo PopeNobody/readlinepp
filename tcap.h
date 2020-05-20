@@ -23,12 +23,12 @@
 #define _RLTCAP_H_
 
 #if defined (HAVE_CONFIG_H)
-#  include "config.h"
+#  include "config.hh"
 #endif
 
 #if defined (HAVE_TERMCAP_H)
 #  if defined (__linux__) && !defined (SPEED_T_IN_SYS_TYPES)
-#    include "rltty.h"
+#    include "rltty.hh"
 #  endif
 #  include <termcap.h>
 #elif defined (HAVE_NCURSES_TERMCAP_H)

@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #if !defined (BUFSIZ)
@@ -35,10 +35,10 @@
 #  include "ansi_stdlib.h"
 #endif /* HAVE_STDLIB_H */
 
-#include "rlconf.h"
-#include "readline.h"
+#include "rlconf.hh"
+#include "readline.hh"
 
-#include "xmalloc.h"
+#include "xmalloc.hh"
 
 #ifdef __STDC__
 typedef int QSFUNC (const void *, const void *);

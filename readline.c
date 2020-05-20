@@ -23,11 +23,11 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
-#include "posixstat.h"
+#include "posixstat.hh"
 #include <fcntl.h>
 #if defined (HAVE_SYS_FILE_H)
 #  include <sys/file.h>
@@ -48,7 +48,7 @@
 #endif
 
 #include <stdio.h>
-#include "posixjmp.h"
+#include "posixjmp.hh"
 #include <errno.h>
 
 #if !defined (errno)
@@ -56,8 +56,8 @@ extern int errno;
 #endif /* !errno */
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
 #if defined (__EMX__)
 #  define INCL_DOSPROCESS
@@ -65,12 +65,12 @@ extern int errno;
 #endif /* __EMX__ */
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 #ifndef RL_LIBRARY_VERSION
 #  define RL_LIBRARY_VERSION "5.1"
@@ -268,7 +268,7 @@ int _rl_keyseq_timeout = 500;
       if (rl_key_sequence_length + 2 >= _rl_executing_keyseq_size) \
 	{ \
 	  _rl_executing_keyseq_size += 16; \
-	  rl_executing_keyseq = xrealloc (rl_executing_keyseq, _rl_executing_keyseq_size); \
+	  rl_executing_keyseq = (char*)xrealloc (rl_executing_keyseq, _rl_executing_keyseq_size); \
 	} \
     } \
   while (0);
@@ -332,7 +332,7 @@ rl_set_prompt (const char *prompt)
 {
   FREE (rl_prompt);
   rl_prompt = prompt ? savestring (prompt) : (char *)NULL;
-  rl_display_prompt = rl_prompt ? rl_prompt : "";
+  rl_display_prompt = (char*)(rl_prompt ? rl_prompt : "");
 
   rl_visible_prompt_length = rl_expand_prompt (rl_prompt);
   return 0;
@@ -340,8 +340,7 @@ rl_set_prompt (const char *prompt)
   
 /* Read a line of input.  Prompt with PROMPT.  An empty PROMPT means
    none.  A return value of NULL means that EOF was encountered. */
-char *
-readline (const char *prompt)
+char * readline (const char *prompt)
 {
   char *value;
 #if 0
@@ -401,8 +400,7 @@ readline (const char *prompt)
 #  define STATIC_CALLBACK static
 #endif
 
-STATIC_CALLBACK void
-readline_internal_setup (void)
+STATIC_CALLBACK void readline_internal_setup (void)
 {
   char *nprompt;
 
@@ -1239,7 +1237,7 @@ readline_initialize_everything (void)
     _rl_parse_colors ();
 #endif
 
-  rl_executing_keyseq = malloc (_rl_executing_keyseq_size = 16);
+  rl_executing_keyseq = (char*)malloc (_rl_executing_keyseq_size = 16);
   if (rl_executing_keyseq)
     rl_executing_keyseq[0] = '\0';
 }

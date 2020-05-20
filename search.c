@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -38,15 +38,15 @@
 #  include "ansi_stdlib.h"
 #endif
 
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
-#include "readline.h"
-#include "history.h"
-#include "histlib.h"
+#include "readline.hh"
+#include "history.hh"
+#include "histlib.hh"
 
-#include "rlprivate.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "xmalloc.hh"
 
 #ifdef abs
 #  undef abs

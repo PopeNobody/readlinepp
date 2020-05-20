@@ -23,7 +23,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -35,15 +35,15 @@
 #  include <unistd.h>
 #endif /* HAVE_UNISTD_H */
 
-#include "rldefs.h"
+#include "rldefs.hh"
 
-#include "rltty.h"
+#include "rltty.hh"
 #if defined (HAVE_SYS_IOCTL_H)
 #  include <sys/ioctl.h>		/* include for declaration of ioctl */
 #endif
 
-#include "readline.h"
-#include "rlprivate.h"
+#include "readline.hh"
+#include "rlprivate.hh"
 
 #if !defined (errno)
 extern int errno;
@@ -80,8 +80,7 @@ static int ksrflow;
 /* Dummy call to force a backgrounded readline to stop before it tries
    to get the tty settings. */
 static void
-set_winsize (tty)
-     int tty;
+set_winsize (int tty)
 {
 #if defined (TIOCGWINSZ)
   struct winsize w;

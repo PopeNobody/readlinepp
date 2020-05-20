@@ -22,9 +22,6 @@
 #ifndef _RL_TYPEDEFS_H_
 #define _RL_TYPEDEFS_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Old-style, attempt to mark as deprecated in some way people will notice. */
 
@@ -78,7 +75,7 @@ typedef int rl_linebuf_func_t PARAMS((char *, int));
 /* `Generic' function pointer typedefs */
 typedef int rl_intfunc_t PARAMS((int));
 #define rl_ivoidfunc_t rl_hook_func_t
-typedef int rl_icpfunc_t PARAMS((char *));
+typedef int rl_icpfunc_t PARAMS((const char *));
 typedef int rl_icppfunc_t PARAMS((char **));
 
 typedef void rl_voidfunc_t PARAMS((void));
@@ -93,8 +90,5 @@ typedef char *rl_cpcppfunc_t PARAMS((char  **));
 
 #endif /* _RL_FUNCTION_TYPEDEF */
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _RL_TYPEDEFS_H_ */

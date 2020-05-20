@@ -25,10 +25,10 @@
 #define _RLDEFS_H_
 
 #if defined (HAVE_CONFIG_H)
-#  include "config.h"
+#  include "config.hh"
 #endif
 
-#include "rlstdc.h"
+#include "rlstdc.hh"
 
 #if defined (STRCOLL_BROKEN)
 #  undef HAVE_STRCOLL
@@ -161,6 +161,6 @@ extern char *_rl_strpbrk PARAMS((const char *, const char *));
 #endif
 
 /* CONFIGURATION SECTION */
-#include "rlconf.h"
+#include "rlconf.hh"
 
 #endif /* !_RLDEFS_H_ */

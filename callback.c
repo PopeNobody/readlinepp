@@ -22,10 +22,10 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
-#include "rlconf.h"
+#include "rlconf.hh"
 
 #if defined (READLINE_CALLBACKS)
 
@@ -34,16 +34,16 @@
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif
 
 #include <stdio.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
-#include "readline.h"
-#include "rlprivate.h"
-#include "xmalloc.h"
+#include "rldefs.hh"
+#include "readline.hh"
+#include "rlprivate.hh"
+#include "xmalloc.hh"
 
 /* Private data for callback registration functions.  See comments in
    rl_callback_read_char for more details. */

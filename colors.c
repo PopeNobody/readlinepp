@@ -27,14 +27,14 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
-#include "rlconf.h"
+#include "rlconf.hh"
 
 #include <stdio.h>
 
-#include "posixstat.h" // stat related macros (S_ISREG, ...)
+#include "posixstat.hh" // stat related macros (S_ISREG, ...)
 #include <fcntl.h> // S_ISUID
 
 #ifndef S_ISDIR
@@ -52,16 +52,16 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
-#include "readline.h"
-#include "rldefs.h"
+#include "readline.hh"
+#include "rldefs.hh"
 
 #ifdef COLOR_SUPPORT
 
-#include "xmalloc.h"
-#include "colors.h"
+#include "xmalloc.hh"
+#include "colors.hh"
 
 static bool is_colored (enum indicator_no type);
 static void restore_default_color (void);

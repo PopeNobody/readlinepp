@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -34,20 +34,20 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include <stdio.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
+#include "rldefs.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "xmalloc.hh"
 
 #define MAX_MACRO_LEVEL 16
 

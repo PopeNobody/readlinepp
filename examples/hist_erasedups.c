@@ -27,9 +27,9 @@
 #include <stdio.h>
 
 #ifdef READLINE_LIBRARY
-#  include "history.h"
+#  include "history.hh"
 #else
-#  include <readline/history.h>
+#  include <readline/history.hh>
 #endif
 
 #include <string.h>
@@ -48,9 +48,7 @@ usage()
 }
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main ( int argc, char **argv)
 {
   char *fn;
   int r;

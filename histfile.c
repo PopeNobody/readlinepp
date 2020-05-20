@@ -30,7 +30,7 @@
 #endif
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
@@ -43,13 +43,13 @@
 #if ! defined (_MINIX) && defined (HAVE_SYS_FILE_H)
 #  include <sys/file.h>
 #endif
-#include "posixstat.h"
+#include "posixstat.hh"
 #include <fcntl.h>
 
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_UNISTD_H)
@@ -97,11 +97,11 @@
 extern int errno;
 #endif /* !errno */
 
-#include "history.h"
-#include "histlib.h"
+#include "history.hh"
+#include "histlib.hh"
 
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 #if !defined (PATH_MAX)
 #  define PATH_MAX	1024	/* default */
@@ -198,7 +198,7 @@ history_backupfile (const char *filename)
 #endif
       
   len = strlen (fn);
-  ret = xmalloc (len + 2);
+  ret = (char*)xmalloc (len + 2);
   strcpy (ret, fn);
   ret[len] = '-';
   ret[len+1] = '\0';
@@ -227,7 +227,7 @@ history_tempfile (const char *filename)
 #endif
       
   len = strlen (fn);
-  ret = xmalloc (len + 11);
+  ret = (char*)xmalloc (len + 11);
   strcpy (ret, fn);
 
   pid = (int)getpid ();
@@ -305,7 +305,6 @@ read_history_range (const char *filename, int from, int to)
   if (file_size == 0)
     {
       free (input);
-      close (file);
       return 0;	/* don't waste time if we don't have to */
     }
 
@@ -369,11 +368,9 @@ read_history_range (const char *filename, int from, int to)
     }
 
   has_timestamps = HIST_TIMESTAMP_START (buffer);
-  history_multiline_entries += has_timestamps && history_write_timestamps;
+  history_multiline_entries += has_timestamps && history_write_timestamps;  
 
   /* Skip lines until we are at FROM. */
-  if (has_timestamps)
-    last_ts = buffer;
   for (line_start = line_end = buffer; line_end < bufend && current_line < from; line_end++)
     if (*line_end == '\n')
       {
@@ -382,18 +379,7 @@ read_history_range (const char *filename, int from, int to)
 	   line.  We should check more extensively here... */
 	if (HIST_TIMESTAMP_START(p) == 0)
 	  current_line++;
-	else
-	  last_ts = p;
 	line_start = p;
-	/* If we are at the last line (current_line == from) but we have
-	   timestamps (has_timestamps), then line_start points to the
-	   text of the last command, and we need to skip to its end. */
-	if (current_line >= from && has_timestamps)
-	  {
-	    for (line_end = p; line_end < bufend && *line_end != '\n'; line_end++)
-	      ;
-	    line_start = (*line_end == '\n') ? line_end + 1 : line_end;
-	  }
       }
 
   /* If there are lines left to gobble, then gobble them now. */
@@ -620,7 +606,6 @@ history_truncate_file (const char *fname, int lines)
 
   if (rv != 0)
     {
-      rv = errno;
       if (tempname)
 	unlink (tempname);
       history_lines_written_to_file = 0;
@@ -768,7 +753,6 @@ mmap_error:
 
   if (rv != 0)
     {
-      rv = errno;
       if (tempname)
 	unlink (tempname);
       history_lines_written_to_file = 0;

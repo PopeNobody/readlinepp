@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #if defined (HAVE_UNISTD_H)
@@ -32,7 +32,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_LOCALE_H)
@@ -42,16 +42,16 @@
 #include <stdio.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 static int rl_digit_loop PARAMS((void));
 static void _rl_history_set_point PARAMS((void));
@@ -576,7 +576,6 @@ int
 rl_get_previous_history (int count, int key)
 {
   HIST_ENTRY *old_temp, *temp;
-  int had_saved_line;
 
   if (count < 0)
     return (rl_get_next_history (-count, key));
@@ -589,7 +588,6 @@ rl_get_previous_history (int count, int key)
     _rl_history_saved_point = (rl_point == rl_end) ? -1 : rl_point;
 
   /* If we don't have a line saved, then save this one. */
-  had_saved_line = _rl_saved_line_for_history != 0;
   rl_maybe_save_line ();
 
   /* If the current line has changed, save the changes. */
@@ -613,8 +611,7 @@ rl_get_previous_history (int count, int key)
 
   if (temp == 0)
     {
-      if (had_saved_line == 0)
-        _rl_free_saved_history_line ();
+      rl_maybe_unsave_line ();
       rl_ding ();
     }
   else

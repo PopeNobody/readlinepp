@@ -23,9 +23,6 @@
 #if !defined (_TILDE_H_)
 #  define _TILDE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* A function can be defined using prototypes and compile on both ANSI C
    and traditional C compilers with something like this:
@@ -73,8 +70,5 @@ extern char *tilde_expand_word PARAMS((const char *));
 /* Find the portion of the string beginning with ~ that should be expanded. */
 extern char *tilde_find_word PARAMS((const char *, int, int *));
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _TILDE_H_ */

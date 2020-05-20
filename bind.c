@@ -26,7 +26,7 @@
 #endif
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
@@ -43,7 +43,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include <errno.h>
@@ -52,18 +52,18 @@
 extern int errno;
 #endif /* !errno */
 
-#include "posixstat.h"
+#include "posixstat.hh"
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
+#include "rldefs.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 #if !defined (strchr) && !defined (__STDC__)
 extern char *strchr (), *strrchr ();
@@ -1055,9 +1055,7 @@ _rl_init_file_error (va_alist)
 /* **************************************************************** */
 
 static int
-parse_comparison_op (s, indp)
-     const char *s;
-     int *indp;
+parse_comparison_op (const char *s, int *indp)
 {
   int i, peekc, op;
 
@@ -1921,7 +1919,7 @@ rl_variable_value (const char *name)
   /* Check for simple variables first. */
   i = find_boolean_var (name);
   if (i >= 0)
-    return (*boolean_varlist[i].value ? "on" : "off");
+    return (char*)(*boolean_varlist[i].value ? "on" : "off");
 
   i = find_string_var (name);
   if (i >= 0)
@@ -2357,11 +2355,11 @@ rl_set_keymap_name (const char *name, Keymap map)
 
   if (keymap_names == builtin_keymap_names)
     {
-      keymap_names = xmalloc ((i + 2) * sizeof (struct name_and_keymap));
+      keymap_names = (name_and_keymap*)xmalloc ((i + 2) * sizeof (struct name_and_keymap));
       memcpy (keymap_names, builtin_keymap_names, i * sizeof (struct name_and_keymap));
     }
   else
-    keymap_names = xrealloc (keymap_names, (i + 2) * sizeof (struct name_and_keymap));
+    keymap_names = (name_and_keymap*)xrealloc (keymap_names, (i + 2) * sizeof (struct name_and_keymap));
 
   keymap_names[i].name = savestring (name);
   keymap_names[i].map = map;
@@ -2805,7 +2803,7 @@ _rl_get_string_variable_value (const char *name)
 	}
     }
   else if (_rl_stricmp (name, "comment-begin") == 0)
-    return (_rl_comment_begin ? _rl_comment_begin : RL_COMMENT_BEGIN_DEFAULT);
+    return (char*)(_rl_comment_begin ? _rl_comment_begin : RL_COMMENT_BEGIN_DEFAULT);
   else if (_rl_stricmp (name, "completion-display-width") == 0)
     {
       sprintf (numbuf, "%d", _rl_completion_columns);
@@ -2848,7 +2846,7 @@ _rl_get_string_variable_value (const char *name)
       ret = rl_get_keymap_name (_rl_keymap);
       if (ret == 0)
 	ret = rl_get_keymap_name_from_edit_mode ();
-      return (ret ? ret : "none");
+      return (char*)(ret ? ret : "none");
     }
   else if (_rl_stricmp (name, "keyseq-timeout") == 0)
     {
@@ -2856,11 +2854,11 @@ _rl_get_string_variable_value (const char *name)
       return (numbuf);
     }
   else if (_rl_stricmp (name, "emacs-mode-string") == 0)
-    return (_rl_emacs_mode_str ? _rl_emacs_mode_str : RL_EMACS_MODESTR_DEFAULT);
+    return(char*)(_rl_emacs_mode_str ? _rl_emacs_mode_str : RL_EMACS_MODESTR_DEFAULT);
   else if (_rl_stricmp (name, "vi-cmd-mode-string") == 0)
-    return (_rl_vi_cmd_mode_str ? _rl_vi_cmd_mode_str : RL_VI_CMD_MODESTR_DEFAULT);
+    return(char*)(_rl_vi_cmd_mode_str ? _rl_vi_cmd_mode_str : RL_VI_CMD_MODESTR_DEFAULT);
   else if (_rl_stricmp (name, "vi-ins-mode-string") == 0)
-    return (_rl_vi_ins_mode_str ? _rl_vi_ins_mode_str : RL_VI_INS_MODESTR_DEFAULT);
+    return(char*)(_rl_vi_ins_mode_str ? _rl_vi_ins_mode_str : RL_VI_INS_MODESTR_DEFAULT);
   else
     return (0);
 }

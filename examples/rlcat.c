@@ -24,7 +24,7 @@
 */
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #ifdef HAVE_UNISTD_H
@@ -32,7 +32,7 @@
 #endif
 
 #include <sys/types.h>
-#include "posixstat.h"
+#include "posixstat.hh"
 
 #include <stdio.h>
 #include <ctype.h>
@@ -50,19 +50,20 @@ extern int errno;
 #endif
 
 #if defined (READLINE_LIBRARY)
-#  include "readline.h"
-#  include "history.h"
+#  include "readline.hh"
+#  include "history.hh"
 #else
-#  include <readline/readline.h>
-#  include <readline/history.h>
+#  include <readline/readline.hh>
+#  include <readline/history.hh>
 #endif
 
 extern int optind;
 extern char *optarg;
 
-static int stdcat();
+int
+stdcat ( int argc, const char **argv);
 
-static char *progname;
+static const char *progname;
 static int vflag;
 
 static void
@@ -72,21 +73,19 @@ usage()
 }
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main ( int argc, const char **argv)
 {
   char *temp;
   int opt, Vflag, Nflag;
 
-  progname = strrchr(argv[0], '/');
+  progname = strrchr((char*)argv[0], '/');
   if (progname == 0)
     progname = argv[0];
   else
     progname++;
 
   vflag = Vflag = Nflag = 0;
-  while ((opt = getopt(argc, argv, "vEVN")) != EOF)
+  while ((opt = getopt(argc, (char **)argv, "vEVN")) != EOF)
     {
       switch (opt)
 	{
@@ -126,8 +125,7 @@ main (argc, argv)
 }
 
 static int
-fcopy(fp)
-     FILE *fp;
+fcopy( FILE *fp)
 {
   int c;
   char *x;
@@ -147,9 +145,7 @@ fcopy(fp)
 }
 
 int
-stdcat (argc, argv)
-     int argc;
-     char **argv;
+stdcat ( int argc, const char **argv)
 {
   int  i, fd, r;
   char *s;

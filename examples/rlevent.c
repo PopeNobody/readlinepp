@@ -25,7 +25,7 @@
 */
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #ifdef HAVE_UNISTD_H
@@ -45,13 +45,13 @@ extern void exit();
 #endif
 
 #if defined (READLINE_LIBRARY)
-#  include "posixstat.h"
-#  include "readline.h"
-#  include "history.h"
+#  include "posixstat.hh"
+#  include "readline.hh"
+#  include "history.hh"
 #else
 #  include <sys/stat.h>
-#  include <readline/readline.h>
-#  include <readline/history.h>
+#  include <readline/readline.hh>
+#  include <readline/history.hh>
 #endif
 
 extern int optind;
@@ -92,11 +92,9 @@ usage()
 }
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main ( int argc, char **argv)
 {
-  char *temp, *prompt;
+  const char *temp, *prompt;
   struct stat sb;
   int opt, fd, nch;
   FILE *ifp;

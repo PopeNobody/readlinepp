@@ -22,13 +22,13 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
 
-#include "rlstdc.h"
-#include "rltypedefs.h"
+#include "rlstdc.hh"
+#include "rltypedefs.hh"
 
 extern void rl_free_undo_list PARAMS((void));
 extern int rl_maybe_save_line PARAMS((void));

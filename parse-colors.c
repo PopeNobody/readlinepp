@@ -27,7 +27,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
@@ -43,17 +43,17 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
-#include "rldefs.h"	// STREQ, savestring
-#include "readline.h"
-#include "rlprivate.h"
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rldefs.hh"	// STREQ, savestring
+#include "readline.hh"
+#include "rlprivate.hh"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
-#include "colors.h"
-#include "parse-colors.h"
+#include "colors.hh"
+#include "parse-colors.hh"
 
 #if defined (COLOR_SUPPORT)
 

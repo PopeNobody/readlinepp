@@ -22,14 +22,14 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_UNISTD_H)
@@ -43,9 +43,9 @@
 #  include <fnmatch.h>
 #endif
 
-#include "history.h"
-#include "histlib.h"
-#include "xmalloc.h"
+#include "history.hh"
+#include "histlib.hh"
+#include "xmalloc.hh"
 
 /* The list of alternate characters that can delimit a history search
    string. */

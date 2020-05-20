@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #if defined (HAVE_UNISTD_H)
@@ -32,7 +32,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_LOCALE_H)
@@ -42,8 +42,8 @@
 #include <stdio.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
 #if defined (__EMX__)
 #  define INCL_DOSPROCESS
@@ -51,12 +51,12 @@
 #endif /* __EMX__ */
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 /* Forward declarations. */
 static int rl_change_case PARAMS((int, int));
@@ -1321,7 +1321,7 @@ rl_insert_comment (int count, int key)
   int rl_comment_len;
 
   rl_beg_of_line (1, key);
-  rl_comment_text = _rl_comment_begin ? _rl_comment_begin : RL_COMMENT_BEGIN_DEFAULT;
+  rl_comment_text = (char*)(_rl_comment_begin ? _rl_comment_begin : RL_COMMENT_BEGIN_DEFAULT);
 
   if (rl_explicit_arg == 0)
     rl_insert_text (rl_comment_text);
@@ -1727,8 +1727,7 @@ _rl_char_search (int count, int fdir, int bdir)
 
 #if defined (READLINE_CALLBACKS)
 static int
-_rl_char_search_callback (data)
-     _rl_callback_generic_arg *data;
+_rl_char_search_callback ( _rl_callback_generic_arg *data )
 {
   _rl_callback_func = 0;
   _rl_want_redisplay = 1;

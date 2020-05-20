@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -54,20 +54,20 @@ extern int errno;
 #include <pwd.h>
 #endif
 
-#include "posixdir.h"
-#include "posixstat.h"
+#include "posixdir.hh"
+#include "posixstat.hh"
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
-#include "rlmbutil.h"
+#include "rldefs.hh"
+#include "rlmbutil.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "xmalloc.h"
-#include "rlprivate.h"
+#include "readline.hh"
+#include "xmalloc.hh"
+#include "rlprivate.hh"
 
 #if defined (COLOR_SUPPORT)
-#  include "colors.h"
+#  include "colors.hh"
 #endif
 
 #ifdef __STDC__

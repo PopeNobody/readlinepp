@@ -20,7 +20,7 @@
  *
  ****************************************************************
  */
-#include "config.h"
+#include "config.hh"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -29,7 +29,7 @@
 
 #include <unistd.h>
 
-#include "screen.h"
+#include "screen.hh"
 
 #ifndef sun
 # include <sys/ioctl.h>
@@ -54,7 +54,7 @@
 # include <sys/sysmacros.h>
 #endif /* sgi */
 
-#include "extern.h"
+#include "extern.hh"
 
 /*
  * if no PTYRANGE[01] is in the config file, we pick a default
@@ -112,8 +112,7 @@ int pty_preopen = 0;
 /***************************************************************/
 
 static void
-initmaster(f)
-int f;
+initmaster(int f)
 {
 #ifdef POSIX
   tcflush(f, TCIOFLUSH);
@@ -128,8 +127,7 @@ int f;
 }
 
 void
-InitPTY(f)
-int f;
+InitPTY(int f)
 {
   if (f < 0)
     return;
@@ -150,8 +148,7 @@ int f;
 #if defined(OSX) && !defined(PTY_DONE)
 #define PTY_DONE
 int
-OpenPTY(ttyn)
-char **ttyn;
+OpenPTY(char **ttyn)
 {
   register int f;
   if ((f = open_controlling_pty(TtyName)) < 0)
@@ -167,8 +164,7 @@ char **ttyn;
 #if (defined(sequent) || defined(_SEQUENT_)) && !defined(PTY_DONE)
 #define PTY_DONE
 int
-OpenPTY(ttyn)
-char **ttyn;
+OpenPTY(char **ttyn)
 {
   char *m, *s;
   register int f;
@@ -190,12 +186,15 @@ char **ttyn;
 
 #if defined(__sgi) && !defined(PTY_DONE)
 #define PTY_DONE
+extern "C" {
+  int getpty();
+};
 int
 OpenPTY(ttyn)
 char **ttyn;
 {
   int f;
-  char *name, *_getpty(); 
+  char *name;
   sigret_t (*sigcld)__P(SIGPROTOARG);
 
   /*
@@ -244,16 +243,19 @@ char **ttyn;
 
 #if defined(HAVE_SVR4_PTYS) && !defined(PTY_DONE)
 #define PTY_DONE
+extern "C" {
+char *ptsname(int fd);
+#if defined(HAVE_GETPT) && defined(linux)
+int getpt __P((void));
+int grantpt __P((int));
+int unlockpt __P((int));
+#endif
+}
 int
-OpenPTY(ttyn)
-char **ttyn;
+OpenPTY(char **ttyn)
 {
   register int f;
-  char *m, *ptsname();
-  int unlockpt __P((int)), grantpt __P((int));
-#if defined(HAVE_GETPT) && defined(linux)
-  int getpt __P((void));
-#endif
+  char *m;
   sigret_t (*sigcld)__P(SIGPROTOARG);
 
   strcpy(PtyName, "/dev/ptmx");

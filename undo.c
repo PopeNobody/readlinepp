@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -34,20 +34,20 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include <stdio.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
+#include "rldefs.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "xmalloc.hh"
 
 extern void _hs_replace_history_data PARAMS((int, histdata_t *, histdata_t *));
 
@@ -129,28 +129,28 @@ rl_free_undo_list (void)
 UNDO_LIST *
 _rl_copy_undo_entry (UNDO_LIST *entry)
 {
-  UNDO_LIST *new;
+  UNDO_LIST *_new;
 
-  new = alloc_undo_entry (entry->what, entry->start, entry->end, (char *)NULL);
-  new->text = entry->text ? savestring (entry->text) : 0;
-  return new;
+  _new = alloc_undo_entry (entry->what, entry->start, entry->end, (char *)NULL);
+  _new->text = entry->text ? savestring (entry->text) : 0;
+  return _new;
 }
 
 UNDO_LIST *
 _rl_copy_undo_list (UNDO_LIST *head)
 {
-  UNDO_LIST *list, *new, *roving, *c;
+  UNDO_LIST *list, *_new, *roving, *c;
 
   if (head == 0)
     return head;
 
   list = head;
-  new = 0;
+  _new = 0;
   while (list)
     {
       c = _rl_copy_undo_entry (list);
-      if (new == 0)
-	roving = new = c;
+      if (_new == 0)
+	roving = _new = c;
       else
 	{
 	  roving->next = c;
@@ -160,7 +160,7 @@ _rl_copy_undo_list (UNDO_LIST *head)
     }
 
   roving->next = 0;
-  return new;
+  return _new;
 }
 
 /* Undo the next thing in the list.  Return 0 if there

@@ -20,7 +20,7 @@
 */
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #if defined (HAVE_UNISTD_H)
@@ -39,7 +39,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include <sys/types.h>
@@ -47,12 +47,12 @@
 #include <pwd.h>
 #endif
 
-#include "tilde.h"
+#include "tilde.hh"
 
 #if defined (TEST) || defined (STATIC_MALLOC)
 static void *xmalloc (), *xrealloc ();
 #else
-#  include "xmalloc.h"
+#  include "xmalloc.hh"
 #endif /* TEST || STATIC_MALLOC */
 
 #if !defined (HAVE_GETPW_DECLS)
@@ -192,7 +192,7 @@ tilde_expand (const char *string)
   int result_size, result_index;
 
   result_index = result_size = 0;
-  if (result = strchr (string, '~'))
+  if (result = (char*)strchr (string, '~'))
     result = (char *)xmalloc (result_size = (strlen (string) + 16));
   else
     result = (char *)xmalloc (result_size = (strlen (string) + 1));

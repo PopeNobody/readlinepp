@@ -22,11 +22,11 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
-#include "posixstat.h"
+#include "posixstat.hh"
 #include <fcntl.h>
 #if defined (HAVE_SYS_FILE_H)
 #  include <sys/file.h>
@@ -39,7 +39,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_LOCALE_H)
@@ -49,25 +49,25 @@
 #include <stdio.h>
 
 /* System-specific feature definitions and include files. */
-#include "rldefs.h"
+#include "rldefs.hh"
 
 #ifdef __MSDOS__
 #  include <pc.h>
 #endif
 
-#include "rltty.h"
+#include "rltty.hh"
 #if defined (HAVE_SYS_IOCTL_H)
 #  include <sys/ioctl.h>		/* include for declaration of ioctl */
 #endif
-#include "tcap.h"
+#include "tcap.hh"
 
 /* Some standard library routines. */
-#include "readline.h"
-#include "history.h"
+#include "readline.hh"
+#include "history.hh"
 
-#include "rlprivate.h"
-#include "rlshell.h"
-#include "xmalloc.h"
+#include "rlprivate.hh"
+#include "rlshell.hh"
+#include "xmalloc.hh"
 
 #if defined (__MINGW32__)
 #  include <windows.h>

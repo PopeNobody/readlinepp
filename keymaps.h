@@ -22,18 +22,15 @@
 #ifndef _KEYMAPS_H_
 #define _KEYMAPS_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #if defined (READLINE_LIBRARY)
-#  include "rlstdc.h"
-#  include "chardefs.h"
-#  include "rltypedefs.h"
+#  include "rlstdc.hh"
+#  include "chardefs.hh"
+#  include "rltypedefs.hh"
 #else
-#  include <readline/rlstdc.h>
-#  include <readline/chardefs.h>
-#  include <readline/rltypedefs.h>
+#  include <readline/rlstdc.hh>
+#  include <readline/chardefs.hh>
+#  include <readline/rltypedefs.hh>
 #endif
 
 /* A keymap contains one entry for each key in the ASCII set.
@@ -93,8 +90,5 @@ extern void rl_set_keymap PARAMS((Keymap));
 /* Set the name of MAP to NAME */
 extern int rl_set_keymap_name PARAMS((const char *, Keymap));
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _KEYMAPS_H_ */

@@ -22,7 +22,7 @@
 #define READLINE_LIBRARY
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -36,7 +36,7 @@
 #if defined (HAVE_STDLIB_H)
 #  include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#  include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #if defined (HAVE_LOCALE_H)
@@ -49,10 +49,10 @@
 
 #include <ctype.h>
 
-#include "rldefs.h"
-#include "readline.h"
-#include "rlshell.h"
-#include "rlprivate.h"
+#include "rldefs.hh"
+#include "readline.hh"
+#include "rlshell.hh"
+#include "rlprivate.hh"
 
 static int utf8locale PARAMS((char *));
 

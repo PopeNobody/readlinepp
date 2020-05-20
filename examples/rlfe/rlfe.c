@@ -72,19 +72,19 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 
-#include "config.h"
-#include "extern.h"
+#include "config.hh"
+#include "extern.hh"
 
 #if defined (HAVE_SYS_WAIT_H)
 #  include <sys/wait.h>
 #endif
 
 #ifdef READLINE_LIBRARY
-#  include "readline.h"
-#  include "history.h"
+#  include "readline.hh"
+#  include "history.hh"
 #else
-#  include <readline/readline.h>
-#  include <readline/history.h>
+#  include <readline/readline.hh>
+#  include <readline/history.hh>
 #endif
 
 #ifndef COMMAND
@@ -257,8 +257,8 @@ static int buf_count = 0;
 int do_emphasize_input = 1;
 int current_emphasize_input;
 
-char *start_input_mode = "\033[1m";
-char *end_input_mode = "\033[0m";
+const char *start_input_mode = "\033[1m";
+const char *end_input_mode = "\033[0m";
 
 int num_keys = 0;
 
@@ -267,7 +267,11 @@ static void maybe_emphasize_input (int on)
   if (on == current_emphasize_input
       || (on && ! do_emphasize_input))
     return;
-  fprintf (rl_outstream, on ? start_input_mode : end_input_mode);
+  if(on) {
+    fputs(start_input_mode,rl_outstream);
+  } else {
+    fputs(end_input_mode,rl_outstream);
+  };
   fflush (rl_outstream);
   current_emphasize_input = on;
 }
@@ -513,12 +517,12 @@ main(int argc, char** argv)
 
       /* now start the shell */
       {
-	static char* command_args[] = { COMMAND_ARGS, NULL };
-	static char* alt_command_args[] = { ALT_COMMAND_ARGS, NULL };
+	static const char* command_args[] = { COMMAND_ARGS, NULL };
+	static const char* alt_command_args[] = { ALT_COMMAND_ARGS, NULL };
 	if (argc <= 1)
 	  {
-	    execvp (COMMAND, command_args);
-	    execvp (ALT_COMMAND, alt_command_args);
+	    execvp (COMMAND, (char*const*)command_args);
+	    execvp (ALT_COMMAND, (char*const*)alt_command_args);
 	  }
 	else
 	  execvp (argv[arg_base], &argv[arg_base]);
@@ -665,7 +669,7 @@ main(int argc, char** argv)
 		    {
 		      if (do_emphasize_input && buf_count > 0)
 			{
-			  prompt = malloc (buf_count + strlen (end_input_mode)
+			  prompt = (char*)malloc (buf_count + strlen (end_input_mode)
 					   + strlen (start_input_mode) + 5);
 			  sprintf (prompt, "\001%s\002%.*s\001%s\002",
 				   end_input_mode,
@@ -674,7 +678,7 @@ main(int argc, char** argv)
 			}
 		      else
 			{
-			  prompt = malloc (buf_count + 1);
+			  prompt = (char*)malloc (buf_count + 1);
 			  memcpy (prompt, buf, buf_count);
 			  prompt[buf_count] = '\0';
 			}

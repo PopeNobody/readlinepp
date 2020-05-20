@@ -22,12 +22,12 @@
 */
 
 #if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <stdio.h>
 #include <sys/types.h>
-#include "posixstat.h"
+#include "posixstat.hh"
 
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
@@ -36,13 +36,13 @@ extern void exit();
 #endif
 
 #ifdef READLINE_LIBRARY
-#  include "readline.h"
+#  include "readline.hh"
 #else
-#  include <readline/readline.h>
+#  include <readline/readline.hh>
 #endif
 
 int
-main()
+main(int argc, char**argv)
 {
 	printf ("%s\n", rl_library_version ? rl_library_version : "unknown");
 	exit (0);

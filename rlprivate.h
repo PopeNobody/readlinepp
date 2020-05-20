@@ -23,10 +23,10 @@
 #if !defined (_RL_PRIVATE_H_)
 #define _RL_PRIVATE_H_
 
-#include "rlconf.h"	/* for VISIBLE_STATS */
-#include "rlstdc.h"
-#include "posixjmp.h"	/* defines procenv_t */
-#include "rlmbutil.h"	/* for HANDLE_MULTIBYTE */
+#include "rlconf.hh"	/* for VISIBLE_STATS */
+#include "rlstdc.hh"
+#include "posixjmp.hh"	/* defines procenv_t */
+#include "rlmbutil.hh"	/* for HANDLE_MULTIBYTE */
 
 /*************************************************************************
  *									 *
