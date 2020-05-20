@@ -105,7 +105,7 @@ utf8locale (char *lspec)
   char *cp;
   size_t len;
 
-#if HAVE_LANGINFO_CODESET
+#ifdef HAVE_LANGINFO_CODESET
   cp = nl_langinfo (CODESET);
   return (STREQ (cp, "UTF-8") || STREQ (cp, "utf8"));
 #else

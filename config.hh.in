@@ -1,331 +1,416 @@
-/* config.h.in.  Maintained by hand. */
+/* config.hh.in.  Generated from configure.ac by autoheader.  */
 
-/* Template definitions for autoconf */
-#undef __EXTENSIONS__
-#undef _ALL_SOURCE
-#undef _GNU_SOURCE
-#undef _POSIX_SOURCE
-#undef _POSIX_1_SOURCE
-#undef _POSIX_PTHREAD_SEMANTICS
-#undef _TANDEM_SOURCE
-#undef _MINIX
-
-/* Define NO_MULTIBYTE_SUPPORT to not compile in support for multibyte
-   characters, even if the OS supports them. */
-#undef NO_MULTIBYTE_SUPPORT
-
-#undef _FILE_OFFSET_BITS
-
-/* Define as the return type of signal handlers (int or void).  */
-#undef RETSIGTYPE
-
-#undef VOID_SIGHANDLER
-
-/* Characteristics of the compiler. */
-#undef sig_atomic_t
-
-#undef size_t
-
-#undef ssize_t
-
-#undef const
-
-#undef volatile
-
-#undef PROTOTYPES
-#undef __PROTOTYPES
-
-#undef __CHAR_UNSIGNED__
-
-/* Define if the `S_IS*' macros in <sys/stat.h> do not work properly.  */
-#undef STAT_MACROS_BROKEN
-
-/* Define if you have the chown function. */
-#undef HAVE_CHOWN
-
-/* Define if you have the fcntl function. */
-#undef HAVE_FCNTL
-
-/* Define if you have the fnmatch function. */
-#undef HAVE_FNMATCH
-
-/* Define if you have the getpwent function. */
-#undef HAVE_GETPWENT
-
-/* Define if you have the getpwnam function. */
-#undef HAVE_GETPWNAM
-
-/* Define if you have the getpwuid function. */
-#undef HAVE_GETPWUID
-
-/* Define if you have the isascii function. */
-#undef HAVE_ISASCII
-
-/* Define if you have the iswctype function.  */
-#undef HAVE_ISWCTYPE
-
-/* Define if you have the iswlower function.  */
-#undef HAVE_ISWLOWER
-
-/* Define if you have the iswupper function.  */
-#undef HAVE_ISWUPPER
-
-/* Define if you have the isxdigit function. */
-#undef HAVE_ISXDIGIT
-
-/* Define if you have the kill function. */
-#undef HAVE_KILL
-
-/* Define if you have the lstat function. */
-#undef HAVE_LSTAT
-
-/* Define if you have the mbrlen function. */
-#undef HAVE_MBRLEN
-
-/* Define if you have the mbrtowc function. */
-#undef HAVE_MBRTOWC
-
-/* Define if you have the mbsrtowcs function. */
-#undef HAVE_MBSRTOWCS
-
-/* Define if you have the memmove function. */
-#undef HAVE_MEMMOVE
-
-/* Define if you have the pselect function.  */
-#undef HAVE_PSELECT
-
-/* Define if you have the putenv function.  */
-#undef HAVE_PUTENV
-
-/* Define if you have the readlink function.  */
-#undef HAVE_READLINK
-
-/* Define if you have the select function.  */
-#undef HAVE_SELECT
-
-/* Define if you have the setenv function.  */
-#undef HAVE_SETENV
-
-/* Define if you have the setlocale function. */
-#undef HAVE_SETLOCALE
-
-/* Define if you have the strcasecmp function.  */
-#undef HAVE_STRCASECMP
-
-/* Define if you have the strcoll function.  */
-#undef HAVE_STRCOLL
-
-#undef STRCOLL_BROKEN
-
-/* Define if you have the strpbrk function.  */
-#undef HAVE_STRPBRK
-
-/* Define if you have the tcgetattr function.  */
-#undef HAVE_TCGETATTR
-
-/* Define if you have the towlower function.  */
-#undef HAVE_TOWLOWER
-
-/* Define if you have the towupper function.  */
-#undef HAVE_TOWUPPER
-
-/* Define if you have the vsnprintf function.  */
-#undef HAVE_VSNPRINTF
-
-/* Define if you have the wcrtomb function.  */
-#undef HAVE_WCRTOMB 
-
-/* Define if you have the wcscoll function.  */
-#undef HAVE_WCSCOLL
-
-/* Define if you have the wctype function.  */
-#undef HAVE_WCTYPE
-
-/* Define if you have the wcwidth function.  */
-#undef HAVE_WCWIDTH
-
-/* and whether it works */
-#undef WCWIDTH_BROKEN
-
-#undef STDC_HEADERS
-
-/* Define if you have the <dirent.h> header file.  */
-#undef HAVE_DIRENT_H
-
-/* Define if you have the <fcntl.h> header file.  */
-#undef HAVE_FCNTL_H
-
-/* Define if you have the <langinfo.h> header file.  */
-#undef HAVE_LANGINFO_H
-
-/* Define if you have the <libaudit.h> header file.  */
-#undef HAVE_LIBAUDIT_H
-
-/* Define if you have the <limits.h> header file.  */
-#undef HAVE_LIMITS_H
-
-/* Define if you have the <locale.h> header file.  */
-#undef HAVE_LOCALE_H
-
-/* Define if you have the <memory.h> header file.  */
-#undef HAVE_MEMORY_H
-
-/* Define if you have the <ndir.h> header file.  */
-#undef HAVE_NDIR_H
-
-/* Define if you have the <ncurses/termcap.h> header file.  */
-#undef HAVE_NCURSES_TERMCAP_H
-
-/* Define if you have the <pwd.h> header file.  */
-#undef HAVE_PWD_H
-
-/* Define if you have the <stdarg.h> header file.  */
-#undef HAVE_STDARG_H
-
-/* Define if you have the <stdbool.h> header file.  */
-#undef HAVE_STDBOOL_H
-
-/* Define if you have the <stdlib.h> header file.  */
-#undef HAVE_STDLIB_H
-
-/* Define if you have the <string.h> header file.  */
-#undef HAVE_STRING_H
-
-/* Define if you have the <strings.h> header file.  */
-#undef HAVE_STRINGS_H
-
-/* Define if you have the <sys/dir.h> header file.  */
-#undef HAVE_SYS_DIR_H
-
-/* Define if you have the <sys/file.h> header file.  */
-#undef HAVE_SYS_FILE_H
-
-/* Define if you have the <sys/ioctl.h> header file.  */
-#undef HAVE_SYS_IOCTL_H
-
-/* Define if you have the <sys/ndir.h> header file.  */
-#undef HAVE_SYS_NDIR_H
-
-/* Define if you have the <sys/pte.h> header file.  */
-#undef HAVE_SYS_PTE_H
-
-/* Define if you have the <sys/ptem.h> header file.  */
-#undef HAVE_SYS_PTEM_H
-
-/* Define if you have the <sys/select.h> header file.  */
-#undef HAVE_SYS_SELECT_H
-
-/* Define if you have the <sys/stream.h> header file.  */
-#undef HAVE_SYS_STREAM_H
-
-/* Define if you have the <termcap.h> header file.  */
-#undef HAVE_TERMCAP_H
-
-/* Define if you have the <termio.h> header file.  */
-#undef HAVE_TERMIO_H
-
-/* Define if you have the <termios.h> header file.  */
-#undef HAVE_TERMIOS_H
-
-/* Define if you have the <unistd.h> header file.  */
-#undef HAVE_UNISTD_H
-
-/* Define if you have the <varargs.h> header file.  */
-#undef HAVE_VARARGS_H
-
-/* Define if you have the <wchar.h> header file.  */
-#undef HAVE_WCHAR_H
-
-/* Define if you have the <wctype.h> header file.  */
-#undef HAVE_WCTYPE_H
-
-#undef HAVE_MBSTATE_T
-
-/* Define if you have wchar_t in <wctype.h>. */
-#undef HAVE_WCHAR_T 
-
-/* Define if you have wctype_t in <wctype.h>. */
-#undef HAVE_WCTYPE_T
-
-/* Define if you have wint_t in <wctype.h>. */  
-#undef HAVE_WINT_T  
-
-/* Define if you have <langinfo.h> and nl_langinfo(CODESET). */
-#undef HAVE_LANGINFO_CODESET
-
-/* Define if you have <linux/audit.h> and it defines AUDIT_USER_TTY */
-#undef HAVE_DECL_AUDIT_USER_TTY
-
-/* Definitions pulled in from aclocal.m4. */
-#undef VOID_SIGHANDLER
-
-#undef GWINSZ_IN_SYS_IOCTL
-
-#undef STRUCT_WINSIZE_IN_SYS_IOCTL
-
-#undef STRUCT_WINSIZE_IN_TERMIOS
-
-#undef TIOCSTAT_IN_SYS_IOCTL
-
-#undef FIONREAD_IN_SYS_IOCTL
-
-#undef SPEED_T_IN_SYS_TYPES
-
-#undef HAVE_GETPW_DECLS
-
-#undef HAVE_STRUCT_DIRENT_D_INO
-
-#undef HAVE_STRUCT_DIRENT_D_FILENO
-
-#undef HAVE_STRUCT_DIRENT_D_NAMLEN
-
-#undef HAVE_BSD_SIGNALS
-
-#undef HAVE_POSIX_SIGNALS
-
-#undef HAVE_USG_SIGHOLD
-
-#undef MUST_REINSTALL_SIGHANDLERS
-
-#undef HAVE_POSIX_SIGSETJMP
-
+/* Description */
 #undef CTYPE_NON_ASCII
 
-/* modify settings or make new ones based on what autoconf tells us. */
+/* Description */
+#undef FIONREAD_IN_SYS_IOCTL
 
-/* Ultrix botches type-ahead when switching from canonical to
-   non-canonical mode, at least through version 4.3 */
-#if !defined (HAVE_TERMIOS_H) || !defined (HAVE_TCGETATTR) || defined (ultrix)
-#  define TERMIOS_MISSING
+/* Define to 1 if `TIOCGWINSZ' requires <sys/ioctl.h>. */
+#undef GWINSZ_IN_SYS_IOCTL
+
+/* Description */
+#undef HANDLERS
+
+/* Description */
+#undef HAVE_BSD_SIGNALS
+
+/* Define to 1 if your system has a working `chown' function. */
+#undef HAVE_CHOWN
+
+/* Define to 1 if you have the declaration of `AUDIT_USER_TTY', and to 0 if
+   you don't. */
+#undef HAVE_DECL_AUDIT_USER_TTY
+
+/* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_DIRENT_H
+
+/* Define to 1 if you have the `fcntl' function. */
+#undef HAVE_FCNTL
+
+/* Define to 1 if you have the <fcntl.h> header file. */
+#undef HAVE_FCNTL_H
+
+/* Define to 1 if you have the `fnmatch' function. */
+#undef HAVE_FNMATCH
+
+/* Define to 1 if you have the `getpwent' function. */
+#undef HAVE_GETPWENT
+
+/* Define to 1 if you have the `getpwnam' function. */
+#undef HAVE_GETPWNAM
+
+/* Define to 1 if you have the `getpwuid' function. */
+#undef HAVE_GETPWUID
+
+/* Description */
+#undef HAVE_GETPW_DECLS
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `isascii' function. */
+#undef HAVE_ISASCII
+
+/* Define to 1 if you have the `iswctype' function. */
+#undef HAVE_ISWCTYPE
+
+/* Define to 1 if you have the `iswlower' function. */
+#undef HAVE_ISWLOWER
+
+/* Define to 1 if you have the `iswupper' function. */
+#undef HAVE_ISWUPPER
+
+/* Define to 1 if you have the `isxdigit' function. */
+#undef HAVE_ISXDIGIT
+
+/* Define to 1 if you have the `kill' function. */
+#undef HAVE_KILL
+
+/* Description */
+#undef HAVE_LANGINFO_CODESET
+
+/* Define to 1 if you have the <langinfo.h> header file. */
+#undef HAVE_LANGINFO_H
+
+/* Define to 1 if you have the <libaudit.h> header file. */
+#undef HAVE_LIBAUDIT_H
+
+/* Define to 1 if you have the <limits.h> header file. */
+#undef HAVE_LIMITS_H
+
+/* Define to 1 if you have the `locale_charset' function. */
+#undef HAVE_LOCALE_CHARSET
+
+/* Define to 1 if you have the <locale.h> header file. */
+#undef HAVE_LOCALE_H
+
+/* Define to 1 if you have the `lstat' function. */
+#undef HAVE_LSTAT
+
+/* Description */
+#undef HAVE_MBRLEN
+
+/* Define to 1 if mbrtowc and mbstate_t are properly declared. */
+#undef HAVE_MBRTOWC
+
+/* Define to 1 if you have the `mbschr' function. */
+#undef HAVE_MBSCHR
+
+/* Description */
+#undef HAVE_MBSCMP
+
+/* Description */
+#undef HAVE_MBSNRTOWCS
+
+/* Description */
+#undef HAVE_MBSRTOWCS
+
+/* Description */
+#undef HAVE_MBSTATE_T
+
+/* Define to 1 if you have the <mbstr.h> header file. */
+#undef HAVE_MBSTR_H
+
+/* Define to 1 if you have the `memmove' function. */
+#undef HAVE_MEMMOVE
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the <ncurses/termcap.h> header file. */
+#undef HAVE_NCURSES_TERMCAP_H
+
+/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
+#undef HAVE_NDIR_H
+
+/* Description */
+#undef HAVE_POSIX_SIGNALS
+
+/* Description */
+#undef HAVE_POSIX_SIGSETJMP
+
+/* Define to 1 if you have the `pselect' function. */
+#undef HAVE_PSELECT
+
+/* Define to 1 if you have the `putenv' function. */
+#undef HAVE_PUTENV
+
+/* Define to 1 if you have the <pwd.h> header file. */
+#undef HAVE_PWD_H
+
+/* Define to 1 if you have the `readlink' function. */
+#undef HAVE_READLINK
+
+/* Define to 1 if you have the `select' function. */
+#undef HAVE_SELECT
+
+/* Define to 1 if you have the `setenv' function. */
+#undef HAVE_SETENV
+
+/* Define to 1 if you have the `setlocale' function. */
+#undef HAVE_SETLOCALE
+
+/* Define to 1 if you have the <stdarg.h> header file. */
+#undef HAVE_STDARG_H
+
+/* Define to 1 if you have the <stdbool.h> header file. */
+#undef HAVE_STDBOOL_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strcasecmp' function. */
+#undef HAVE_STRCASECMP
+
+/* Define to 1 if you have the `strcoll' function and it is properly defined.
+   */
+#undef HAVE_STRCOLL
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strpbrk' function. */
+#undef HAVE_STRPBRK
+
+/* Description */
+#undef HAVE_STRUCT_DIRENT_D_FILENO
+
+/* Description */
+#undef HAVE_STRUCT_DIRENT_D_INO
+
+/* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_SYS_DIR_H
+
+/* Define to 1 if you have the <sys/file.h> header file. */
+#undef HAVE_SYS_FILE_H
+
+/* Define to 1 if you have the <sys/ioctl.h> header file. */
+#undef HAVE_SYS_IOCTL_H
+
+/* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
+   */
+#undef HAVE_SYS_NDIR_H
+
+/* Define to 1 if you have the <sys/ptem.h> header file. */
+#undef HAVE_SYS_PTEM_H
+
+/* Define to 1 if you have the <sys/pte.h> header file. */
+#undef HAVE_SYS_PTE_H
+
+/* Define to 1 if you have the <sys/select.h> header file. */
+#undef HAVE_SYS_SELECT_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/stream.h> header file. */
+#undef HAVE_SYS_STREAM_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the `tcgetattr' function. */
+#undef HAVE_TCGETATTR
+
+/* Define to 1 if you have the <termcap.h> header file. */
+#undef HAVE_TERMCAP_H
+
+/* Define to 1 if you have the <termios.h> header file. */
+#undef HAVE_TERMIOS_H
+
+/* Define to 1 if you have the <termio.h> header file. */
+#undef HAVE_TERMIO_H
+
+/* Define to 1 if you have the `towlower' function. */
+#undef HAVE_TOWLOWER
+
+/* Define to 1 if you have the `towupper' function. */
+#undef HAVE_TOWUPPER
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Description */
+#undef HAVE_USG_SIGHOLD
+
+/* Define to 1 if you have the <varargs.h> header file. */
+#undef HAVE_VARARGS_H
+
+/* Define to 1 if you have the `vsnprintf' function. */
+#undef HAVE_VSNPRINTF
+
+/* Define to 1 if you have the <wchar.h> header file. */
+#undef HAVE_WCHAR_H
+
+/* systems should define this type here */
+#undef HAVE_WCHAR_T
+
+/* Description */
+#undef HAVE_WCRTOMB
+
+/* Description */
+#undef HAVE_WCSCOLL
+
+/* Description */
+#undef HAVE_WCSDUP
+
+/* Define to 1 if you have the `wcswidth' function. */
+#undef HAVE_WCSWIDTH
+
+/* Description */
+#undef HAVE_WCTYPE
+
+/* Define to 1 if you have the <wctype.h> header file. */
+#undef HAVE_WCTYPE_H
+
+/* systems should define this type here */
+#undef HAVE_WCTYPE_T
+
+/* Description */
+#undef HAVE_WCWIDTH
+
+/* systems should define this type here */
+#undef HAVE_WINT_T
+
+/* Description */
+#undef MUST_REINSTALL_SIGHANDLERS
+
+/* Description */
+#undef NO_MULTIBYTE_SUPPORT
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if the C compiler supports function prototypes. */
+#undef PROTOTYPES
+
+/* Define as the return type of signal handlers (`int' or `void'). */
+#undef RETSIGTYPE
+
+/* The size of `wchar_t', as computed by sizeof. */
+#undef SIZEOF_WCHAR_T
+
+/* Description */
+#undef SPEED_T_IN_SYS_TYPES
+
+/* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */
+#undef STAT_MACROS_BROKEN
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Description */
+#undef STRCOLL_BROKEN
+
+/* Description */
+#undef STRUCT_WINSIZE_IN_SYS_IOCTL
+
+/* Description */
+#undef STRUCT_WINSIZE_IN_TERMIOS
+
+/* Description */
+#undef TIOCSTAT_IN_SYS_IOCTL
+
+/* Enable extensions on AIX 3, Interix.  */
+#ifndef _ALL_SOURCE
+# undef _ALL_SOURCE
+#endif
+/* Enable GNU extensions on systems that have them.  */
+#ifndef _GNU_SOURCE
+# undef _GNU_SOURCE
+#endif
+/* Enable threading extensions on Solaris.  */
+#ifndef _POSIX_PTHREAD_SEMANTICS
+# undef _POSIX_PTHREAD_SEMANTICS
+#endif
+/* Enable extensions on HP NonStop.  */
+#ifndef _TANDEM_SOURCE
+# undef _TANDEM_SOURCE
+#endif
+/* Enable general extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+# undef __EXTENSIONS__
 #endif
 
-/* VARARGS defines moved to rlstdc.h */
-autoheader: warning: missing template: CTYPE_NON_ASCII
-autoheader: Use AC_DEFINE([CTYPE_NON_ASCII], [], [Description])
-autoheader: warning: missing template: FIONREAD_IN_SYS_IOCTL
-autoheader: warning: missing template: HAVE_BSD_SIGNALS
-autoheader: warning: missing template: HAVE_GETPW_DECLS
-autoheader: warning: missing template: HAVE_LANGINFO_CODESET
-autoheader: warning: missing template: HAVE_MBRLEN
-autoheader: warning: missing template: HAVE_MBSCMP
-autoheader: warning: missing template: HAVE_MBSNRTOWCS
-autoheader: warning: missing template: HAVE_MBSRTOWCS
-autoheader: warning: missing template: HAVE_MBSTATE_T
-autoheader: warning: missing template: HAVE_POSIX_SIGNALS
-autoheader: warning: missing template: HAVE_POSIX_SIGSETJMP
-autoheader: warning: missing template: HAVE_STRUCT_DIRENT_D_FILENO
-autoheader: warning: missing template: HAVE_STRUCT_DIRENT_D_INO
-autoheader: warning: missing template: HAVE_USG_SIGHOLD
-autoheader: warning: missing template: HAVE_WCRTOMB
-autoheader: warning: missing template: HAVE_WCSCOLL
-autoheader: warning: missing template: HAVE_WCSDUP
-autoheader: warning: missing template: HAVE_WCTYPE
-autoheader: warning: missing template: HAVE_WCWIDTH
-autoheader: warning: missing template: MUST_REINSTALL_SIGHANDLERS
-autoheader: warning: missing template: NO_MULTIBYTE_SUPPORT
-autoheader: warning: missing template: SPEED_T_IN_SYS_TYPES
-autoheader: warning: missing template: STRCOLL_BROKEN
-autoheader: warning: missing template: STRUCT_WINSIZE_IN_SYS_IOCTL
-autoheader: warning: missing template: STRUCT_WINSIZE_IN_TERMIOS
-autoheader: warning: missing template: TIOCSTAT_IN_SYS_IOCTL
-autoheader: warning: missing template: VOID_SIGHANDLER
+
+/* Description */
+#undef VOID_SIGHANDLER
+
+/* wcwidth is usually not broken */
+#undef WCWIDTH_BROKEN
+
+/* Enable large inode numbers on Mac OS X 10.5.  */
+#ifndef _DARWIN_USE_64_BIT_INODE
+# define _DARWIN_USE_64_BIT_INODE 1
+#endif
+
+/* Number of bits in a file offset, on hosts where this is settable. */
+#undef _FILE_OFFSET_BITS
+
+/* Define for large files, on AIX-style hosts. */
+#undef _LARGE_FILES
+
+/* Define to 1 if on MINIX. */
+#undef _MINIX
+
+/* Define to 2 if the system does not provide POSIX.1 features except with
+   this defined. */
+#undef _POSIX_1_SOURCE
+
+/* Define to 1 if you need to in order for `stat' and other things to work. */
+#undef _POSIX_SOURCE
+
+/* Define to 1 if type `char' is unsigned and you are not using gcc.  */
+#ifndef __CHAR_UNSIGNED__
+# undef __CHAR_UNSIGNED__
+#endif
+
+/* Define like PROTOTYPES; this can be used by system headers. */
+#undef __PROTOTYPES
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
+
+/* Define to `int' if <sys/types.h> doesn't define. */
+#undef gid_t
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef sig_atomic_t
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef ssize_t
+
+/* Define to `int' if <sys/types.h> doesn't define. */
+#undef uid_t
+
+/* Define to empty if the keyword `volatile' does not work. Warning: valid
+   code using `volatile' can become incorrect without. Disable with care. */
+#undef volatile
+

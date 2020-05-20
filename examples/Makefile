@@ -21,7 +21,7 @@ RL_LIBRARY_VERSION = 8.0
 SHELL = /bin/sh
 RM = rm -f
 
-prefix = /home/rfp
+prefix = /home/rfp/src/bittrex
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

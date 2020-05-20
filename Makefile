@@ -49,7 +49,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /home/rfp
+prefix = /home/rfp/src/bittrex
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -77,7 +77,7 @@ CTAGS = ctags
 
 CFLAGS = -g -O
 LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
-CPPFLAGS =  -MD -MF $@.d 
+CPPFLAGS =  -MD -MF $@.d -DHAVE_CONFIG_H
 
 DEFS = -DHAVE_CONFIG_H 
 LOCAL_DEFS = 

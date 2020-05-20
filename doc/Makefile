@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /home/rfp
+prefix = /home/rfp/src/bittrex
 
 datarootdir = ${prefix}/share
 
