@@ -9,8 +9,11 @@
 *.sl
 *.so
 Makefile
+autom4te.cache/
 config.cache
 config.h
+config.hh
+config.hh.in~
 config.log
 config.status
 doc/Makefile
@@ -35,3 +38,4 @@ readline.pc
 shlib/Makefile
 stamp-h
 tags
+temp
