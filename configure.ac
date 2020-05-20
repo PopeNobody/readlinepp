@@ -255,6 +255,41 @@ AC_SUBST(LIBVERSION)
 AC_SUBST(TERMCAP_LIB)
 AC_SUBST(TERMCAP_PKG_CONFIG_LIB)
 
+
+#autoheader: Use AC_DEFINE([CTYPE_NON_ASCII], [], [Description])
+AC_DEFINE([CTYPE_NON_ASCII],[],[Description])
+AC_DEFINE([FIONREAD_IN_SYS_IOCTL],[],[Description])
+AC_DEFINE([HAVE_BSD_SIGNALS],[],[Description])
+AC_DEFINE([HAVE_GETPW_DECLS],[],[Description])
+AC_DEFINE([HAVE_LANGINFO_CODESET],[],[Description])
+AC_DEFINE([HAVE_MBRLEN],[],[Description])
+AC_DEFINE([HAVE_MBSCMP],[],[Description])
+AC_DEFINE([HAVE_MBSNRTOWCS],[],[Description])
+AC_DEFINE([HAVE_MBSRTOWCS],[],[Description])
+AC_DEFINE([HAVE_MBSTATE_T],[],[Description])
+AC_DEFINE([HAVE_POSIX_SIGNALS],[],[Description])
+AC_DEFINE([HAVE_POSIX_SIGSETJMP],[],[Description])
+AC_DEFINE([HAVE_STRUCT_DIRENT_D_FILENO],[],[Description])
+AC_DEFINE([HAVE_STRUCT_DIRENT_D_INO],[],[Description])
+AC_DEFINE([HAVE_USG_SIGHOLD],[],[Description])
+AC_DEFINE([HAVE_WCRTOMB],[],[Description])
+AC_DEFINE([HAVE_WCSCOLL],[],[Description])
+AC_DEFINE([HAVE_WCSDUP],[],[Description])
+AC_DEFINE([HAVE_WCTYPE],[],[Description])
+AC_DEFINE([HAVE_WCWIDTH],[],[Description])
+AC_DEFINE([HANDLERS],[],[Description])
+AC_DEFINE([NO_MULTIBYTE_SUPPORT],[],[Description])
+AC_DEFINE([SPEED_T_IN_SYS_TYPES],[],[Description])
+AC_DEFINE([STRCOLL_BROKEN],[],[Description])
+AC_DEFINE([STRUCT_WINSIZE_IN_SYS_IOCTL],[],[Description])
+AC_DEFINE([STRUCT_WINSIZE_IN_TERMIOS],[],[Description])
+AC_DEFINE([TIOCSTAT_IN_SYS_IOCTL],[],[Description])
+AC_DEFINE([VOID_SIGHANDLER],[],[Description])
+AC_DEFINE([MUST_REINSTALL_SIGHANDLERS],[],[Description])
+
+
+
+
 AC_OUTPUT([Makefile doc/Makefile examples/Makefile readline++.pc],
 [
 # Makefile uses this timestamp file to record whether config.h is up to date.

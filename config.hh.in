@@ -300,3 +300,32 @@
 #endif
 
 /* VARARGS defines moved to rlstdc.h */
+autoheader: warning: missing template: CTYPE_NON_ASCII
+autoheader: Use AC_DEFINE([CTYPE_NON_ASCII], [], [Description])
+autoheader: warning: missing template: FIONREAD_IN_SYS_IOCTL
+autoheader: warning: missing template: HAVE_BSD_SIGNALS
+autoheader: warning: missing template: HAVE_GETPW_DECLS
+autoheader: warning: missing template: HAVE_LANGINFO_CODESET
+autoheader: warning: missing template: HAVE_MBRLEN
+autoheader: warning: missing template: HAVE_MBSCMP
+autoheader: warning: missing template: HAVE_MBSNRTOWCS
+autoheader: warning: missing template: HAVE_MBSRTOWCS
+autoheader: warning: missing template: HAVE_MBSTATE_T
+autoheader: warning: missing template: HAVE_POSIX_SIGNALS
+autoheader: warning: missing template: HAVE_POSIX_SIGSETJMP
+autoheader: warning: missing template: HAVE_STRUCT_DIRENT_D_FILENO
+autoheader: warning: missing template: HAVE_STRUCT_DIRENT_D_INO
+autoheader: warning: missing template: HAVE_USG_SIGHOLD
+autoheader: warning: missing template: HAVE_WCRTOMB
+autoheader: warning: missing template: HAVE_WCSCOLL
+autoheader: warning: missing template: HAVE_WCSDUP
+autoheader: warning: missing template: HAVE_WCTYPE
+autoheader: warning: missing template: HAVE_WCWIDTH
+autoheader: warning: missing template: MUST_REINSTALL_SIGHANDLERS
+autoheader: warning: missing template: NO_MULTIBYTE_SUPPORT
+autoheader: warning: missing template: SPEED_T_IN_SYS_TYPES
+autoheader: warning: missing template: STRCOLL_BROKEN
+autoheader: warning: missing template: STRUCT_WINSIZE_IN_SYS_IOCTL
+autoheader: warning: missing template: STRUCT_WINSIZE_IN_TERMIOS
+autoheader: warning: missing template: TIOCSTAT_IN_SYS_IOCTL
+autoheader: warning: missing template: VOID_SIGHANDLER

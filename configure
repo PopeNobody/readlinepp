@@ -7136,6 +7136,99 @@ esac
 
 
 
+
+#autoheader: Use AC_DEFINE([CTYPE_NON_ASCII], [], [Description])
+
+$as_echo "#define CTYPE_NON_ASCII /**/" >>confdefs.h
+
+
+$as_echo "#define FIONREAD_IN_SYS_IOCTL /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_BSD_SIGNALS /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_GETPW_DECLS /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_LANGINFO_CODESET /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_MBRLEN /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_MBSCMP /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_MBSNRTOWCS /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_MBSRTOWCS /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_MBSTATE_T /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_POSIX_SIGNALS /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_POSIX_SIGSETJMP /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_STRUCT_DIRENT_D_FILENO /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_STRUCT_DIRENT_D_INO /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_USG_SIGHOLD /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_WCRTOMB /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_WCSCOLL /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_WCSDUP /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_WCTYPE /**/" >>confdefs.h
+
+
+$as_echo "#define HAVE_WCWIDTH /**/" >>confdefs.h
+
+
+$as_echo "#define HANDLERS /**/" >>confdefs.h
+
+
+$as_echo "#define NO_MULTIBYTE_SUPPORT /**/" >>confdefs.h
+
+
+$as_echo "#define SPEED_T_IN_SYS_TYPES /**/" >>confdefs.h
+
+
+$as_echo "#define STRCOLL_BROKEN /**/" >>confdefs.h
+
+
+$as_echo "#define STRUCT_WINSIZE_IN_SYS_IOCTL /**/" >>confdefs.h
+
+
+$as_echo "#define STRUCT_WINSIZE_IN_TERMIOS /**/" >>confdefs.h
+
+
+$as_echo "#define TIOCSTAT_IN_SYS_IOCTL /**/" >>confdefs.h
+
+
+$as_echo "#define VOID_SIGHANDLER /**/" >>confdefs.h
+
+
+$as_echo "#define MUST_REINSTALL_SIGHANDLERS /**/" >>confdefs.h
+
+
+
+
+
 ac_config_files="$ac_config_files Makefile doc/Makefile examples/Makefile readline++.pc"
 
 ac_config_commands="$ac_config_commands default"

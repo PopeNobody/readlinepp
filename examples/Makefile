@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /home/rfp/src/lbc/readline
+BUILD_DIR = /home/rfp/src/bittrex/cypsh/readline
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c
