@@ -288,7 +288,7 @@ extern int rl_vi_eword PARAMS((int, int));
 
 /* Readline functions. */
 /* Read a line of input.  Prompt with PROMPT.  A NULL PROMPT means none. */
-extern char *readline PARAMS((const char *));
+extern bool readline(string &buffer, const string &prompt="prompt> ");
 
 extern int rl_set_prompt PARAMS((const char *));
 extern int rl_expand_prompt PARAMS((char *));
