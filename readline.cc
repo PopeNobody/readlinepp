@@ -394,7 +394,7 @@ char *readline (const char *prompt)
 
 /* Read a line of input.  Prompt with PROMPT.  An empty PROMPT means
    none.  A return value of NULL means that EOF was encountered. */
-bool readline (std::string &line, const std::string &prompt)
+bool do_readline (std::string &line, const std::string &prompt)
 {
   char *value;
 #if 0
@@ -454,6 +454,14 @@ bool readline (std::string &line, const std::string &prompt)
     return false;
   };
 }
+bool readline (std::string &line, const std::string &prompt)
+{
+  bool res=do_readline(line,prompt);
+  cout << "result: " << boolalpha << res << endl;
+  cout << "   str: " << line << endl;
+  cout << "   pro: " << prompt << endl;
+  return res;
+};
 
 #if defined (READLINE_CALLBACKS)
 #  define STATIC_CALLBACK

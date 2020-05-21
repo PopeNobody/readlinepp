@@ -154,6 +154,7 @@ sh_get_env_value (const char *varname)
 char *
 sh_get_home_dir (void)
 {
+#if 0
   static char *home_dir = (char *)NULL;
   struct passwd *entry;
 
@@ -176,6 +177,10 @@ sh_get_home_dir (void)
 #endif
 
   return (home_dir);
+#else
+  abort();
+  return 0;
+#endif
 }
 
 #if !defined (O_NDELAY)

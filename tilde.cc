@@ -382,7 +382,7 @@ tilde_expand_word (const char *filename)
   /* No preexpansion hook, or the preexpansion hook failed.  Look in the
      password database. */
   dirname = (char *)NULL;
-#if defined (HAVE_GETPWNAM)
+#if defined (HAVE_GETPWNAM) && !defined(HAVE_GETPWNAM)
   user_entry = getpwnam (username);
 #else
   user_entry = 0;
@@ -412,7 +412,9 @@ tilde_expand_word (const char *filename)
 
   xfree (username);
 #if defined (HAVE_GETPWENT)
+#if 0
   endpwent ();
+#endif
 #endif
   return (dirname);
 }

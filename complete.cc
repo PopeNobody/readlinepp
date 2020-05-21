@@ -2248,11 +2248,14 @@ rl_username_completion_function (const char *text, int state)
 
       username = savestring (&text[first_char_loc]);
       namelen = strlen (username);
+#if 0 // FIXME!
 #if defined (HAVE_GETPWENT)
       setpwent ();
 #endif
+#endif
     }
 
+#if 0
 #if defined (HAVE_GETPWENT)
   while (entry = getpwent ())
     {
@@ -2261,11 +2264,14 @@ rl_username_completion_function (const char *text, int state)
 	break;
     }
 #endif
+#endif
 
   if (entry == 0)
     {
+#if 0
 #if defined (HAVE_GETPWENT)
       endpwent ();
+#endif
 #endif
       return ((char *)NULL);
     }
