@@ -2183,35 +2183,35 @@ rl_completion_matches (const char *text, rl_compentry_func_t *entry_function)
   match_list[1] = (char *)NULL;
 
   while ((string = (*entry_function) (text, matches)))
+  {
+    if (RL_SIG_RECEIVED ())
     {
-      if (RL_SIG_RECEIVED ())
-	{
-	  /* Start at 1 because we don't set matches[0] in this function.
-	     Only free the list members if we're building match list from
-	     rl_filename_completion_function, since we know that doesn't
-	     free the strings it returns. */
-	  if (entry_function == rl_filename_completion_function)
-	    {
-	      for (i = 1; match_list[i]; i++)
-		xfree (match_list[i]);
-	    }
-	  xfree (match_list);
-	  match_list = 0;
-	  match_list_size = 0;
-	  matches = 0;
-	  RL_CHECK_SIGNALS ();
-	}
-
-      if (matches + 1 >= match_list_size)
-	match_list = (char **)xrealloc
-	  (match_list, ((match_list_size += 10) + 1) * sizeof (char *));
-
-      if (match_list == 0)
-	return (match_list);
-
-      match_list[++matches] = string;
-      match_list[matches + 1] = (char *)NULL;
+      /* Start at 1 because we don't set matches[0] in this function.
+         Only free the list members if we're building match list from
+         rl_filename_completion_function, since we know that doesn't
+         free the strings it returns. */
+      if (entry_function == rl_filename_completion_function)
+      {
+        for (i = 1; match_list[i]; i++)
+          xfree (match_list[i]);
+      }
+      xfree (match_list);
+      match_list = 0;
+      match_list_size = 0;
+      matches = 0;
+      RL_CHECK_SIGNALS ();
     }
+
+    if (matches + 1 >= match_list_size)
+      match_list = (char **)xrealloc
+        (match_list, ((match_list_size += 10) + 1) * sizeof (char *));
+
+    if (match_list == 0)
+      return (match_list);
+
+    match_list[++matches] = string;
+    match_list[matches + 1] = (char *)NULL;
+  }
 
   /* If there were any matches, then look through them finding out the
      lowest common denominator.  That then becomes match_list[0]. */
