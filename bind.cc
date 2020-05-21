@@ -494,7 +494,7 @@ rl_translate_keyseq (const char *seq, char *array, int *len)
 {
   register int i, c, l, temp;
 
-  for (i = l = 0; c = seq[i]; i++)
+  for (i = l = 0; (c = seq[i]); i++)
     {
       if (c == '\\')
 	{

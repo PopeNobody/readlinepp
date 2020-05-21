@@ -579,7 +579,7 @@ rl_reset_after_signal (void)
 void
 rl_free_line_state (void)
 {
-  register HIST_ENTRY *entry;
+  HIST_ENTRY *entry;
 
   rl_free_undo_list ();
 

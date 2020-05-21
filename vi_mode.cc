@@ -166,7 +166,7 @@ static int vidomove_dispatch PARAMS((_rl_vimotion_cxt *));
 void
 _rl_vi_initialize_line (void)
 {
-  register int i, n;
+  int i, n;
 
   n = sizeof (vi_mark_chars) / sizeof (vi_mark_chars[0]);
   for (i = 0; i < n; i++)

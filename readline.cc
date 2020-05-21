@@ -338,9 +338,7 @@ rl_set_prompt (const char *prompt)
   return 0;
 }
   
-/* Read a line of input.  Prompt with PROMPT.  An empty PROMPT means
-   none.  A return value of NULL means that EOF was encountered. */
-char * readline (const char *prompt)
+char *readline (const char *prompt)
 {
   char *value;
 #if 0
@@ -349,10 +347,10 @@ char * readline (const char *prompt)
 
   /* If we are at EOF return a NULL string. */
   if (rl_pending_input == EOF)
-    {
-      rl_clear_pending_input ();
-      return ((char *)NULL);
-    }
+  {
+    rl_clear_pending_input ();
+    return nullptr;
+  }
 
 #if 0
   /* If readline() is called after installing a callback handler, temporarily
@@ -390,8 +388,71 @@ char * readline (const char *prompt)
   if (value)
     _rl_audit_tty (value);
 #endif
+  
+  return value;
+};
 
-  return (value);
+/* Read a line of input.  Prompt with PROMPT.  An empty PROMPT means
+   none.  A return value of NULL means that EOF was encountered. */
+bool readline (std::string &line, const std::string &prompt)
+{
+  char *value;
+#if 0
+  int in_callback;
+#endif
+
+  using std::string;
+  line=string();
+  /* If we are at EOF return a NULL string. */
+  if (rl_pending_input == EOF)
+  {
+    rl_clear_pending_input ();
+    return false;
+  }
+
+#if 0
+  /* If readline() is called after installing a callback handler, temporarily
+     turn off the callback state to avoid ensuing messiness.  Patch supplied
+     by the gdb folks.  XXX -- disabled.  This can be fooled and readline
+     left in a strange state by a poorly-timed longjmp. */
+  if (in_callback = RL_ISSTATE (RL_STATE_CALLBACK))
+    RL_UNSETSTATE (RL_STATE_CALLBACK);
+#endif
+
+  rl_set_prompt (prompt.c_str());
+
+  rl_initialize ();
+  if (rl_prep_term_function)
+    (*rl_prep_term_function) (_rl_meta_flag);
+
+#if defined (HANDLE_SIGNALS)
+  rl_set_signals ();
+#endif
+
+  value = readline_internal ();
+  if (rl_deprep_term_function)
+    (*rl_deprep_term_function) ();
+
+#if defined (HANDLE_SIGNALS)
+  rl_clear_signals ();
+#endif
+
+#if 0
+  if (in_callback)
+    RL_SETSTATE (RL_STATE_CALLBACK);
+#endif
+
+#if HAVE_DECL_AUDIT_USER_TTY && defined (HAVE_LIBAUDIT_H) && defined (ENABLE_TTY_AUDIT_SUPPORT)
+  if (value)
+    _rl_audit_tty (value);
+#endif
+
+  if(value) {
+    line=value;
+    return true;
+  } else {
+    return false;
+  };
 }
 
 #if defined (READLINE_CALLBACKS)
@@ -790,14 +851,14 @@ _rl_dispatch_callback (_rl_keyseq_cxt *cxt)
    If the associated command is really a keymap, then read
    another key, and dispatch into that map. */
 int
-_rl_dispatch (register int key, Keymap map)
+_rl_dispatch (int key, Keymap map)
 {
   _rl_dispatching_keymap = map;
   return _rl_dispatch_subseq (key, map, 0);
 }
 
 int
-_rl_dispatch_subseq (register int key, Keymap map, int got_subseq)
+_rl_dispatch_subseq (int key, Keymap map, int got_subseq)
 {
   int r, newkey;
   char *macro;

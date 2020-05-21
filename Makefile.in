@@ -75,7 +75,7 @@ DESTDIR =
 ETAGS = etags
 CTAGS = ctags 
 
-CFLAGS = @CFLAGS@
+CFLAGS = @CFLAGS@ -fPIC
 LOCAL_CFLAGS = @LOCAL_CFLAGS@ -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
 CPPFLAGS = @CPPFLAGS@ -MD -MF $@.d -DHAVE_CONFIG_H
 
@@ -89,7 +89,7 @@ INCLUDES = -I. -I$(srcdir)
 
 XCCFLAGS = $(ASAN_CFLAGS) $(DEFS) $(LOCAL_DEFS) $(INCLUDES) $(CPPFLAGS)
 CCFLAGS = $(XCCFLAGS) $(LOCAL_CFLAGS) $(CFLAGS)
-CXXFLAGS = -Wno-write-strings $(CCFLAGS) -fpermissive
+CXXFLAGS = -Wno-write-strings $(CCFLAGS) -fpermissive -fPIC
 
 # could add -Werror here
 GCC_LINT_FLAGS = -ansi -Wall -Wshadow -Wpointer-arith -Wcast-qual \

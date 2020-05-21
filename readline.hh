@@ -35,6 +35,8 @@
 #  include <readline/tilde.hh>
 #endif
 
+#include <string>
+
 /* Hex-encoded Readline version number. */
 #define RL_READLINE_VERSION	0x0800		/* Readline 8.0 */
 #define RL_VERSION_MAJOR	8
@@ -288,7 +290,8 @@ extern int rl_vi_eword PARAMS((int, int));
 
 /* Readline functions. */
 /* Read a line of input.  Prompt with PROMPT.  A NULL PROMPT means none. */
-extern bool readline(string &buffer, const string &prompt="prompt> ");
+extern bool readline(std::string &buffer, const std::string &prompt="prompt> ");
+extern char *readline(const char *prompt="prompt> ");
 
 extern int rl_set_prompt PARAMS((const char *));
 extern int rl_expand_prompt PARAMS((char *));
