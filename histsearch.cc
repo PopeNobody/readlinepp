@@ -209,7 +209,7 @@ _hs_history_patsearch (const char *string, int direction, int flags)
   ret = len - 1;
   /* fnmatch is required to reject a pattern that ends with an unescaped
      backslash */
-  if (unescaped_backslash = (string[ret] == '\\'))
+  if ((unescaped_backslash = (string[ret] == '\\')))
     {
       while (ret > 0 && string[--ret] == '\\')
 	unescaped_backslash = 1 - unescaped_backslash;

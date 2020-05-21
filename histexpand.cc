@@ -210,7 +210,7 @@ get_history_event (const char *string, int *caller_index, int delimiting_quote)
     }
 
   /* Only a closing `?' or a newline delimit a substring search string. */
-  for (local_index = i; c = string[i]; i++)
+  for (local_index = i; (c = string[i]); i++)
     {
 #if defined (HANDLE_MULTIBYTE)
       if (MB_CUR_MAX > 1 && rl_byte_oriented == 0)

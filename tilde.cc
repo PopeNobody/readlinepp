@@ -192,7 +192,7 @@ tilde_expand (const char *string)
   int result_size, result_index;
 
   result_index = result_size = 0;
-  if (result = (char*)strchr (string, '~'))
+  if ((result = (char*)strchr (string, '~')))
     result = (char *)xmalloc (result_size = (strlen (string) + 16));
   else
     result = (char *)xmalloc (result_size = (strlen (string) + 1));
