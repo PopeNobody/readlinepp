@@ -90,6 +90,7 @@ INCLUDES = -I. -I$(srcdir)
 XCCFLAGS = $(ASAN_CFLAGS) $(DEFS) $(LOCAL_DEFS) $(INCLUDES) $(CPPFLAGS)
 CCFLAGS = $(XCCFLAGS) $(LOCAL_CFLAGS) $(CFLAGS)
 CXXFLAGS = -Wno-write-strings $(CCFLAGS) -fpermissive -fPIC
+CXX := /usr/stow/llvm-10a/bin/clang++
 
 # could add -Werror here
 GCC_LINT_FLAGS = -ansi -Wall -Wshadow -Wpointer-arith -Wcast-qual \
