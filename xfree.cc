@@ -3,7 +3,7 @@
 /* Copyright (C) 1991-2010,2017 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,14 +21,14 @@
 
 #define READLINE_LIBRARY
 
-#if defined (HAVE_CONFIG_H)
+#if defined(HAVE_CONFIG_H)
 #include <config.hh>
 #endif
 
-#if defined (HAVE_STDLIB_H)
-#  include <stdlib.h>
+#if defined(HAVE_STDLIB_H)
+#include <stdlib.h>
 #else
-#  include "ansi_stdlib.hh"
+#include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include "xmalloc.hh"
@@ -41,9 +41,8 @@
 
 /* Use this as the function to call when adding unwind protects so we
    don't need to know what free() returns. */
-void
-xfree (PTR_T string)
+void xfree(PTR_T string)
 {
   if (string)
-    free (string);
+    free(string);
 }

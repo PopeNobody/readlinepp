@@ -3,7 +3,7 @@
 /* Copyright (C) 1987, 1989, 1992 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@
 #define _KEYMAPS_H_
 
 
-#if defined (READLINE_LIBRARY)
-#  include "rlstdc.hh"
-#  include "chardefs.hh"
-#  include "rltypedefs.hh"
+#if defined(READLINE_LIBRARY)
+#include "chardefs.hh"
+#include "rlstdc.hh"
+#include "rltypedefs.hh"
 #else
-#  include <readline/rlstdc.hh>
-#  include <readline/chardefs.hh>
-#  include <readline/rltypedefs.hh>
+#include <readline/chardefs.hh>
+#include <readline/rlstdc.hh>
+#include <readline/rltypedefs.hh>
 #endif
 
 /* A keymap contains one entry for each key in the ASCII set.
@@ -38,26 +38,28 @@
    FUNCTION is the address of a function to run, or the
    address of a keymap to indirect through.
    TYPE says which kind of thing FUNCTION is. */
-typedef struct _keymap_entry {
-  char type;
-  rl_command_func_t *function;
+typedef struct _keymap_entry
+{
+  char               type;
+  rl_command_func_t* function;
 } KEYMAP_ENTRY;
 
 /* This must be large enough to hold bindings for all of the characters
    in a desired character set (e.g, 128 for ASCII, 256 for ISO Latin-x,
    and so on) plus one for subsequence matching. */
 #define KEYMAP_SIZE 257
-#define ANYOTHERKEY KEYMAP_SIZE-1
+#define ANYOTHERKEY KEYMAP_SIZE - 1
 
-typedef KEYMAP_ENTRY KEYMAP_ENTRY_ARRAY[KEYMAP_SIZE];
-typedef KEYMAP_ENTRY *Keymap;
+typedef KEYMAP_ENTRY  KEYMAP_ENTRY_ARRAY[KEYMAP_SIZE];
+typedef KEYMAP_ENTRY* Keymap;
 
 /* The values that TYPE can have in a keymap entry. */
 #define ISFUNC 0
 #define ISKMAP 1
 #define ISMACR 2
 
-extern KEYMAP_ENTRY_ARRAY emacs_standard_keymap, emacs_meta_keymap, emacs_ctlx_keymap;
+extern KEYMAP_ENTRY_ARRAY emacs_standard_keymap, emacs_meta_keymap,
+         emacs_ctlx_keymap;
 extern KEYMAP_ENTRY_ARRAY vi_insertion_keymap, vi_movement_keymap;
 
 /* Return a new, empty keymap.
@@ -79,7 +81,7 @@ extern void rl_discard_keymap PARAMS((Keymap));
 
 /* Return the keymap corresponding to a given name.  Names look like
    `emacs' or `emacs-meta' or `vi-insert'.  */
-extern Keymap rl_get_keymap_by_name PARAMS((const char *));
+extern Keymap rl_get_keymap_by_name PARAMS((const char*));
 
 /* Return the current keymap. */
 extern Keymap rl_get_keymap PARAMS((void));
@@ -88,7 +90,7 @@ extern Keymap rl_get_keymap PARAMS((void));
 extern void rl_set_keymap PARAMS((Keymap));
 
 /* Set the name of MAP to NAME */
-extern int rl_set_keymap_name PARAMS((const char *, Keymap));
+extern int rl_set_keymap_name PARAMS((const char*, Keymap));
 
 
 #endif /* _KEYMAPS_H_ */

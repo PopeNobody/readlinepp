@@ -21,8 +21,8 @@
 
 #define READLINE_LIBRARY
 
-#if defined (HAVE_CONFIG_H)
-#  include <config.hh>
+#if defined(HAVE_CONFIG_H)
+#include <config.hh>
 #endif
 
 #include <stdio.h>
@@ -30,77 +30,68 @@
 #include "rlstdc.hh"
 #include "rltypedefs.hh"
 
-extern void rl_free_undo_list PARAMS((void));
-extern int rl_maybe_save_line PARAMS((void));
-extern int rl_maybe_unsave_line PARAMS((void));
+extern void rl_free_undo_list    PARAMS((void));
+extern int rl_maybe_save_line    PARAMS((void));
+extern int rl_maybe_unsave_line  PARAMS((void));
 extern int rl_maybe_replace_line PARAMS((void));
 
-extern int rl_crlf PARAMS((void));
-extern int rl_ding PARAMS((void));
+extern int rl_crlf       PARAMS((void));
+extern int rl_ding       PARAMS((void));
 extern int rl_alphabetic PARAMS((int));
 
-extern char **rl_completion_matches PARAMS((const char *, rl_compentry_func_t *));
-extern char *rl_username_completion_function PARAMS((const char *, int));
-extern char *rl_filename_completion_function PARAMS((const char *, int));
+extern char** rl_completion_matches          PARAMS((const char*,
+                                            rl_compentry_func_t*));
+extern char* rl_username_completion_function PARAMS((const char*, int));
+extern char* rl_filename_completion_function PARAMS((const char*, int));
 
 /* Provide backwards-compatible entry points for old function names. */
 
-void
-free_undo_list (void)
+void free_undo_list(void)
 {
-  rl_free_undo_list ();
+  rl_free_undo_list();
 }
 
-int
-maybe_replace_line (void)
+int maybe_replace_line(void)
 {
-  return rl_maybe_replace_line ();
+  return rl_maybe_replace_line();
 }
 
-int
-maybe_save_line (void)
+int maybe_save_line(void)
 {
-  return rl_maybe_save_line ();
+  return rl_maybe_save_line();
 }
 
-int
-maybe_unsave_line (void)
+int maybe_unsave_line(void)
 {
-  return rl_maybe_unsave_line ();
+  return rl_maybe_unsave_line();
 }
 
-int
-ding (void)
+int ding(void)
 {
-  return rl_ding ();
+  return rl_ding();
 }
 
-int
-crlf (void)
+int crlf(void)
 {
-  return rl_crlf ();
+  return rl_crlf();
 }
 
-int
-alphabetic (int c)
+int alphabetic(int c)
 {
-  return rl_alphabetic (c);
+  return rl_alphabetic(c);
 }
 
-char **
-completion_matches (const char *s, rl_compentry_func_t *f)
+char** completion_matches(const char* s, rl_compentry_func_t* f)
 {
-  return rl_completion_matches (s, f);
+  return rl_completion_matches(s, f);
 }
 
-char *
-username_completion_function (const char *s, int i)
+char* username_completion_function(const char* s, int i)
 {
-  return rl_username_completion_function (s, i);
+  return rl_username_completion_function(s, i);
 }
 
-char *
-filename_completion_function (const char *s, int i)
+char* filename_completion_function(const char* s, int i)
 {
-  return rl_filename_completion_function (s, i);
+  return rl_filename_completion_function(s, i);
 }

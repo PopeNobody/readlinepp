@@ -22,36 +22,36 @@
  */
 #include "config.hh"
 
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include <unistd.h>
 
 #include "screen.hh"
 
 #ifndef sun
-# include <sys/ioctl.h>
+#include <sys/ioctl.h>
 #endif
 
 /* for solaris 2.1, Unixware (SVR4.2) and possibly others */
-#if defined (HAVE_SVR4_PTYS) && defined (HAVE_SYS_STROPTS_H)
-# include <sys/stropts.h>
+#if defined(HAVE_SVR4_PTYS) && defined(HAVE_SYS_STROPTS_H)
+#include <sys/stropts.h>
 #endif
 
 #if defined(sun) && defined(LOCKPTY) && !defined(TIOCEXCL)
-# include <sys/ttold.h>
+#include <sys/ttold.h>
 #endif
 
 #ifdef ISC
-# include <sys/tty.h>
-# include <sys/sioctl.h>
-# include <sys/pty.h>
+#include <sys/pty.h>
+#include <sys/sioctl.h>
+#include <sys/tty.h>
 #endif
 
 #ifdef sgi
-# include <sys/sysmacros.h>
+#include <sys/sysmacros.h>
 #endif /* sgi */
 
 #include "extern.hh"
@@ -60,15 +60,15 @@
  * if no PTYRANGE[01] is in the config file, we pick a default
  */
 #ifndef PTYRANGE0
-# define PTYRANGE0 "qpr"
+#define PTYRANGE0 "qpr"
 #endif
 #ifndef PTYRANGE1
-# define PTYRANGE1 "0123456789abcdef"
+#define PTYRANGE1 "0123456789abcdef"
 #endif
 
 /* SVR4 pseudo ttys don't seem to work with SCO-5 */
 #ifdef M_UNIX
-# undef HAVE_SVR4_PTYS
+#undef HAVE_SVR4_PTYS
 #endif
 
 extern int eff_uid;
@@ -77,18 +77,18 @@ extern int eff_uid;
 static char PtyName[32], TtyName[32];
 
 #if !(defined(sequent) || defined(_SEQUENT_) || defined(HAVE_SVR4_PTYS))
-# ifdef hpux
-static char PtyProto[] = "/dev/ptym/ptyXY";
-static char TtyProto[] = "/dev/pty/ttyXY";
-# else
-#  ifdef M_UNIX
-static char PtyProto[] = "/dev/ptypXY";
-static char TtyProto[] = "/dev/ttypXY";
-#  else
-static char PtyProto[] = "/dev/ptyXY";
-static char TtyProto[] = "/dev/ttyXY";
-#  endif
-# endif /* hpux */
+#ifdef hpux
+static char PtyProto[]= "/dev/ptym/ptyXY";
+static char TtyProto[]= "/dev/pty/ttyXY";
+#else
+#ifdef M_UNIX
+static char PtyProto[]= "/dev/ptypXY";
+static char TtyProto[]= "/dev/ttypXY";
+#else
+static char PtyProto[]= "/dev/ptyXY";
+static char TtyProto[]= "/dev/ttyXY";
+#endif
+#endif /* hpux */
 #endif
 
 static void initmaster __P((int));
@@ -96,9 +96,9 @@ static void initmaster __P((int));
 #if defined(sun)
 /* sun's utmp_update program opens the salve side, thus corrupting
  */
-int pty_preopen = 1;
+int pty_preopen= 1;
 #else
-int pty_preopen = 0;
+int pty_preopen= 0;
 #endif
 
 /*
@@ -106,40 +106,39 @@ int pty_preopen = 0;
  *  (RISCos mips breaks otherwise)
  */
 #ifndef O_NOCTTY
-# define O_NOCTTY 0
+#define O_NOCTTY 0
 #endif
 
 /***************************************************************/
 
-static void
-initmaster(int f)
+static void initmaster(int f)
 {
 #ifdef POSIX
   tcflush(f, TCIOFLUSH);
 #else
-# ifdef TIOCFLUSH
-  (void) ioctl(f, TIOCFLUSH, (char *) 0);
-# endif
+#ifdef TIOCFLUSH
+  (void)ioctl(f, TIOCFLUSH, (char*)0);
+#endif
 #endif
 #ifdef LOCKPTY
-  (void) ioctl(f, TIOCEXCL, (char *) 0);
+  (void)ioctl(f, TIOCEXCL, (char*)0);
 #endif
 }
 
-void
-InitPTY(int f)
+void InitPTY(int f)
 {
   if (f < 0)
     return;
-#if defined(I_PUSH) && defined(HAVE_SVR4_PTYS) && !defined(sgi) && !defined(linux) && !defined(__osf__) && !defined(M_UNIX)
+#if defined(I_PUSH) && defined(HAVE_SVR4_PTYS) && !defined(sgi) &&        \
+         !defined(linux) && !defined(__osf__) && !defined(M_UNIX)
   if (ioctl(f, I_PUSH, "ptem"))
     Panic(errno, "InitPTY: cannot I_PUSH ptem");
   if (ioctl(f, I_PUSH, "ldterm"))
     Panic(errno, "InitPTY: cannot I_PUSH ldterm");
-# ifdef sun
+#ifdef sun
   if (ioctl(f, I_PUSH, "ttcompat"))
     Panic(errno, "InitPTY: cannot I_PUSH ttcompat");
-# endif
+#endif
 #endif
 }
 
@@ -147,14 +146,13 @@ InitPTY(int f)
 
 #if defined(OSX) && !defined(PTY_DONE)
 #define PTY_DONE
-int
-OpenPTY(char **ttyn)
+int OpenPTY(char** ttyn)
 {
   register int f;
-  if ((f = open_controlling_pty(TtyName)) < 0)
+  if ((f= open_controlling_pty(TtyName)) < 0)
     return -1;
   initmaster(f);
-  *ttyn = TtyName;
+  *ttyn= TtyName;
   return f;
 }
 #endif
@@ -163,13 +161,12 @@ OpenPTY(char **ttyn)
 
 #if (defined(sequent) || defined(_SEQUENT_)) && !defined(PTY_DONE)
 #define PTY_DONE
-int
-OpenPTY(char **ttyn)
+int OpenPTY(char** ttyn)
 {
-  char *m, *s;
+  char *       m, *s;
   register int f;
 
-  if ((f = getpseudotty(&s, &m)) < 0)
+  if ((f= getpseudotty(&s, &m)) < 0)
     return -1;
 #ifdef _SEQUENT_
   fvhangup(s);
@@ -177,7 +174,7 @@ OpenPTY(char **ttyn)
   strncpy(PtyName, m, sizeof(PtyName));
   strncpy(TtyName, s, sizeof(TtyName));
   initmaster(f);
-  *ttyn = TtyName;
+  *ttyn= TtyName;
   return f;
 }
 #endif
@@ -186,29 +183,28 @@ OpenPTY(char **ttyn)
 
 #if defined(__sgi) && !defined(PTY_DONE)
 #define PTY_DONE
-extern "C" {
+extern "C"
+{
   int getpty();
 };
-int
-OpenPTY(ttyn)
-char **ttyn;
+int OpenPTY(ttyn) char** ttyn;
 {
-  int f;
-  char *name;
-  sigret_t (*sigcld)__P(SIGPROTOARG);
+  int   f;
+  char* name;
+  sigret_t(*sigcld) __P(SIGPROTOARG);
 
   /*
    * SIGCHLD set to SIG_DFL for _getpty() because it may fork() and
    * exec() /usr/adm/mkpts
    */
-  sigcld = signal(SIGCHLD, SIG_DFL);
-  name = _getpty(&f, O_RDWR | O_NONBLOCK, 0600, 0);
+  sigcld= signal(SIGCHLD, SIG_DFL);
+  name  = _getpty(&f, O_RDWR | O_NONBLOCK, 0600, 0);
   signal(SIGCHLD, sigcld);
 
   if (name == 0)
     return -1;
   initmaster(f);
-  *ttyn = name;
+  *ttyn= name;
   return f;
 }
 #endif
@@ -217,24 +213,22 @@ char **ttyn;
 
 #if defined(MIPS) && defined(HAVE_DEV_PTC) && !defined(PTY_DONE)
 #define PTY_DONE
-int
-OpenPTY(ttyn)
-char **ttyn;
+int OpenPTY(ttyn) char** ttyn;
 {
   register int f;
-  struct stat buf;
-   
+  struct stat  buf;
+
   strcpy(PtyName, "/dev/ptc");
-  if ((f = open(PtyName, O_RDWR | O_NOCTTY | O_NONBLOCK)) < 0)
+  if ((f= open(PtyName, O_RDWR | O_NOCTTY | O_NONBLOCK)) < 0)
     return -1;
   if (fstat(f, &buf) < 0)
-    {
-      close(f);
-      return -1;
-    }
+  {
+    close(f);
+    return -1;
+  }
   sprintf(TtyName, "/dev/ttyq%d", minor(buf.st_rdev));
   initmaster(f);
-  *ttyn = TtyName;
+  *ttyn= TtyName;
   return f;
 }
 #endif
@@ -243,26 +237,26 @@ char **ttyn;
 
 #if defined(HAVE_SVR4_PTYS) && !defined(PTY_DONE)
 #define PTY_DONE
-extern "C" {
-char *ptsname(int fd);
+extern "C"
+{
+  char* ptsname(int fd);
 #if defined(HAVE_GETPT) && defined(linux)
-int getpt __P((void));
-int grantpt __P((int));
-int unlockpt __P((int));
+  int getpt    __P((void));
+  int grantpt  __P((int));
+  int unlockpt __P((int));
 #endif
 }
-int
-OpenPTY(char **ttyn)
+int OpenPTY(char** ttyn)
 {
   register int f;
-  char *m;
-  sigret_t (*sigcld)__P(SIGPROTOARG);
+  char*        m;
+  sigret_t(*sigcld) __P(SIGPROTOARG);
 
   strcpy(PtyName, "/dev/ptmx");
 #if defined(HAVE_GETPT) && defined(linux)
-  if ((f = getpt()) == -1)
+  if ((f= getpt()) == -1)
 #else
-  if ((f = open(PtyName, O_RDWR | O_NOCTTY)) == -1)
+  if ((f= open(PtyName, O_RDWR | O_NOCTTY)) == -1)
 #endif
     return -1;
 
@@ -270,17 +264,17 @@ OpenPTY(char **ttyn)
    * SIGCHLD set to SIG_DFL for grantpt() because it fork()s and
    * exec()s pt_chmod
    */
-  sigcld = signal(SIGCHLD, SIG_DFL);
-  if ((m = ptsname(f)) == NULL || grantpt(f) || unlockpt(f))
-    {
-      signal(SIGCHLD, sigcld);
-      close(f);
-      return -1;
-    } 
+  sigcld= signal(SIGCHLD, SIG_DFL);
+  if ((m= ptsname(f)) == NULL || grantpt(f) || unlockpt(f))
+  {
+    signal(SIGCHLD, sigcld);
+    close(f);
+    return -1;
+  }
   signal(SIGCHLD, sigcld);
   strncpy(TtyName, m, sizeof(TtyName));
   initmaster(f);
-  *ttyn = TtyName;
+  *ttyn= TtyName;
   return f;
 }
 #endif
@@ -290,27 +284,25 @@ OpenPTY(char **ttyn)
 #if defined(_AIX) && defined(HAVE_DEV_PTC) && !defined(PTY_DONE)
 #define PTY_DONE
 
-int
-OpenPTY(ttyn)
-char **ttyn;
+int OpenPTY(ttyn) char** ttyn;
 {
   register int f;
 
   /* a dumb looking loop replaced by mycrofts code: */
-  strcpy (PtyName, "/dev/ptc");
-  if ((f = open (PtyName, O_RDWR | O_NOCTTY)) < 0)
+  strcpy(PtyName, "/dev/ptc");
+  if ((f= open(PtyName, O_RDWR | O_NOCTTY)) < 0)
     return -1;
   strncpy(TtyName, ttyname(f), sizeof(TtyName));
   if (eff_uid && access(TtyName, R_OK | W_OK))
-    {
-      close(f);
-      return -1;
-    }
+  {
+    close(f);
+    return -1;
+  }
   initmaster(f);
-# ifdef _IBMR2
-  pty_preopen = 1;
-# endif
-  *ttyn = TtyName;
+#ifdef _IBMR2
+  pty_preopen= 1;
+#endif
+  *ttyn= TtyName;
   return f;
 }
 #endif
@@ -319,72 +311,68 @@ char **ttyn;
 
 #if defined(HAVE_OPENPTY) && !defined(PTY_DONE)
 #define PTY_DONE
-int
-OpenPTY(ttyn)
-char **ttyn;
+int OpenPTY(ttyn) char** ttyn;
 {
   int f, s;
   if (openpty(&f, &s, TtyName, NULL, NULL) != 0)
     return -1;
   close(s);
   initmaster(f);
-  pty_preopen = 1;
-  *ttyn = TtyName;
-  return f;    
+  pty_preopen= 1;
+  *ttyn      = TtyName;
+  return f;
 }
 #endif
 
 /***************************************************************/
 
 #ifndef PTY_DONE
-int
-OpenPTY(ttyn)
-char **ttyn;
+int OpenPTY(ttyn) char** ttyn;
 {
   register char *p, *q, *l, *d;
-  register int f;
+  register int   f;
 
   debug("OpenPTY: Using BSD style ptys.\n");
   strcpy(PtyName, PtyProto);
   strcpy(TtyName, TtyProto);
-  for (p = PtyName; *p != 'X'; p++)
+  for (p= PtyName; *p != 'X'; p++)
     ;
-  for (q = TtyName; *q != 'X'; q++)
+  for (q= TtyName; *q != 'X'; q++)
     ;
-  for (l = PTYRANGE0; (*p = *l) != '\0'; l++)
+  for (l= PTYRANGE0; (*p= *l) != '\0'; l++)
+  {
+    for (d= PTYRANGE1; (p[1]= *d) != '\0'; d++)
     {
-      for (d = PTYRANGE1; (p[1] = *d) != '\0'; d++)
-	{
-	  debug1("OpenPTY tries '%s'\n", PtyName);
-	  if ((f = open(PtyName, O_RDWR | O_NOCTTY)) == -1)
-	    continue;
-	  q[0] = *l;
-	  q[1] = *d;
-	  if (eff_uid && access(TtyName, R_OK | W_OK))
-	    {
-	      close(f);
-	      continue;
-	    }
+      debug1("OpenPTY tries '%s'\n", PtyName);
+      if ((f= open(PtyName, O_RDWR | O_NOCTTY)) == -1)
+        continue;
+      q[0]= *l;
+      q[1]= *d;
+      if (eff_uid && access(TtyName, R_OK | W_OK))
+      {
+        close(f);
+        continue;
+      }
 #if defined(sun) && defined(TIOCGPGRP) && !defined(SUNOS3)
-	  /* Hack to ensure that the slave side of the pty is
-	   * unused. May not work in anything other than SunOS4.1
-	   */
-	    {
-	      int pgrp;
+      /* Hack to ensure that the slave side of the pty is
+       * unused. May not work in anything other than SunOS4.1
+       */
+      {
+        int pgrp;
 
-	      /* tcgetpgrp does not work (uses TIOCGETPGRP)! */
-	      if (ioctl(f, TIOCGPGRP, (char *)&pgrp) != -1 || errno != EIO)
-		{
-		  close(f);
-		  continue;
-		}
-	    }
+        /* tcgetpgrp does not work (uses TIOCGETPGRP)! */
+        if (ioctl(f, TIOCGPGRP, (char*)&pgrp) != -1 || errno != EIO)
+        {
+          close(f);
+          continue;
+        }
+      }
 #endif
-	  initmaster(f);
-	  *ttyn = TtyName;
-	  return f;
-	}
+      initmaster(f);
+      *ttyn= TtyName;
+      return f;
     }
+  }
   return -1;
 }
 #endif

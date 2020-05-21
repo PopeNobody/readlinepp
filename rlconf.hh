@@ -3,7 +3,7 @@
 /* Copyright (C) 1992-2015 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -19,13 +19,14 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_RLCONF_H_)
+#if !defined(_RLCONF_H_)
 #define _RLCONF_H_
 
 /* Define this if you want the vi-mode editing available. */
 #define VI_MODE
 
-/* Define this to get an indication of file type when listing completions. */
+/* Define this to get an indication of file type when listing completions.
+ */
 #define VISIBLE_STATS
 
 /* Define this to get support for colors when listing completions and in
@@ -39,7 +40,8 @@
 /* Ugly but working hack for binding prefix meta. */
 #define PREFIX_META_HACK
 
-/* The next-to-last-ditch effort file name for a user-specific init file. */
+/* The next-to-last-ditch effort file name for a user-specific init file.
+ */
 #define DEFAULT_INPUTRC "~/.inputrc"
 
 /* The ultimate last-ditch filename for an init file -- system-wide. */
@@ -59,21 +61,23 @@
    X `callback' style. */
 #define READLINE_CALLBACKS
 
-/* Define this if you want the cursor to indicate insert or overwrite mode. */
+/* Define this if you want the cursor to indicate insert or overwrite mode.
+ */
 /* #define CURSOR_MODE */
 
 /* Define this if you want to enable code that talks to the Linux kernel
    tty auditing system. */
 /* #define ENABLE_TTY_AUDIT_SUPPORT */
 
-/* Defaults for the various editing mode indicators, inserted at the beginning
-   of the last (maybe only) line of the prompt if show-mode-in-prompt is on */
-#define RL_EMACS_MODESTR_DEFAULT	"@"
-#define RL_EMACS_MODESTR_DEFLEN		1
+/* Defaults for the various editing mode indicators, inserted at the
+   beginning of the last (maybe only) line of the prompt if
+   show-mode-in-prompt is on */
+#define RL_EMACS_MODESTR_DEFAULT "@"
+#define RL_EMACS_MODESTR_DEFLEN  1
 
-#define RL_VI_INS_MODESTR_DEFAULT	"(ins)"
-#define RL_VI_INS_MODESTR_DEFLEN	5
-#define RL_VI_CMD_MODESTR_DEFAULT	"(cmd)"
-#define RL_VI_CMD_MODESTR_DEFLEN	5
+#define RL_VI_INS_MODESTR_DEFAULT "(ins)"
+#define RL_VI_INS_MODESTR_DEFLEN  5
+#define RL_VI_CMD_MODESTR_DEFAULT "(cmd)"
+#define RL_VI_CMD_MODESTR_DEFLEN  5
 
 #endif /* _RLCONF_H_ */

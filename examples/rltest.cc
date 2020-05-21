@@ -23,7 +23,7 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined( HAVE_CONFIG_H )
+#if defined(HAVE_CONFIG_H)
 #include <config.hh>
 #endif
 
@@ -49,44 +49,44 @@ extern HIST_ENTRY** history_list();
 int main()
 {
   const char *temp, *prompt;
-  int done;
+  int         done;
 
-  temp = (char*)NULL;
-  prompt = "readline$ ";
-  done = 0;
+  temp  = (char*)NULL;
+  prompt= "readline$ ";
+  done  = 0;
 
-  while ( !done )
+  while (!done)
   {
-    temp = readline( prompt );
+    temp= readline(prompt);
 
     /* Test for EOF. */
-    if ( !temp )
-      exit( 1 );
+    if (!temp)
+      exit(1);
 
     /* If there is anything on the line, print it and remember it. */
-    if ( *temp )
+    if (*temp)
     {
-      fprintf( stderr, "%s\r\n", temp );
-      add_history( temp );
+      fprintf(stderr, "%s\r\n", temp);
+      add_history(temp);
     }
 
     /* Check for `command' that we handle. */
-    if ( strcmp( temp, "quit" ) == 0 )
-      done = 1;
+    if (strcmp(temp, "quit") == 0)
+      done= 1;
 
-    if ( strcmp( temp, "list" ) == 0 )
+    if (strcmp(temp, "list") == 0)
     {
       HIST_ENTRY** list;
       register int i;
 
-      list = history_list();
-      if ( list )
+      list= history_list();
+      if (list)
       {
-        for ( i = 0; list[ i ]; i++ )
-          fprintf( stderr, "%d: %s\r\n", i, list[ i ]->line );
+        for (i= 0; list[i]; i++)
+          fprintf(stderr, "%d: %s\r\n", i, list[i]->line);
       }
     }
-    free( (void*)temp );
+    free((void*)temp);
   }
-  exit( 0 );
+  exit(0);
 }

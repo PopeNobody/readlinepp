@@ -3,7 +3,7 @@
 /* Copyright (C) 1987-2017 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,34 +21,34 @@
 
 #define READLINE_LIBRARY
 
-#if defined (HAVE_CONFIG_H)
-#  include <config.hh>
+#if defined(HAVE_CONFIG_H)
+#include <config.hh>
 #endif
 
-#if !defined (BUFSIZ)
+#if !defined(BUFSIZ)
 #include <stdio.h>
 #endif /* BUFSIZ */
 
-#if defined (HAVE_STDLIB_H)
-#  include <stdlib.h>
+#if defined(HAVE_STDLIB_H)
+#include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#include "ansi_stdlib.h"
 #endif /* HAVE_STDLIB_H */
 
-#include "rlconf.hh"
 #include "readline.hh"
+#include "rlconf.hh"
 
 #include "xmalloc.hh"
 
 #ifdef __STDC__
-typedef int QSFUNC (const void *, const void *);
+typedef int QSFUNC(const void*, const void*);
 #else
-typedef int QSFUNC ();
+typedef int QSFUNC();
 #endif
 
-extern int _rl_qsort_string_compare PARAMS((char **, char **));
+extern int _rl_qsort_string_compare PARAMS((char**, char**));
 
-FUNMAP **funmap;
+FUNMAP**   funmap;
 static int funmap_size;
 static int funmap_entry;
 
@@ -56,7 +56,7 @@ static int funmap_entry;
    program specific function. */
 int funmap_program_specific_entry_start;
 
-static const FUNMAP default_funmap[] = {
+static const FUNMAP default_funmap[]= {
   { "abort", rl_abort },
   { "accept-line", rl_newline },
   { "arrow-key-prefix", rl_arrow_keys },
@@ -99,7 +99,8 @@ static const FUNMAP default_funmap[] = {
   { "forward-word", rl_forward_word },
   { "history-search-backward", rl_history_search_backward },
   { "history-search-forward", rl_history_search_forward },
-  { "history-substring-search-backward", rl_history_substr_search_backward },
+  { "history-substring-search-backward",
+    rl_history_substr_search_backward },
   { "history-substring-search-forward", rl_history_substr_search_forward },
   { "insert-comment", rl_insert_comment },
   { "insert-completions", rl_insert_completions },
@@ -113,11 +114,13 @@ static const FUNMAP default_funmap[] = {
   { "next-screen-line", rl_next_screen_line },
   { "non-incremental-forward-search-history", rl_noninc_forward_search },
   { "non-incremental-reverse-search-history", rl_noninc_reverse_search },
-  { "non-incremental-forward-search-history-again", rl_noninc_forward_search_again },
-  { "non-incremental-reverse-search-history-again", rl_noninc_reverse_search_again },
+  { "non-incremental-forward-search-history-again",
+    rl_noninc_forward_search_again },
+  { "non-incremental-reverse-search-history-again",
+    rl_noninc_reverse_search_again },
   { "old-menu-complete", rl_old_menu_complete },
   { "overwrite-mode", rl_overwrite_mode },
-#if defined (_WIN32)
+#if defined(_WIN32)
   { "paste-from-clipboard", rl_paste_from_clipboard },
 #endif
   { "possible-completions", rl_possible_completions },
@@ -126,7 +129,7 @@ static const FUNMAP default_funmap[] = {
   { "print-last-kbd-macro", rl_print_last_kbd_macro },
   { "quoted-insert", rl_quoted_insert },
   { "re-read-init-file", rl_re_read_init_file },
-  { "redraw-current-line", rl_refresh_line},
+  { "redraw-current-line", rl_refresh_line },
   { "reverse-search-history", rl_reverse_search_history },
   { "revert-line", rl_revert_line },
   { "self-insert", rl_insert },
@@ -149,7 +152,7 @@ static const FUNMAP default_funmap[] = {
   { "yank-nth-arg", rl_yank_nth_arg },
   { "yank-pop", rl_yank_pop },
 
-#if defined (VI_MODE)
+#if defined(VI_MODE)
   { "vi-append-eol", rl_vi_append_eol },
   { "vi-append-mode", rl_vi_append_mode },
   { "vi-arg-digit", rl_vi_arg_digit },
@@ -202,68 +205,71 @@ static const FUNMAP default_funmap[] = {
   { "vi-yank-to", rl_vi_yank_to },
 #endif /* VI_MODE */
 
- {(char *)NULL, (rl_command_func_t *)NULL }
+  { (char*)NULL, (rl_command_func_t*)NULL }
 };
 
-int
-rl_add_funmap_entry (const char *name, rl_command_func_t *function)
+int rl_add_funmap_entry(const char* name, rl_command_func_t* function)
 {
   if (funmap_entry + 2 >= funmap_size)
-    {
-      funmap_size += 64;
-      funmap = (FUNMAP **)xrealloc (funmap, funmap_size * sizeof (FUNMAP *));
-    }
-  
-  funmap[funmap_entry] = (FUNMAP *)xmalloc (sizeof (FUNMAP));
-  funmap[funmap_entry]->name = name;
-  funmap[funmap_entry]->function = function;
+  {
+    funmap_size+= 64;
+    funmap= (FUNMAP**)xrealloc(funmap, funmap_size * sizeof(FUNMAP*));
+  }
 
-  funmap[++funmap_entry] = (FUNMAP *)NULL;
+  funmap[funmap_entry]          = (FUNMAP*)xmalloc(sizeof(FUNMAP));
+  funmap[funmap_entry]->name    = name;
+  funmap[funmap_entry]->function= function;
+
+  funmap[++funmap_entry]= (FUNMAP*)NULL;
   return funmap_entry;
 }
 
 static int funmap_initialized;
 
 /* Make the funmap contain all of the default entries. */
-void
-rl_initialize_funmap (void)
+void rl_initialize_funmap(void)
 {
   register int i;
 
   if (funmap_initialized)
     return;
 
-  for (i = 0; default_funmap[i].name; i++)
-    rl_add_funmap_entry (default_funmap[i].name, default_funmap[i].function);
+  for (i= 0; default_funmap[i].name; i++)
+    rl_add_funmap_entry(default_funmap[i].name,
+                        default_funmap[i].function);
 
-  funmap_initialized = 1;
-  funmap_program_specific_entry_start = i;
+  funmap_initialized                 = 1;
+  funmap_program_specific_entry_start= i;
 }
 
 /* Produce a NULL terminated array of known function names.  The array
    is sorted.  The array itself is allocated, but not the strings inside.
    You should free () the array when you done, but not the pointers. */
-const char **
-rl_funmap_names (void)
+const char** rl_funmap_names(void)
 {
-  const char **result;
-  int result_size, result_index;
+  const char** result;
+  int          result_size, result_index;
 
   /* Make sure that the function map has been initialized. */
-  rl_initialize_funmap ();
+  rl_initialize_funmap();
 
-  for (result_index = result_size = 0, result = (const char **)NULL; funmap[result_index]; result_index++)
+  for (result_index= result_size= 0, result= (const char**)NULL;
+       funmap[result_index];
+       result_index++)
+  {
+    if (result_index + 2 > result_size)
     {
-      if (result_index + 2 > result_size)
-	{
-	  result_size += 20;
-	  result = (const char **)xrealloc (result, result_size * sizeof (char *));
-	}
-
-      result[result_index] = funmap[result_index]->name;
-      result[result_index + 1] = (char *)NULL;
+      result_size+= 20;
+      result= (const char**)xrealloc(result, result_size * sizeof(char*));
     }
 
-  qsort (result, result_index, sizeof (char *), (QSFUNC *)_rl_qsort_string_compare);
+    result[result_index]    = funmap[result_index]->name;
+    result[result_index + 1]= (char*)NULL;
+  }
+
+  qsort(result,
+        result_index,
+        sizeof(char*),
+        (QSFUNC*)_rl_qsort_string_compare);
   return (result);
 }

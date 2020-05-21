@@ -24,133 +24,138 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined (HAVE_CONFIG_H)
-#  include <config.hh>
+#if defined(HAVE_CONFIG_H)
+#include <config.hh>
 #endif
 
-#include <unistd.h>
 #include <stdio.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #ifdef HAVE_STDLIB_H
-#  include <stdlib.h>
-#else 
+#include <stdlib.h>
+#else
 extern void exit();
 #endif
 
-#if defined (READLINE_LIBRARY)
-#  include "posixstat.hh"
-#  include "readline.hh"
-#  include "history.hh"
+#if defined(READLINE_LIBRARY)
+#include "history.hh"
+#include "posixstat.hh"
+#include "readline.hh"
 #else
-#  include <sys/stat.h>
-#  include <readline/readline.hh>
-#  include <readline/history.hh>
+#include <readline/history.hh>
+#include <readline/readline.hh>
+#include <sys/stat.h>
 #endif
 
-extern int optind;
-extern char *optarg;
+extern int   optind;
+extern char* optarg;
 
-#if !defined (strchr) && !defined (__STDC__)
-extern char *strrchr();
+#if !defined(strchr) && !defined(__STDC__)
+extern char* strrchr();
 #endif
 
-static const char *progname;
-static const char *deftext;
+static const char* progname;
+static const char* deftext;
 
-static int
-set_deftext ()
+static int set_deftext()
 {
   if (deftext)
-    {
-      rl_insert_text (deftext);
-      deftext = (char *)NULL;
-      rl_startup_hook = (rl_hook_func_t *)NULL;
-    }
+  {
+    rl_insert_text(deftext);
+    deftext        = (char*)NULL;
+    rl_startup_hook= (rl_hook_func_t*)NULL;
+  }
   return 0;
 }
 
-static void
-usage()
+static void usage()
 {
-  fprintf (stderr, "%s: usage: %s [-p prompt] [-u unit] [-d default] [-n nchars]\n",
-		progname, progname);
+  fprintf(stderr,
+          "%s: usage: %s [-p prompt] [-u unit] [-d default] [-n nchars]\n",
+          progname,
+          progname);
 }
 
-int
-main ( int argc, const char **argv)
+int main(int argc, const char** argv)
 {
   const char *temp, *prompt;
   struct stat sb;
-  int opt, fd, nch;
-  FILE *ifp;
+  int         opt, fd, nch;
+  FILE*       ifp;
 
-  progname = strrchr((char*)argv[0], '/');
+  progname= strrchr((char*)argv[0], '/');
   if (progname == 0)
-    progname = argv[0];
+    progname= argv[0];
   else
     progname++;
 
   /* defaults */
-  prompt = "readline$ ";
-  fd = nch = 0;
-  deftext = (char *)0;
+  prompt= "readline$ ";
+  fd= nch= 0;
+  deftext= (char*)0;
 
-  while ((opt = getopt(argc, (char*const*)argv, "p:u:d:n:")) != EOF)
+  while ((opt= getopt(argc, (char* const*)argv, "p:u:d:n:")) != EOF)
+  {
+    switch (opt)
     {
-      switch (opt)
-	{
-	case 'p':
-	  prompt = optarg;
-	  break;
-	case 'u':
-	  fd = atoi(optarg);
-	  if (fd < 0)
-	    {
-	      fprintf (stderr, "%s: bad file descriptor `%s'\n", progname, optarg);
-	      exit (2);
-	    }
-	  break;
-	case 'd':
-	  deftext = optarg;
-	  break;
-	case 'n':
-	  nch = atoi(optarg);
-	  if (nch < 0)
-	    {
-	      fprintf (stderr, "%s: bad value for -n: `%s'\n", progname, optarg);
-	      exit (2);
-	    }
-	  break;
-	default:
-	  usage ();
-	  exit (2);
-	}
+      case 'p':
+        prompt= optarg;
+        break;
+      case 'u':
+        fd= atoi(optarg);
+        if (fd < 0)
+        {
+          fprintf(stderr,
+                  "%s: bad file descriptor `%s'\n",
+                  progname,
+                  optarg);
+          exit(2);
+        }
+        break;
+      case 'd':
+        deftext= optarg;
+        break;
+      case 'n':
+        nch= atoi(optarg);
+        if (nch < 0)
+        {
+          fprintf(stderr,
+                  "%s: bad value for -n: `%s'\n",
+                  progname,
+                  optarg);
+          exit(2);
+        }
+        break;
+      default:
+        usage();
+        exit(2);
     }
+  }
 
   if (fd != 0)
+  {
+    if (fstat(fd, &sb) < 0)
     {
-      if (fstat (fd, &sb) < 0)
-	{
-	  fprintf (stderr, "%s: %d: bad file descriptor\n", progname, fd);
-	  exit (1);
-	}
-      ifp = fdopen (fd, "r");
-      rl_instream = ifp;
+      fprintf(stderr, "%s: %d: bad file descriptor\n", progname, fd);
+      exit(1);
     }
+    ifp        = fdopen(fd, "r");
+    rl_instream= ifp;
+  }
 
   if (deftext && *deftext)
-    rl_startup_hook = set_deftext;
+    rl_startup_hook= set_deftext;
 
   if (nch > 0)
-    rl_num_chars_to_read = nch;
+    rl_num_chars_to_read= nch;
 
-  temp = readline (prompt);
+  temp= readline(prompt);
 
   /* Test for EOF. */
   if (temp == 0)
-    exit (1);
+    exit(1);
 
-  printf ("%s\n", temp);
-  exit (0);
+  printf("%s\n", temp);
+  exit(0);
 }

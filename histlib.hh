@@ -19,23 +19,23 @@
    along with History.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_HISTLIB_H_)
+#if !defined(_HISTLIB_H_)
 #define _HISTLIB_H_
 
-#if defined (HAVE_STRING_H)
-#  include <string.h>
+#if defined(HAVE_STRING_H)
+#include <string.h>
 #else
-#  include <strings.h>
+#include <strings.h>
 #endif /* !HAVE_STRING_H */
 
-#if !defined (STREQ)
-#define STREQ(a, b)	(((a)[0] == (b)[0]) && (strcmp ((a), (b)) == 0))
-#define STREQN(a, b, n) (((n) == 0) ? (1) \
-				    : ((a)[0] == (b)[0]) && (strncmp ((a), (b), (n)) == 0))
+#if !defined(STREQ)
+#define STREQ(a, b) (((a)[0] == (b)[0]) && (strcmp((a), (b)) == 0))
+#define STREQN(a, b, n)                                                   \
+  (((n) == 0) ? (1) : ((a)[0] == (b)[0]) && (strncmp((a), (b), (n)) == 0))
 #endif
 
 #ifndef savestring
-#define savestring(x) strcpy ((char*)xmalloc (1 + strlen (x)), (x))
+#define savestring(x) strcpy((char*)xmalloc(1 + strlen(x)), (x))
 #endif
 
 #ifndef whitespace
@@ -43,7 +43,7 @@
 #endif
 
 #ifndef _rl_digit_p
-#define _rl_digit_p(c)  ((c) >= '0' && (c) <= '9')
+#define _rl_digit_p(c) ((c) >= '0' && (c) <= '9')
 #endif
 
 #ifndef _rl_digit_value
@@ -51,35 +51,39 @@
 #endif
 
 #ifndef member
-#  if !defined (strchr) && !defined (__STDC__)
-extern char *strchr ();
-#  endif /* !strchr && !__STDC__ */
-#define member(c, s) ((c) ? ((char *)strchr ((s), (c)) != (char *)NULL) : 0)
+#if !defined(strchr) && !defined(__STDC__)
+extern char* strchr();
+#endif /* !strchr && !__STDC__ */
+#define member(c, s) ((c) ? ((char*)strchr((s), (c)) != (char*)NULL) : 0)
 #endif
 
 #ifndef FREE
-#  define FREE(x)	if (x) free (x)
+#define FREE(x)                                                           \
+  if (x)                                                                  \
+  free(x)
 #endif
 
 /* Possible history errors passed to hist_error. */
 #define EVENT_NOT_FOUND 0
-#define BAD_WORD_SPEC	1
-#define SUBST_FAILED	2
-#define BAD_MODIFIER	3
-#define NO_PREV_SUBST	4
+#define BAD_WORD_SPEC   1
+#define SUBST_FAILED    2
+#define BAD_MODIFIER    3
+#define NO_PREV_SUBST   4
 
 /* Possible definitions for history starting point specification. */
-#define NON_ANCHORED_SEARCH	0
-#define ANCHORED_SEARCH		0x01
-#define PATTERN_SEARCH		0x02
+#define NON_ANCHORED_SEARCH 0
+#define ANCHORED_SEARCH     0x01
+#define PATTERN_SEARCH      0x02
 
-/* Possible definitions for what style of writing the history file we want. */
-#define HISTORY_APPEND 0
+/* Possible definitions for what style of writing the history file we want.
+ */
+#define HISTORY_APPEND    0
 #define HISTORY_OVERWRITE 1
 
-/* internal extern function declarations used by other parts of the library */
+/* internal extern function declarations used by other parts of the library
+ */
 
 /* histsearch.c */
-extern int _hs_history_patsearch PARAMS((const char *, int, int));
+extern int _hs_history_patsearch PARAMS((const char*, int, int));
 
 #endif /* !_HISTLIB_H_ */

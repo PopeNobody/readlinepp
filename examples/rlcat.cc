@@ -23,25 +23,25 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined (HAVE_CONFIG_H)
-#  include <config.hh>
+#if defined(HAVE_CONFIG_H)
+#include <config.hh>
 #endif
 
 #ifdef HAVE_UNISTD_H
-#  include <unistd.h>
+#include <unistd.h>
 #endif
 
-#include <sys/types.h>
 #include "posixstat.hh"
+#include <sys/types.h>
 
-#include <stdio.h>
 #include <ctype.h>
-#include <string.h>
 #include <errno.h>
+#include <stdio.h>
+#include <string.h>
 
 #ifdef HAVE_STDLIB_H
-#  include <stdlib.h>
-#else 
+#include <stdlib.h>
+#else
 extern void exit();
 #endif
 
@@ -49,127 +49,130 @@ extern void exit();
 extern int errno;
 #endif
 
-#if defined (READLINE_LIBRARY)
-#  include "readline.hh"
-#  include "history.hh"
+#if defined(READLINE_LIBRARY)
+#include "history.hh"
+#include "readline.hh"
 #else
-#  include <readline/readline.hh>
-#  include <readline/history.hh>
+#include <readline/history.hh>
+#include <readline/readline.hh>
 #endif
 
-extern int optind;
-extern char *optarg;
+extern int   optind;
+extern char* optarg;
 
-int
-stdcat ( int argc, const char **argv);
+int stdcat(int argc, const char** argv);
 
-static const char *progname;
-static int vflag;
+static const char* progname;
+static int         vflag;
 
-static void
-usage()
+static void usage()
 {
-  fprintf (stderr, "%s: usage: %s [-vEVN] [filename]\n", progname, progname);
+  fprintf(stderr,
+          "%s: usage: %s [-vEVN] [filename]\n",
+          progname,
+          progname);
 }
 
-int
-main ( int argc, const char **argv)
+int main(int argc, const char** argv)
 {
-  char *temp;
-  int opt, Vflag, Nflag;
+  char* temp;
+  int   opt, Vflag, Nflag;
 
-  progname = strrchr((char*)argv[0], '/');
+  progname= strrchr((char*)argv[0], '/');
   if (progname == 0)
-    progname = argv[0];
+    progname= argv[0];
   else
     progname++;
 
-  vflag = Vflag = Nflag = 0;
-  while ((opt = getopt(argc, (char **)argv, "vEVN")) != EOF)
+  vflag= Vflag= Nflag= 0;
+  while ((opt= getopt(argc, (char**)argv, "vEVN")) != EOF)
+  {
+    switch (opt)
     {
-      switch (opt)
-	{
-	case 'v':
-	  vflag = 1;
-	  break;
-	case 'V':
-	  Vflag = 1;
-	  break;
-	case 'E':
-	  Vflag = 0;
-	  break;
-	case 'N':
-	  Nflag = 1;
-	  break;
-	default:
-	  usage ();
-	  exit (2);
-	}
+      case 'v':
+        vflag= 1;
+        break;
+      case 'V':
+        Vflag= 1;
+        break;
+      case 'E':
+        Vflag= 0;
+        break;
+      case 'N':
+        Nflag= 1;
+        break;
+      default:
+        usage();
+        exit(2);
     }
+  }
 
-  argc -= optind;
-  argv += optind;
+  argc-= optind;
+  argv+= optind;
 
   if (isatty(0) == 0 || argc || Nflag)
     return stdcat(argc, argv);
 
-  rl_variable_bind ("editing-mode", Vflag ? "vi" : "emacs");
-  while (temp = readline (""))
-    {
-      if (*temp)
-        add_history (temp);
-      printf ("%s\n", temp);
-    }
+  rl_variable_bind("editing-mode", Vflag ? "vi" : "emacs");
+  while (temp= readline(""))
+  {
+    if (*temp)
+      add_history(temp);
+    printf("%s\n", temp);
+  }
 
-  return (ferror (stdout));
+  return (ferror(stdout));
 }
 
-static int
-fcopy( FILE *fp)
+static int fcopy(FILE* fp)
 {
-  int c;
-  char *x;
+  int   c;
+  char* x;
 
-  while ((c = getc(fp)) != EOF)
+  while ((c= getc(fp)) != EOF)
+  {
+    if (vflag && isascii((unsigned char)c) &&
+        isprint((unsigned char)c) == 0)
     {
-      if (vflag && isascii ((unsigned char)c) && isprint((unsigned char)c) == 0)
-	{
-	  x = rl_untranslate_keyseq (c);
-	  if (fputs (x, stdout) == EOF)
-	    return 1;
-	}
-      else if (putchar (c) == EOF)
+      x= rl_untranslate_keyseq(c);
+      if (fputs(x, stdout) == EOF)
         return 1;
     }
-  return (ferror (stdout));
+    else if (putchar(c) == EOF)
+      return 1;
+  }
+  return (ferror(stdout));
 }
 
-int
-stdcat ( int argc, const char **argv)
+int stdcat(int argc, const char** argv)
 {
-  int  i, fd, r;
-  char *s;
-  FILE *fp;
+  int   i, fd, r;
+  char* s;
+  FILE* fp;
 
   if (argc == 0)
     return (fcopy(stdin));
 
-  for (i = 0, r = 1; i < argc; i++)
+  for (i= 0, r= 1; i < argc; i++)
+  {
+    if (*argv[i] == '-' && argv[i][1] == 0)
+      fp= stdin;
+    else
     {
-      if (*argv[i] == '-' && argv[i][1] == 0)
-	fp = stdin;
-      else
-	{
-	  fp = fopen (argv[i], "r");
-	  if (fp == 0)
-	    {
-	      fprintf (stderr, "%s: %s: cannot open: %s\n", progname, argv[i], strerror(errno));
-	      continue;
-	    }
-        }
-      r = fcopy (fp);
-      if (fp != stdin)
-	fclose(fp);
+      fp= fopen(argv[i], "r");
+      if (fp == 0)
+      {
+        fprintf(stderr,
+                "%s: %s: cannot open: %s\n",
+                progname,
+                argv[i],
+                strerror(errno));
+        continue;
+      }
     }
+    r= fcopy(fp);
+    if (fp != stdin)
+      fclose(fp);
+  }
   return r;
 }

@@ -3,7 +3,7 @@
 /* Copyright (C) 1991-2017 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,16 +21,16 @@
 
 #define READLINE_LIBRARY
 
-#if defined (HAVE_CONFIG_H)
+#if defined(HAVE_CONFIG_H)
 #include <config.hh>
 #endif
 
 #include <stdio.h>
 
-#if defined (HAVE_STDLIB_H)
-#  include <stdlib.h>
+#if defined(HAVE_STDLIB_H)
+#include <stdlib.h>
 #else
-#  include "ansi_stdlib.hh"
+#include "ansi_stdlib.hh"
 #endif /* HAVE_STDLIB_H */
 
 #include "xmalloc.hh"
@@ -41,35 +41,34 @@
 /*								    */
 /* **************************************************************** */
 
-static void
-memory_error_and_abort (char *fname)
+static void memory_error_and_abort(char* fname)
 {
-  fprintf (stderr, "%s: out of virtual memory\n", fname);
-  exit (2);
+  fprintf(stderr, "%s: out of virtual memory\n", fname);
+  exit(2);
 }
 
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
 PTR_T
-xmalloc (size_t bytes)
+xmalloc(size_t bytes)
 {
   PTR_T temp;
 
-  temp = malloc (bytes);
+  temp= malloc(bytes);
   if (temp == 0)
-    memory_error_and_abort ("xmalloc");
+    memory_error_and_abort("xmalloc");
   return (temp);
 }
 
 PTR_T
-xrealloc (PTR_T pointer, size_t bytes)
+xrealloc(PTR_T pointer, size_t bytes)
 {
   PTR_T temp;
 
-  temp = pointer ? realloc (pointer, bytes) : malloc (bytes);
+  temp= pointer ? realloc(pointer, bytes) : malloc(bytes);
 
   if (temp == 0)
-    memory_error_and_abort ("xrealloc");
+    memory_error_and_abort("xrealloc");
   return (temp);
 }

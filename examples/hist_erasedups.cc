@@ -22,98 +22,102 @@
 #define READLINE_LIBRARY 1
 #endif
 
-#include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #ifdef READLINE_LIBRARY
-#  include "history.hh"
+#include "history.hh"
 #else
-#  include <readline/history.hh>
+#include <readline/history.hh>
 #endif
 
 #include <string.h>
 
 #define STREQ(a, b) ((a)[0] == (b)[0] && strcmp(a, b) == 0)
-#define STREQN(a, b, n) ((n == 0) ? (1) \
-                                  : ((a)[0] == (b)[0] && strncmp(a, b, n) == 0))
+#define STREQN(a, b, n)                                                   \
+  ((n == 0) ? (1) : ((a)[0] == (b)[0] && strncmp(a, b, n) == 0))
 
-int hist_erasedups (void);
+int hist_erasedups(void);
 
-static void
-usage()
+static void usage()
 {
-  fprintf (stderr, "hist_erasedups: usage: hist_erasedups [-t] [filename]\n");
-  exit (2);
+  fprintf(stderr,
+          "hist_erasedups: usage: hist_erasedups [-t] [filename]\n");
+  exit(2);
 }
 
-int
-main ( int argc, char **argv)
+int main(int argc, char** argv)
 {
-  char *fn;
-  int r;
+  char* fn;
+  int   r;
 
-  while ((r = getopt (argc, argv, "t")) != -1)
+  while ((r= getopt(argc, argv, "t")) != -1)
+  {
+    switch (r)
     {
-      switch (r)
-	{
-	case 't':
-	  history_write_timestamps = 1;
-	  break;
-	default:
-	  usage ();
-	}
+      case 't':
+        history_write_timestamps= 1;
+        break;
+      default:
+        usage();
     }
-  argv += optind;
-  argc -= optind;
+  }
+  argv+= optind;
+  argc-= optind;
 
-  fn = argc ? argv[0] : getenv ("HISTFILE");
+  fn= argc ? argv[0] : getenv("HISTFILE");
   if (fn == 0)
-    {
-      fprintf (stderr, "hist_erasedups: no history file\n");
-      usage ();
-    }
+  {
+    fprintf(stderr, "hist_erasedups: no history file\n");
+    usage();
+  }
 
-  if ((r = read_history (fn)) != 0)
-    {
-      fprintf (stderr, "hist_erasedups: read_history: %s: %s\n", fn, strerror (r));
-      exit (1);
-    }
+  if ((r= read_history(fn)) != 0)
+  {
+    fprintf(stderr,
+            "hist_erasedups: read_history: %s: %s\n",
+            fn,
+            strerror(r));
+    exit(1);
+  }
 
-  hist_erasedups ();
+  hist_erasedups();
 
-  if ((r = write_history (fn)) != 0)
-    {
-      fprintf (stderr, "hist_erasedups: write_history: %s: %s\n", fn, strerror (r));
-      exit (1);
-    }
+  if ((r= write_history(fn)) != 0)
+  {
+    fprintf(stderr,
+            "hist_erasedups: write_history: %s: %s\n",
+            fn,
+            strerror(r));
+    exit(1);
+  }
 
-  exit (0);
+  exit(0);
 }
 
-int
-hist_erasedups ()
+int hist_erasedups()
 {
-  int r, n;
+  int         r, n;
   HIST_ENTRY *h, *temp;
 
-  using_history ();
-  while (h = previous_history ())
+  using_history();
+  while (h= previous_history())
+  {
+    r= where_history();
+    for (n= 0; n < r; n++)
     {
-      r = where_history ();
-      for (n = 0; n < r; n++)
-	{
-	  temp = history_get (n+history_base);
-	  if (STREQ (h->line, temp->line))
-	    {
-	      remove_history (n);
-	      r--;			/* have to get one fewer now */
-	      n--;			/* compensate for above increment */
-	      history_offset--;		/* moving backwards in history list */
-	    }
-	}
+      temp= history_get(n + history_base);
+      if (STREQ(h->line, temp->line))
+      {
+        remove_history(n);
+        r--;              /* have to get one fewer now */
+        n--;              /* compensate for above increment */
+        history_offset--; /* moving backwards in history list */
+      }
     }
-  using_history ();
+  }
+  using_history();
 
   return r;
 }
