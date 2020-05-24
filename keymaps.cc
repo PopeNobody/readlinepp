@@ -55,7 +55,7 @@
    Free it with free() when you are done. */
 Keymap rl_make_bare_keymap(void)
 {
-  register int i;
+   int i;
   Keymap       keymap;
 
   keymap= (Keymap)xmalloc(KEYMAP_SIZE * sizeof(KEYMAP_ENTRY));
@@ -94,7 +94,7 @@ int rl_empty_keymap(Keymap keymap)
    not copy text of macros or descend into child keymaps. */
 Keymap rl_copy_keymap(Keymap map)
 {
-  register int i;
+   int i;
   Keymap       temp;
 
   temp= rl_make_bare_keymap();
@@ -111,7 +111,7 @@ Keymap rl_copy_keymap(Keymap map)
    and the Meta digits bound to produce numeric arguments. */
 Keymap rl_make_keymap(void)
 {
-  register int i;
+   int i;
   Keymap       newmap;
 
   newmap= rl_make_bare_keymap();

@@ -196,7 +196,7 @@ static void rl_display_search(char* search_string, int flags, int where)
 static _rl_search_cxt* _rl_isearch_init(int direction)
 {
   _rl_search_cxt* cxt;
-  register int    i;
+   int    i;
   HIST_ENTRY**    hlist;
 
   cxt= _rl_scxt_alloc(RL_SEARCH_ISEARCH, 0);

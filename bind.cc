@@ -232,7 +232,7 @@ int rl_unbind_key_in_map(int key, Keymap map)
 /* Unbind all keys bound to FUNCTION in MAP. */
 int rl_unbind_function_in_map(rl_command_func_t* func, Keymap map)
 {
-  register int i, rval;
+   int i, rval;
 
   for (i= rval= 0; i < KEYMAP_SIZE; i++)
   {
@@ -352,7 +352,7 @@ int rl_generic_bind(int type, const char* keyseq, char* data, Keymap map)
 {
   char*        keys;
   int          keys_len, prevkey;
-  register int i;
+   int i;
   KEYMAP_ENTRY k;
   Keymap       prevmap;
 
@@ -490,7 +490,7 @@ int rl_generic_bind(int type, const char* keyseq, char* data, Keymap map)
    Return non-zero if there was an error parsing SEQ. */
 int rl_translate_keyseq(const char* seq, char* array, int* len)
 {
-  register int i, c, l, temp;
+   int i, c, l, temp;
 
   for (i= l= 0; (c= seq[i]); i++)
   {
@@ -775,7 +775,7 @@ char* _rl_untranslate_macro_value(char* seq, int use_escapes)
    is returned. */
 rl_command_func_t* rl_named_function(const char* string)
 {
-  register int i;
+   int i;
 
   rl_initialize_funmap();
 
@@ -796,7 +796,7 @@ static rl_command_func_t* _rl_function_of_keyseq_internal(
          Keymap      map,
          int*        type)
 {
-  register int i;
+   int i;
 
   if (map == 0)
     map= _rl_keymap;
@@ -972,7 +972,7 @@ int rl_read_init_file(const char* filename)
 
 static int _rl_read_init_file(const char* filename, int include_level)
 {
-  register int i;
+   int i;
   char *       buffer, *openname, *line, *end;
   size_t       file_size;
 
@@ -1369,7 +1369,7 @@ static int parser_if(char* args)
 /* Invert the current parser state if there is anything on the stack. */
 static int parser_else(char* args)
 {
-  register int i;
+   int i;
 
   if (if_stack_depth == 0)
   {
@@ -1445,7 +1445,7 @@ static const struct
    without any leading `$'. */
 static int handle_parser_directive(char* statement)
 {
-  register int i;
+   int i;
   char *       directive, *args;
 
   /* Isolate the actual directive. */
@@ -1517,7 +1517,7 @@ static int _rl_skip_to_delim(char* string, int start, int delim)
 int rl_parse_and_bind(char* string)
 {
   char *       funname, *kname;
-  register int c, i;
+   int c, i;
   int          key, equivalency, foundmod, foundsep;
 
   while (string && whitespace(*string))
@@ -1682,7 +1682,7 @@ int rl_parse_and_bind(char* string)
   if (*string == '"')
   {
     char*        seq;
-    register int j, k, passc;
+     int j, k, passc;
 
     seq= (char*)xmalloc(1 + strlen(string));
     for (j= 1, k= passc= 0; string[j]; j++)
@@ -1838,7 +1838,7 @@ static const struct
 
 static int find_boolean_var(const char* name)
 {
-  register int i;
+   int i;
 
   for (i= 0; boolean_varlist[i].name; i++)
     if (_rl_stricmp(name, boolean_varlist[i].name) == 0)
@@ -1925,7 +1925,7 @@ static const struct
 
 static int find_string_var(const char* name)
 {
-  register int i;
+   int i;
 
   for (i= 0; string_varlist[i].name; i++)
     if (_rl_stricmp(name, string_varlist[i].name) == 0)
@@ -1950,7 +1950,7 @@ static int bool_to_int(const char* value)
 
 char* rl_variable_value(const char* name)
 {
-  register int i;
+   int i;
 
   /* Check for simple variables first. */
   i= find_boolean_var(name);
@@ -1967,7 +1967,7 @@ char* rl_variable_value(const char* name)
 
 int rl_variable_bind(const char* name, const char* value)
 {
-  register int i;
+   int i;
   int          v;
 
   /* Check for simple variables first. */
@@ -2264,7 +2264,7 @@ static const assoc_list name_key_alist[]= {
 
 static int glean_key_from_name(char* name)
 {
-  register int i;
+   int i;
 
   for (i= 0; name_key_alist[i].name; i++)
     if (_rl_stricmp(name, name_key_alist[i].name) == 0)
@@ -2302,7 +2302,7 @@ static struct name_and_keymap* keymap_names= builtin_keymap_names;
 
 static int _rl_get_keymap_by_name(const char* name)
 {
-  register int i;
+   int i;
 
   for (i= 0; keymap_names[i].name; i++)
     if (_rl_stricmp(name, keymap_names[i].name) == 0)
@@ -2320,7 +2320,7 @@ Keymap rl_get_keymap_by_name(const char* name)
 
 static int _rl_get_keymap_by_map(Keymap map)
 {
-  register int i;
+   int i;
 
   for (i= 0; keymap_names[i].name; i++)
     if (map == keymap_names[i].map)
@@ -2436,7 +2436,7 @@ char* rl_get_keymap_name_from_edit_mode(void)
 /* Print the names of functions known to Readline. */
 void rl_list_funmap_names(void)
 {
-  register int i;
+   int i;
   const char** funmap_names;
 
   funmap_names= rl_funmap_names();
@@ -2526,7 +2526,7 @@ static char* _rl_get_keyname(int key)
    sequences that are used to invoke FUNCTION in MAP. */
 char** rl_invoking_keyseqs_in_map(rl_command_func_t* function, Keymap map)
 {
-  register int key;
+   int key;
   char**       result;
   int          result_index, result_size;
 
@@ -2563,7 +2563,7 @@ char** rl_invoking_keyseqs_in_map(rl_command_func_t* function, Keymap map)
       case ISKMAP:
       {
         char**       seqs;
-        register int i;
+         int i;
 
         /* Find the list of keyseqs in this map which have FUNCTION as
            their target.  Add the key sequences found to RESULT. */
@@ -2641,7 +2641,7 @@ char** rl_invoking_keyseqs(rl_command_func_t* function)
    that it can be read back in. */
 void rl_function_dumper(int print_readably)
 {
-  register int i;
+   int i;
   const char** names;
   const char*  name;
 
@@ -2663,7 +2663,7 @@ void rl_function_dumper(int print_readably)
         fprintf(rl_outstream, "# %s (not bound)\n", name);
       else
       {
-        register int j;
+         int j;
 
         for (j= 0; invokers[j]; j++)
         {
@@ -2680,7 +2680,7 @@ void rl_function_dumper(int print_readably)
         fprintf(rl_outstream, "%s is not bound to any keys\n", name);
       else
       {
-        register int j;
+         int j;
 
         fprintf(rl_outstream, "%s can be found on ", name);
 
@@ -2722,7 +2722,7 @@ static void _rl_macro_dumper_internal(int    print_readably,
                                       Keymap map,
                                       char*  prefix)
 {
-  register int key;
+   int key;
   char *       keyname, *out;
   int          prefix_len;
 

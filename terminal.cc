@@ -417,7 +417,7 @@ static const struct _tc_string tc_strings[]= {
 static void get_term_capabilities(char** bp)
 {
 #if !defined(__DJGPP__) /* XXX - doesn't DJGPP have a termcap library? */
-  register int i;
+   int i;
 
   for (i= 0; i < NUM_TC_STRINGS; i++)
     *(tc_strings[i].tc_value)= tgetstr((char*)tc_strings[i].tc_var, bp);
@@ -595,7 +595,7 @@ static void bind_termcap_arrow_keys(Keymap map)
 
 char* rl_get_termcap(const char* cap)
 {
-  register int i;
+   int i;
 
   if (tcap_initialized == 0)
     return ((char*)NULL);
@@ -639,7 +639,7 @@ void _rl_output_some_chars(const char* string, int count)
 /* Move the cursor back. */
 int _rl_backspace(int count)
 {
-  register int i;
+   int i;
 
 #ifndef __MSDOS__
   if (_rl_term_backspace)

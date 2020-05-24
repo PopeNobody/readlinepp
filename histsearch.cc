@@ -67,9 +67,9 @@ static int history_search_internal(const char* string,
                                    int         direction,
                                    int         flags)
 {
-  register int   i, reverse;
-  register char* line;
-  register int   line_index;
+   int   i, reverse;
+   char* line;
+   int   line_index;
   int            string_len, anchored, patsearch;
   HIST_ENTRY**   the_history; /* local */
 
@@ -173,7 +173,7 @@ static int history_search_internal(const char* string,
     }
     else
     {
-      register int limit;
+       int limit;
 
       limit     = line_index - string_len + 1;
       line_index= 0;

@@ -630,7 +630,7 @@ int rl_expand_prompt(char* prompt)
    ensures that they can hold at least MINSIZE characters. */
 static void init_line_structures(int minsize)
 {
-  register int n;
+   int n;
 
   if (invisible_line == 0) /* initialize it */
   {
@@ -680,8 +680,8 @@ static void init_line_structures(int minsize)
 /* Basic redisplay algorithm.  See comments inline. */
 void rl_redisplay(void)
 {
-  register int   in, out, c, linenum, cursor_linenum;
-  register char* line;
+   int   in, out, c, linenum, cursor_linenum;
+   char* line;
   int            inv_botlin, lb_botlin, lb_linenum, o_cpos;
   int            newlines, lpos, temp, n0, num, prompt_lines_estimate;
   char*          prompt_this_line;
@@ -1020,7 +1020,7 @@ void rl_redisplay(void)
 #if defined(DISPLAY_TABS)
     else if (c == '\t')
     {
-      register int newout;
+       int newout;
 
 #if 0
 	  newout = (out | (int)7) + 1;
@@ -1030,7 +1030,7 @@ void rl_redisplay(void)
       temp= newout - out;
       if (lpos + temp >= _rl_screenwidth)
       {
-        register int temp2;
+         int temp2;
         temp2= _rl_screenwidth - lpos;
         CHECK_INV_LBREAKS();
         inv_lbreaks[++newlines]= out + temp2;
@@ -1074,7 +1074,7 @@ void rl_redisplay(void)
 #if defined(HANDLE_MULTIBYTE)
       if (mb_cur_max > 1 && rl_byte_oriented == 0)
       {
-        register int i;
+         int i;
 
         _rl_wrapped_multicolumn= 0;
 
@@ -1540,7 +1540,7 @@ static void update_line(char* old,
                         int   nmax,
                         int   inv_botlin)
 {
-  register char *ofd, *ols, *oe, *nfd, *nls, *ne;
+   char *ofd, *ols, *oe, *nfd, *nls, *ne;
   int            temp, lendiff, wsatend, od, nd, twidth, o_cpos;
   int            current_invis_chars;
   int            col_lendiff, col_temp;
@@ -2441,7 +2441,7 @@ int rl_on_new_line_with_prompt(void)
 /* Actually update the display, period. */
 int rl_forced_update_display(void)
 {
-  register char* temp;
+   char* temp;
 
   if (visible_line)
   {
@@ -2475,7 +2475,7 @@ void rl_redraw_prompt_last_line(void)
    DATA is always the visible line or the invisible line */
 void _rl_move_cursor_relative(int _new, const char* data)
 {
-  register int i;
+   int i;
   int          woff;       /* number of invisible chars on current line */
   int          cpos, dpos; /* current and desired cursor positions */
   int          adjust;
@@ -2638,7 +2638,7 @@ void _rl_move_cursor_relative(int _new, const char* data)
 /* PWP: move the cursor up or down. */
 void _rl_move_vert(int to)
 {
-  register int delta, i;
+   int delta, i;
 
   if (_rl_last_v_pos == to || to > _rl_screenheight)
     return;
@@ -2945,7 +2945,7 @@ char* _rl_make_prompt_for_search(int pchar)
 /* Quick redisplay hack when erasing characters at the end of the line. */
 void _rl_erase_at_end_of_line(int l)
 {
-  register int i;
+   int i;
 
   _rl_backspace(l);
   for (i= 0; i < l; i++)
@@ -2974,7 +2974,7 @@ void _rl_clear_to_eol(int count)
    number of character spaces to clear, */
 static void space_to_eol(int count)
 {
-  register int i;
+   int i;
 
   for (i= 0; i < count; i++)
     putc(' ', rl_outstream);
@@ -3013,7 +3013,7 @@ static void open_some_spaces(int col)
 #if !defined(__MSDOS__) &&                                                \
          (!defined(__MINGW32__) || defined(NCURSES_VERSION))
   char*        buffer;
-  register int i;
+   int i;
 
   /* If IC is defined, then we do not have to "enter" insert mode. */
   if (_rl_term_IC)

@@ -93,7 +93,7 @@ extern struct passwd* getpwuid PARAMS((uid_t));
 /* Does shell-like quoting using single quotes. */
 char* sh_single_quote(char* string)
 {
-  register int c;
+   int c;
   char *       result, *r, *s;
 
   result= (char*)xmalloc(3 + (4 * strlen(string)));

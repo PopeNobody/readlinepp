@@ -229,7 +229,7 @@ static int funmap_initialized;
 /* Make the funmap contain all of the default entries. */
 void rl_initialize_funmap(void)
 {
-  register int i;
+   int i;
 
   if (funmap_initialized)
     return;

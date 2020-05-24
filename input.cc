@@ -202,7 +202,7 @@ int _rl_unget_char(int key)
 static int rl_gather_tyi(void)
 {
   int          tty;
-  register int tem, result;
+   int tem, result;
   int          chars_avail, k;
   char         input;
 #if defined(HAVE_SELECT)

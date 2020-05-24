@@ -143,7 +143,7 @@ int rl_insert_close(int count, int invoking_key)
 
 static int find_matching_open(char* string, int from, int closer)
 {
-  register int i;
+   int i;
   int          opener, level, delimiter;
 
   switch (closer)

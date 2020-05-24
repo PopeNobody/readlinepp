@@ -1312,7 +1312,7 @@ static int compute_lcd_of_matches(char**      match_list,
                                   int         matches,
                                   const char* text)
 {
-  register int i, c1, c2, si;
+   int i, c1, c2, si;
   int          low; /* Count of max-matched characters. */
   int          lx;
   char*        dtext; /* dequoted TEXT, if needed */
@@ -1991,7 +1991,7 @@ static void insert_all_matches(char** matches, int point, char* qc)
 
 void _rl_free_match_list(char** matches)
 {
-  register int i;
+   int i;
 
   if (matches == 0)
     return;
@@ -2207,7 +2207,7 @@ int rl_complete_internal(int what_to_do)
 char** rl_completion_matches(const char*          text,
                              rl_compentry_func_t* entry_function)
 {
-  register int i;
+   int i;
 
   /* Number of slots in match_list. */
   int match_list_size;
@@ -2345,7 +2345,7 @@ static int complete_fncmp(const char* convfn,
                           const char* filename,
                           int         filename_len)
 {
-  register char *s1, *s2;
+   char *s1, *s2;
   int            d, len;
 #if defined(HANDLE_MULTIBYTE)
   size_t    v1, v2;

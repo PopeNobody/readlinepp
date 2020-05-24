@@ -84,7 +84,7 @@ int _rl_optimize_typeahead= 1; /* rl_insert tries to read typeahead */
    function.  Returns the number of characters inserted. */
 int rl_insert_text(const char* string)
 {
-  register int i, l;
+   int i, l;
 
   l= (string && *string) ? strlen(string) : 0;
   if (l == 0)
@@ -118,8 +118,8 @@ int rl_insert_text(const char* string)
    Returns the number of characters deleted. */
 int rl_delete_text(int from, int to)
 {
-  register char* text;
-  register int   diff, i;
+   char* text;
+   int   diff, i;
 
   /* Fix it if the caller is confused. */
   if (from > to)
@@ -672,7 +672,7 @@ static mbstate_t ps                  = { 0 };
    then insert the multibyte char into the line buffer. */
 int _rl_insert_char(int count, int c)
 {
-  register int i;
+   int i;
   char*        string;
 #ifdef HANDLE_MULTIBYTE
   int        string_size;
@@ -1000,7 +1000,7 @@ static int _rl_insert_next_callback(_rl_callback_generic_arg* data)
     count= 0; /* data->count == 0 || r != 0; force break below */
   }
 
-  /* Deregister function, let rl_callback_read_char deallocate data */
+  /* De function, let rl_callback_read_char deallocate data */
   _rl_callback_func = 0;
   _rl_want_redisplay= 1;
 

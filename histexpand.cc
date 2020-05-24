@@ -139,8 +139,8 @@ char* get_history_event(const char* string,
                         int*        caller_index,
                         int         delimiting_quote)
 {
-  register int         i;
-  register char        c;
+   int         i;
+   char        c;
   HIST_ENTRY*          entry;
   int                  which, sign, local_index, substring_okay;
   _hist_search_func_t* search_func;
@@ -325,7 +325,7 @@ static void hist_string_extract_single_quoted(char* string,
                                               int*  sindex,
                                               int   flags)
 {
-  register int i;
+   int i;
 
   for (i= *sindex; string[i] && string[i] != '\''; i++)
   {
@@ -338,7 +338,7 @@ static void hist_string_extract_single_quoted(char* string,
 
 static char* quote_breaks(char* s)
 {
-  register char *p, *r;
+   char *p, *r;
   char*          ret;
   int            len= 3;
 
@@ -438,7 +438,7 @@ static char* get_subst_pattern(char* str,
                                int   is_rhs,
                                int*  lenptr)
 {
-  register int si, i, j, k;
+   int si, i, j, k;
   char*        s;
 #if defined(HANDLE_MULTIBYTE)
   mbstate_t ps;
@@ -911,7 +911,7 @@ static int history_expand_internal(char*  string,
 
 int history_expand(char* hstring, char** output)
 {
-  register int j;
+   int j;
   int i, r, l, passc, cc, modified, eindex, only_printing, dquote, squote,
            flag;
   char* string;
@@ -1291,7 +1291,7 @@ static char* get_history_word_specifier(char* spec,
                                         char* from,
                                         int*  caller_index)
 {
-  register int i= *caller_index;
+   int i= *caller_index;
   int          first, last;
   int          expecting_word_spec= 0;
   char*        result;
@@ -1396,7 +1396,7 @@ static char* get_history_word_specifier(char* spec,
    If LAST is `$' the last arg from STRING is used. */
 char* history_arg_extract(int first, int last, const char* string)
 {
-  register int i, len;
+   int i, len;
   char*        result;
   int          size, offset;
   char**       list;
@@ -1454,7 +1454,7 @@ char* history_arg_extract(int first, int last, const char* string)
 
 static int history_tokenize_word(const char* string, int ind)
 {
-  register int i, j;
+   int i, j;
   int          delimiter, nestdelim, delimopen;
 
   i        = ind;
@@ -1591,8 +1591,8 @@ get_word:
 
 static char* history_substring(const char* string, int start, int end)
 {
-  register int   len;
-  register char* result;
+   int   len;
+   char* result;
 
   len   = end - start;
   result= (char*)xmalloc(len + 1);
@@ -1610,7 +1610,7 @@ static char** history_tokenize_internal(const char* string,
                                         int*        indp)
 {
   char**       result;
-  register int i, start, result_index, size;
+   int i, start, result_index, size;
 
   /* If we're searching for a string that's not part of a word (e.g., " "),
      make sure we set *INDP to a reasonable value. */
@@ -1667,7 +1667,7 @@ char** history_tokenize(const char* string)
 /* Free members of WORDS from START to an empty string */
 static void freewords(char** words, int start)
 {
-  register int i;
+   int i;
 
   for (i= start; words[i]; i++)
     xfree(words[i]);

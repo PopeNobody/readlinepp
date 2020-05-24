@@ -470,7 +470,7 @@ void _rl_revert_all_lines(void)
 void rl_clear_history(void)
 {
   HIST_ENTRY **hlist, *hent;
-  register int i;
+   int i;
   UNDO_LIST *  ul, *saved_undo_list;
 
   saved_undo_list= rl_undo_list;

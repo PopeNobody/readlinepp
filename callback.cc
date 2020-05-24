@@ -184,7 +184,7 @@ void rl_callback_read_char(void)
       k= _rl_callback_data->i2;
 
       eof= (*_rl_callback_func)(_rl_callback_data);
-      /* If the function `deregisters' itself, make sure the data is
+      /* If the function `des' itself, make sure the data is
          cleaned up. */
       if (_rl_callback_func == 0) /* XXX - just sanity check */
       {
@@ -243,13 +243,13 @@ void rl_callback_read_char(void)
     else if (_rl_callback_func)
     {
       /* This allows functions that simply need to read an additional
-         character (like quoted-insert) to register a function to be
+         character (like quoted-insert) to  a function to be
          called when input is available.  _rl_callback_data is a
          pointer to a struct that has the argument count originally
-         passed to the registering function and space for any additional
+         passed to the ing function and space for any additional
          parameters.  */
       eof= (*_rl_callback_func)(_rl_callback_data);
-      /* If the function `deregisters' itself, make sure the data is
+      /* If the function `des' itself, make sure the data is
          cleaned up. */
       if (_rl_callback_func == 0)
       {

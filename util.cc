@@ -137,7 +137,7 @@ int rl_tty_status(int count, int key)
    FROM is inclusive, TO is not. */
 char* rl_copy_text(int from, int to)
 {
-  register int length;
+   int length;
   char*        copy;
 
   /* Fix it if the caller is confused. */
@@ -168,7 +168,7 @@ void rl_extend_line_buffer(int len)
 /* A function for simple tilde expansion. */
 int rl_tilde_expand(int ignore, int key)
 {
-  register int start, end;
+   int start, end;
   char *       homedir, *temp;
   int          len;
 
@@ -303,7 +303,7 @@ void _rl_errmsg(format, arg1, arg2) char* format;
    match in s1.  The compare is case insensitive. */
 char* _rl_strindex(const char* s1, const char* s2)
 {
-  register int i, l, len;
+   int i, l, len;
 
   for (i= 0, l= strlen(s2), len= strlen(s1); (len - i) >= l; i++)
     if (_rl_strnicmp(s1 + i, s2, l) == 0)
@@ -316,10 +316,10 @@ char* _rl_strindex(const char* s1, const char* s2)
    Return a pointer to the character in STRING1. */
 char* _rl_strpbrk(const char* string1, const char* string2)
 {
-  register const char* scan;
+   const char* scan;
 #if defined(HANDLE_MULTIBYTE)
   mbstate_t    ps;
-  register int i, v;
+   int i, v;
 
   memset(&ps, 0, sizeof(mbstate_t));
 #endif
@@ -349,9 +349,9 @@ char* _rl_strpbrk(const char* string1, const char* string2)
    doesn't matter (strncasecmp). */
 int _rl_strnicmp(const char* string1, const char* string2, int count)
 {
-  register const char* s1;
-  register const char* s2;
-  register int         d;
+   const char* s1;
+   const char* s2;
+   int         d;
 
   if (count <= 0 || (string1 == string2))
     return 0;
@@ -375,9 +375,9 @@ int _rl_strnicmp(const char* string1, const char* string2, int count)
 /* strcmp (), but caseless (strcasecmp). */
 int _rl_stricmp(const char* string1, const char* string2)
 {
-  register const char* s1;
-  register const char* s2;
-  register int         d;
+   const char* s1;
+   const char* s2;
+   int         d;
 
   s1= string1;
   s2= string2;

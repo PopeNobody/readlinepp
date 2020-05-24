@@ -260,7 +260,7 @@ int read_history(const char* filename)
    ~/.history.  Returns 0 if successful, or errno if not. */
 int read_history_range(const char* filename, int from, int to)
 {
-  register char *line_start, *line_end, *p;
+   char *line_start, *line_end, *p;
   char *         input, *buffer, *bufend, *last_ts;
   int file, current_line, chars_read, has_timestamps, reset_comment_char;
   struct stat finfo;
@@ -636,7 +636,7 @@ static int history_do_write(const char* filename,
                             int         nelements,
                             int         overwrite)
 {
-  register int i;
+   int i;
   char *       output, *tempname, *histname;
   int          file, mode, rv, exists;
   struct stat  finfo;
@@ -681,7 +681,7 @@ static int history_do_write(const char* filename,
      syscall. Suggested by Peter Ho (peter@robosts.oxford.ac.uk). */
   {
     HIST_ENTRY** the_history; /* local */
-    register int j;
+     int j;
     int          buffer_size;
     char*        buffer;
 
