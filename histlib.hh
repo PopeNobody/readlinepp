@@ -84,6 +84,6 @@ extern char* strchr();
  */
 
 /* histsearch.c */
-extern int _hs_history_patsearch PARAMS((const char*, int, int));
+extern int _hs_history_patsearch (const char*, int, int);
 
 #endif /* !_HISTLIB_H_ */

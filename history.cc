@@ -135,7 +135,7 @@ void using_history(void)
    timestamps. */
 int history_total_bytes(void)
 {
-  register int i, result;
+   int i, result;
 
   for (i= result= 0; the_history && the_history[i]; i++)
     result+= HISTENT_BYTES(the_history[i]);
@@ -266,7 +266,7 @@ void add_history(const char* string)
 
   if (history_stifled && (history_length == history_max_entries))
   {
-    register int i;
+     int i;
 
     /* If the history is stifled, and history_length is zero,
  and it equals history_max_entries, we don't save items. */
@@ -428,7 +428,7 @@ void _hs_append_history_line(int which, const char* line)
 void _hs_replace_history_data(int which, histdata_t* old, histdata_t* _new)
 {
   HIST_ENTRY*  entry;
-  register int i, last;
+   int i, last;
 
   if (which < -2 || which >= history_length || history_length == 0 ||
       the_history == 0)
@@ -468,7 +468,7 @@ void _hs_replace_history_data(int which, histdata_t* old, histdata_t* _new)
 HIST_ENTRY* remove_history(int which)
 {
   HIST_ENTRY*  return_value;
-  register int i;
+   int i;
 #if 1
   int          nentries;
   HIST_ENTRY **start, **end;
@@ -500,7 +500,7 @@ HIST_ENTRY* remove_history(int which)
 HIST_ENTRY** remove_history_range(int first, int last)
 {
   HIST_ENTRY** return_value;
-  register int i;
+   int i;
   int          nentries;
   HIST_ENTRY **start, **end;
 
@@ -536,7 +536,7 @@ HIST_ENTRY** remove_history_range(int first, int last)
 /* Stifle the history list, remembering only MAX number of lines. */
 void stifle_history(int max)
 {
-  register int i, j;
+   int i, j;
 
   if (max < 0)
     max= 0;
@@ -579,7 +579,7 @@ int history_is_stifled(void)
 
 void clear_history(void)
 {
-  register int i;
+   int i;
 
   /* This loses because we cannot free the data. */
   for (i= 0; i < history_length; i++)
