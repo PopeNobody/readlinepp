@@ -111,7 +111,7 @@ int rl_catch_sigwinch= 0; /* for the readline state struct in readline.c */
 
 /* Private variables. */
 int _rl_interrupt_immediately= 0;
-int volatile _rl_caught_signal=
+int _rl_caught_signal=
          0; /* should be sig_atomic_t, but that requires including
                <signal.h> everywhere */
 
