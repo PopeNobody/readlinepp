@@ -159,7 +159,7 @@ int main(int argc, char** argv)
 /* Execute a command line. */
 int execute_line(char* line)
 {
-  register int i;
+  int i;
   COMMAND*     command;
   char*        word;
 
@@ -197,7 +197,7 @@ int execute_line(char* line)
    command.  Return a NULL pointer if NAME isn't a command name. */
 COMMAND* find_command(char* name)
 {
-  register int i;
+  int i;
 
   for (i= 0; commands[i].name; i++)
     if (strcmp(name, commands[i].name) == 0)
@@ -210,7 +210,7 @@ COMMAND* find_command(char* name)
    into STRING. */
 char* stripwhite(char* string)
 {
-  register char *s, *t;
+  char *s, *t;
 
   for (s= string; whitespace(*s); s++)
     ;
@@ -285,7 +285,7 @@ char* command_generator(const char* text, int state)
   }
 
   /* Return the next name which partially matches from the command list. */
-  while (name= commands[list_index].name)
+  while ((name= commands[list_index].name))
   {
     list_index++;
 
@@ -374,7 +374,7 @@ int com_delete(const char* arg)
    not present. */
 int com_help(const char* arg)
 {
-  register int i;
+  int i;
   int          printed= 0;
 
   for (i= 0; commands[i].name; i++)

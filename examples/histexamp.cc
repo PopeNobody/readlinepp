@@ -85,8 +85,8 @@ int main(int argc, char** argv)
       read_history("history_file");
     else if (strcmp(line, "list") == 0)
     {
-      register HIST_ENTRY** the_list;
-      register int          i;
+      HIST_ENTRY** the_list;
+      int          i;
       time_t                tt;
       char                  timestr[128];
 
