@@ -804,3 +804,4 @@ int write_history(const char* filename)
 {
   return (history_do_write(filename, history_length, HISTORY_OVERWRITE));
 }
+
