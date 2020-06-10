@@ -32,7 +32,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /home/rfp/src/lbc/readline
+BUILD_DIR = /home/nn/src/bittrex/cpsh/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /home/rfp
+prefix = /home/nn/src/bittrex/cpsh
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
