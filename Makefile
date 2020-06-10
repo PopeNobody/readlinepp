@@ -32,13 +32,12 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /home/nn/src/cpsh/readline
+BUILD_DIR = /home/rfp/src/lbc/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
-CC = gcc
 RANLIB = ranlib
 AR = ar
 ARFLAGS = cr
@@ -49,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /home/nn
+prefix = /home/rfp
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -75,7 +74,7 @@ DESTDIR =
 ETAGS = etags
 CTAGS = ctags 
 
-CFLAGS = -g -O
+CFLAGS = -g -O -fPIC
 LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
 CPPFLAGS =  -MD -MF $@.d -DHAVE_CONFIG_H
 
@@ -89,7 +88,11 @@ INCLUDES = -I. -I$(srcdir)
 
 XCCFLAGS = $(ASAN_CFLAGS) $(DEFS) $(LOCAL_DEFS) $(INCLUDES) $(CPPFLAGS)
 CCFLAGS = $(XCCFLAGS) $(LOCAL_CFLAGS) $(CFLAGS)
-CXXFLAGS = -Wno-write-strings $(CCFLAGS) -fpermissive
+CXXFLAGS = -Wno-write-strings $(CCFLAGS) -fpermissive -fPIC
+CXX := g++
+CC := false
+export CC
+#CC := /usr/stow/llvm-10a/bin/clang
 
 # could add -Werror here
 GCC_LINT_FLAGS = -ansi -Wall -Wshadow -Wpointer-arith -Wcast-qual \
@@ -187,10 +190,10 @@ libhistory++.a: $(HISTOBJ) xmalloc.o xfree.o
 # it with the right flags when it's built as part of readline
 tilde.o:	tilde.cc
 	rm -f $@
-	$(CC) $(CCFLAGS) -DREADLINE_LIBRARY -c $(srcdir)/tilde.cc
+	$(CXX) $(CCFLAGS) -DREADLINE_LIBRARY -c $(srcdir)/tilde.cc
 
 readline: $(OBJECTS) readline.hh rldefs.hh chardefs.hh ./libreadline++.a
-	$(CC) $(CCFLAGS) -DREADLINE_LIBRARY -o $@ $(top_srcdir)/examples/rl.cc ./libreadline++.a ${TERMCAP_LIB}
+	$(CXX) $(CCFLAGS) -DREADLINE_LIBRARY -o $@ $(top_srcdir)/examples/rl.cc ./libreadline++.a ${TERMCAP_LIB}
 
 lint:	force
 	$(MAKE) $(MFLAGS) CCFLAGS='$(GCC_LINT_CFLAGS)' static
