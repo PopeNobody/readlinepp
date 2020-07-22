@@ -103,8 +103,6 @@ GCC_LINT_CFLAGS = $(XCCFLAGS) $(GCC_LINT_FLAGS) -g -O
 ASAN_XCFLAGS = -fsanitize=address -fno-omit-frame-pointer
 ASAN_XLDFLAGS = -fsanitize=address
 
-install_examples = install-examples
-
 .cc.o:
 	${RM} $@
 	$(CXX) -c $(CXXFLAGS) $<
@@ -152,9 +150,7 @@ DOCOBJECT = doc/readline.dvi
 DOCSUPPORT = doc/Makefile
 DOCUMENTATION = $(DOCSOURCE) $(DOCOBJECT) $(DOCSUPPORT)
 
-CREATED_MAKEFILES = Makefile doc/Makefile examples/Makefile 
-CREATED_CONFIGURE = config.status config.hh config.cache config.log \
-		    stamp-config stamp-h readline++.pc
+CREATED_MAKEFILES = Makefile doc/Makefile 
 CREATED_TAGS = TAGS tags
 
 INSTALLED_HEADERS = readline.hh chardefs.hh keymaps.hh history.hh tilde.hh \
@@ -169,7 +165,7 @@ INSTALL_TARGETS = install-static
 
 all: $(TARGETS)
 
-everything: all examples
+everything: all 
 
 asan:
 	${MAKE} ${MFLAGS} ASAN_CFLAGS='${ASAN_XCFLAGS}' ASAN_LDFLAGS='${ASAN_XLDFLAGS}' everything
@@ -192,8 +188,6 @@ tilde.o:	tilde.cc
 	rm -f $@
 	$(CXX) $(CCFLAGS) -DREADLINE_LIBRARY -c $(srcdir)/tilde.cc
 
-readline: $(OBJECTS) readline.hh rldefs.hh chardefs.hh ./libreadline++.a
-	$(CXX) $(CCFLAGS) -DREADLINE_LIBRARY -o $@ $(top_srcdir)/examples/rl.cc ./libreadline++.a ${TERMCAP_LIB}
 
 lint:	force
 	$(MAKE) $(MFLAGS) CCFLAGS='$(GCC_LINT_CFLAGS)' static
@@ -206,26 +200,10 @@ $(filter-out Makefile, $(CREATED_MAKEFILES)): %: %.in config.status $(srcdir)/Ma
 		CONFIG_FILES=$$mf CONFIG_HEADERS= $(SHELL) ./config.status ; \
 	done
 
-config.status: configure
-	$(SHELL) ./config.status --recheck
-
-config.hh:	stamp-h
-
-stamp-h: config.status $(srcdir)/config.hh.in
-	CONFIG_FILES= CONFIG_HEADERS=config.hh ./config.status
-	echo > $@
-
-$(srcdir)/configure: $(srcdir)/configure.ac	## Comment-me-out in distribution
-	cd $(srcdir) && autoconf	## Comment-me-out in distribution
-
-
-
 documentation: force
 	-test -d doc || mkdir doc
 	-( cd doc && $(MAKE) $(MFLAGS) )
 
-examples: all force
-	-(cd examples && ${MAKE} ${MFLAGS} all )
 
 force:
 
@@ -251,7 +229,7 @@ uninstall-pc:
 
 maybe-uninstall-pc: uninstall-pc
 
-install-static: installdirs $(STATIC_LIBS) install-headers install-doc ${install_examples} install-pc
+install-static: installdirs $(STATIC_LIBS) install-headers install-doc install-pc
 	-$(MV) $(DESTDIR)$(libdir)/libreadline++.a $(DESTDIR)$(libdir)/libreadline++.old
 	$(INSTALL_DATA) libreadline++.a $(DESTDIR)$(libdir)/libreadline++.a
 	-test -n "$(RANLIB)" && $(RANLIB) $(DESTDIR)$(libdir)/libreadline++.a
@@ -265,15 +243,9 @@ installdirs: $(srcdir)/support/mkinstalldirs
 		$(DESTDIR)$(infodir) $(DESTDIR)$(man3dir) $(DESTDIR)$(docdir) \
 		$(DESTDIR)$(pkgconfigdir)
 
-uninstall: uninstall-headers uninstall-doc uninstall-examples uninstall-pc
+uninstall: uninstall-headers uninstall-doc  uninstall-pc
 	-test -n "$(DESTDIR)$(libdir)" && cd $(DESTDIR)$(libdir) && \
 		${RM} libreadline++.a libreadline++.old libhistory++.a libhistory++.old
-
-install-examples: installdirs install-headers
-	-( cd examples ; ${MAKE} ${MFLAGS} DESTDIR=${DESTDIR} install )
-	
-uninstall-examples: maybe-uninstall-headers
-	-( cd examples; ${MAKE} ${MFLAGS} DESTDIR=${DESTDIR} uninstall )
 
 install-doc:	installdirs
 	$(INSTALL_DATA) $(OTHER_DOCS) $(DESTDIR)$(docdir)
@@ -299,17 +271,13 @@ clean:	force
 	$(RM) $(OBJECTS) $(STATIC_LIBS) $(patsubst %,%.d,$(OBJECTS))
 	$(RM) readline readline.exe
 	-( cd doc && $(MAKE) $(MFLAGS) $@ )
-	-( cd examples && $(MAKE) $(MFLAGS) $@ )
 
 mostlyclean: clean
 	-( cd doc && $(MAKE) $(MFLAGS) $@ )
-	-( cd examples && $(MAKE) $(MFLAGS) $@ )
 
 distclean maintainer-clean: clean
 	-( cd doc && $(MAKE) $(MFLAGS) $@ )
-	-( cd examples && $(MAKE) $(MFLAGS) $@ )
 	$(RM) Makefile
-	$(RM) $(CREATED_CONFIGURE)
 	$(RM) $(CREATED_TAGS)
 
 readline++.pc:	config.status $(srcdir)/readline++.pc.in
