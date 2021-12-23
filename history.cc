@@ -50,6 +50,9 @@
 
 #include "xmalloc.hh"
 
+#include <string>
+using std::string;
+
 #if !defined(errno)
 extern int errno;
 #endif
@@ -209,15 +212,11 @@ HIST_ENTRY* history_get(int offset)
                   : the_history[local_index];
 }
 
-HIST_ENTRY* alloc_history_entry(char* string, char* ts)
+HIST_ENTRY* alloc_history_entry(const string &str, const string &ts)
 {
   HIST_ENTRY* temp;
 
-  temp= (HIST_ENTRY*)xmalloc(sizeof(HIST_ENTRY));
-
-  temp->line     = string ? savestring(string) : string;
-  temp->data     = (char*)NULL;
-  temp->timestamp= ts;
+  temp= new HIST_ENTRY(str,ts);
 
   return temp;
 }
@@ -259,7 +258,7 @@ static char* hist_inittime(void)
 
 /* Place STRING at the end of the history list.  The data field
    is  set to NULL. */
-void add_history(const char* string)
+void add_history(const string &str)
 {
   HIST_ENTRY* temp;
   int         new_length;
@@ -312,23 +311,23 @@ void add_history(const char* string)
     }
   }
 
-  temp= alloc_history_entry((char*)string, hist_inittime());
+  temp= alloc_history_entry(str, hist_inittime());
 
   the_history[new_length]    = (HIST_ENTRY*)NULL;
   the_history[new_length - 1]= temp;
   history_length             = new_length;
 }
 
-/* Change the time stamp of the most recent history entry to STRING. */
-void add_history_time(const char* string)
+/* Change the time stamp of the most recent history entry to str. */
+void add_history_time(const string &str)
 {
   HIST_ENTRY* hs;
 
-  if (string == 0 || history_length < 1)
+  if (str == 0 || history_length < 1)
     return;
   hs= the_history[history_length - 1];
-  FREE(hs->timestamp);
-  hs->timestamp= savestring(string);
+  free(hs->timestamp);
+  hs->timestamp= savestr(str);
 }
 
 /* Free HIST and return the data so the calling application can free it
@@ -339,8 +338,8 @@ histdata_t free_history_entry(HIST_ENTRY* hist)
 
   if (hist == 0)
     return ((histdata_t)0);
-  FREE(hist->line);
-  FREE(hist->timestamp);
+  free(hist->line);
+  free(hist->timestamp);
   x= hist->data;
   xfree(hist);
   return (x);

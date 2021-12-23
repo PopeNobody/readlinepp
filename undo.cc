@@ -236,7 +236,7 @@ int rl_do_undo(void)
       temp= replace_history_entry(
                where_history(), rl_line_buffer, (histdata_t)rl_undo_list);
       xfree(temp->line);
-      FREE(temp->timestamp);
+      free(temp->timestamp);
       xfree(temp);
     }
 

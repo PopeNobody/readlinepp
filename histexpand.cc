@@ -292,10 +292,10 @@ char* get_history_event(const char* string,
          string that we matched for word substitution. */
       if (substring_okay)
       {
-        FREE(search_string);
+        free(search_string);
         search_string= temp;
 
-        FREE(search_match);
+        free(search_match);
         search_match= history_find_word(entry->line, local_index);
       }
       else
@@ -592,7 +592,7 @@ static int history_expand_internal(char*  string,
 
   /* If no word specifier, than the thing of interest was the event. */
   temp= word_spec ? savestring(word_spec) : savestring(event);
-  FREE(word_spec);
+  free(word_spec);
 
   /* Perhaps there are other modifiers involved.  Do what they say. */
   want_quotes= substitute_globally= subst_bywords= print_only= 0;
@@ -714,7 +714,7 @@ static int history_expand_internal(char*  string,
              uses the last search string as the lhs. */
           if (t)
           {
-            FREE(subst_lhs);
+            free(subst_lhs);
             subst_lhs= t;
           }
           else if (!subst_lhs)
@@ -731,7 +731,7 @@ static int history_expand_internal(char*  string,
             }
           }
 
-          FREE(subst_rhs);
+          free(subst_rhs);
           subst_rhs= get_subst_pattern(
                    string, &i, delimiter, 1, &subst_rhs_len);
 
@@ -1686,7 +1686,7 @@ static char* history_find_word(char* line, int ind)
   {
     if (words)
       freewords(words, 0);
-    FREE(words);
+    free(words);
     return ((char*)NULL);
   }
   s= words[wind];

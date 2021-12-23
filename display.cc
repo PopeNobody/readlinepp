@@ -572,8 +572,8 @@ int rl_expand_prompt(char* prompt)
   int   c;
 
   /* Clear out any saved values. */
-  FREE(local_prompt);
-  FREE(local_prompt_prefix);
+  free(local_prompt);
+  free(local_prompt_prefix);
 
   local_prompt= local_prompt_prefix= (char*)0;
   local_prompt_len                 = 0;
@@ -2783,8 +2783,8 @@ rl_message (const char *format, ...)
   }
   else if (local_prompt != saved_local_prompt)
   {
-    FREE(local_prompt);
-    FREE(local_prompt_prefix);
+    free(local_prompt);
+    free(local_prompt_prefix);
     local_prompt= (char*)NULL;
   }
   rl_display_prompt  = msg_buf;
@@ -2817,8 +2817,8 @@ int rl_message(format, arg1, arg2) char* format;
   }
   else if (local_prompt != saved_local_prompt)
   {
-    FREE(local_prompt);
-    FREE(local_prompt_prefix);
+    free(local_prompt);
+    free(local_prompt_prefix);
     local_prompt= (char*)NULL;
   }
   local_prompt= expand_prompt(msg_buf,
@@ -2883,9 +2883,9 @@ void rl_save_prompt(void)
 
 void rl_restore_prompt(void)
 {
-  FREE(local_prompt);
-  FREE(local_prompt_prefix);
-  FREE(local_prompt_newlines);
+  free(local_prompt);
+  free(local_prompt_prefix);
+  free(local_prompt_newlines);
 
   local_prompt         = saved_local_prompt;
   local_prompt_prefix  = saved_local_prefix;

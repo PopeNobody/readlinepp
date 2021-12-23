@@ -479,8 +479,8 @@ int _rl_init_terminal_io(const char* terminal_name)
 
   if (tgetent_ret <= 0)
   {
-    FREE(term_string_buffer);
-    FREE(term_buffer);
+    free(term_string_buffer);
+    free(term_buffer);
     buffer= term_buffer= term_string_buffer= (char*)NULL;
 
     _rl_term_autowrap= 0; /* used by _rl_get_screen_size */

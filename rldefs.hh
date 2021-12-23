@@ -153,12 +153,6 @@ extern char* _rl_strpbrk PARAMS((const char*, const char*));
   (((s) && (s)[0]) ? ((s)[1] ? ((s)[2] ? strlen(s) : 2) : 1) : 0)
 #endif
 
-#if !defined(FREE)
-#define FREE(x)                                                           \
-  if (x)                                                                  \
-  free(x)
-#endif
-
 #if !defined(SWAP)
 #define SWAP(s, e)                                                        \
   do                                                                      \

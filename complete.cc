@@ -1467,7 +1467,7 @@ static int compute_lcd_of_matches(char**      match_list,
       if (i > matches)
         strncpy(match_list[0], match_list[1], low);
 
-      FREE(dtext);
+      free(dtext);
     }
     else
       strncpy(match_list[0], match_list[1], low);
@@ -1509,7 +1509,7 @@ static int postprocess_matches(char*** matchesp, int matching_filenames)
     (void)(*rl_ignore_some_completions_function)(matches);
     if (matches == 0 || matches[0] == 0)
     {
-      FREE(matches);
+      free(matches);
       *matchesp= (char**)0;
       return 0;
     }
@@ -1522,7 +1522,7 @@ static int postprocess_matches(char*** matchesp, int matching_filenames)
       {
         t= matches[0];
         compute_lcd_of_matches(matches, i - 1, t);
-        FREE(t);
+        free(t);
       }
     }
   }
@@ -2053,7 +2053,7 @@ int rl_complete_internal(int what_to_do)
   if (matches == 0)
   {
     rl_ding();
-    FREE(saved_line_buffer);
+    free(saved_line_buffer);
     completion_changed_buffer= 0;
     RL_UNSETSTATE(RL_STATE_COMPLETING);
     _rl_reset_completion_state();
@@ -2068,7 +2068,7 @@ int rl_complete_internal(int what_to_do)
   if (postprocess_matches(&matches, i) == 0)
   {
     rl_ding();
-    FREE(saved_line_buffer);
+    free(saved_line_buffer);
     completion_changed_buffer= 0;
     RL_UNSETSTATE(RL_STATE_COMPLETING);
     _rl_reset_completion_state();
@@ -2161,7 +2161,7 @@ int rl_complete_internal(int what_to_do)
     default:
       _rl_ttymsg("bad value %d for what_to_do in rl_complete", what_to_do);
       rl_ding();
-      FREE(saved_line_buffer);
+      free(saved_line_buffer);
       RL_UNSETSTATE(RL_STATE_COMPLETING);
       _rl_free_match_list(matches);
       _rl_reset_completion_state();
@@ -2284,7 +2284,7 @@ char* rl_username_completion_function(const char* text, int state)
 
   if (state == 0)
   {
-    FREE(username);
+    free(username);
 
     first_char    = *text;
     first_char_loc= first_char == '~';
@@ -2494,9 +2494,9 @@ char* rl_filename_completion_function(const char* text, int state)
       closedir(directory);
       directory= (DIR*)NULL;
     }
-    FREE(dirname);
-    FREE(filename);
-    FREE(users_dirname);
+    free(dirname);
+    free(filename);
+    free(users_dirname);
 
     filename= savestring(text);
     if (*text == 0)
@@ -2723,7 +2723,7 @@ int rl_old_menu_complete(int count, int invoking_key)
   if (rl_last_func != rl_old_menu_complete)
   {
     /* Clean up from previous call, if any. */
-    FREE(orig_text);
+    free(orig_text);
     if (matches)
       _rl_free_match_list(matches);
 
@@ -2773,9 +2773,9 @@ int rl_old_menu_complete(int count, int invoking_key)
         postprocess_matches(&matches, matching_filenames) == 0)
     {
       rl_ding();
-      FREE(matches);
+      free(matches);
       matches= (char**)0;
-      FREE(orig_text);
+      free(orig_text);
       orig_text                = (char*)0;
       completion_changed_buffer= 0;
       RL_UNSETSTATE(RL_STATE_COMPLETING);
@@ -2800,7 +2800,7 @@ int rl_old_menu_complete(int count, int invoking_key)
   if (matches == 0 || match_list_size == 0)
   {
     rl_ding();
-    FREE(matches);
+    free(matches);
     matches                  = (char**)0;
     completion_changed_buffer= 0;
     return (0);
@@ -2869,7 +2869,7 @@ int rl_menu_complete(int count, int ignore)
       full_completion)
   {
     /* Clean up from previous call, if any. */
-    FREE(orig_text);
+    free(orig_text);
     if (matches)
       _rl_free_match_list(matches);
 
@@ -2921,9 +2921,9 @@ int rl_menu_complete(int count, int ignore)
         postprocess_matches(&matches, matching_filenames) == 0)
     {
       rl_ding();
-      FREE(matches);
+      free(matches);
       matches= (char**)0;
-      FREE(orig_text);
+      free(orig_text);
       orig_text                = (char*)0;
       completion_changed_buffer= 0;
       RL_UNSETSTATE(RL_STATE_COMPLETING);
@@ -2938,7 +2938,7 @@ int rl_menu_complete(int count, int ignore)
     if (match_list_size == 0)
     {
       rl_ding();
-      FREE(matches);
+      free(matches);
       matches                  = (char**)0;
       match_list_index         = 0;
       completion_changed_buffer= 0;
@@ -2967,7 +2967,7 @@ int rl_menu_complete(int count, int ignore)
           match_list_size >= rl_completion_query_items)
       {
         rl_ding();
-        FREE(matches);
+        free(matches);
         matches        = (char**)0;
         full_completion= 1;
         return (0);
@@ -2998,7 +2998,7 @@ int rl_menu_complete(int count, int ignore)
   if (matches == 0 || match_list_size == 0)
   {
     rl_ding();
-    FREE(matches);
+    free(matches);
     matches                  = (char**)0;
     completion_changed_buffer= 0;
     return (0);

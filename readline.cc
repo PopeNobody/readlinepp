@@ -331,7 +331,7 @@ int _rl_meta_flag= 0; /* Forward declaration */
    rl_callback_handler_install (). */
 int rl_set_prompt(const char* prompt)
 {
-  FREE(rl_prompt);
+  free(rl_prompt);
   rl_prompt        = prompt ? savestring(prompt) : (char*)NULL;
   rl_display_prompt= (char*)(rl_prompt ? rl_prompt : "");
 

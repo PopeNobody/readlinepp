@@ -119,9 +119,9 @@ _rl_search_cxt* _rl_scxt_alloc(int type, int flags)
 
 void _rl_scxt_dispose(_rl_search_cxt* cxt, int flags)
 {
-  FREE(cxt->search_string);
-  FREE(cxt->allocated_line);
-  FREE(cxt->lines);
+  free(cxt->search_string);
+  free(cxt->allocated_line);
+  free(cxt->lines);
 
   xfree(cxt);
 }
@@ -262,7 +262,7 @@ static void _rl_isearch_fini(_rl_search_cxt* cxt)
   rl_restore_prompt();
 
   /* Save the search string for possible later use. */
-  FREE(last_isearch_string);
+  free(last_isearch_string);
   last_isearch_string    = cxt->search_string;
   last_isearch_string_len= cxt->search_string_index;
   cxt->search_string     = 0;

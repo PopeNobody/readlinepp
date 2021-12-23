@@ -57,12 +57,6 @@ extern char* strchr();
 #define member(c, s) ((c) ? ((char*)strchr((s), (c)) != (char*)NULL) : 0)
 #endif
 
-#ifndef FREE
-#define FREE(x)                                                           \
-  if (x)                                                                  \
-  free(x)
-#endif
-
 /* Possible history errors passed to hist_error. */
 #define EVENT_NOT_FOUND 0
 #define BAD_WORD_SPEC   1

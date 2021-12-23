@@ -183,7 +183,7 @@ void _rl_pop_executing_macro(void)
 {
   struct saved_macro* macro;
 
-  FREE(rl_executing_macro);
+  free(rl_executing_macro);
   rl_executing_macro   = (char*)NULL;
   executing_macro_index= 0;
 
@@ -227,7 +227,7 @@ void _rl_kill_kbd_macro(void)
   }
   current_macro_size= current_macro_index= 0;
 
-  FREE(rl_executing_macro);
+  free(rl_executing_macro);
   rl_executing_macro   = (char*)NULL;
   executing_macro_index= 0;
 
@@ -312,7 +312,7 @@ int rl_print_last_kbd_macro(int count, int ignore)
   printf("%s", m);
   fflush(stdout);
   rl_crlf();
-  FREE(m);
+  free(m);
   rl_forced_update_display();
   rl_display_fixed= 1;
 

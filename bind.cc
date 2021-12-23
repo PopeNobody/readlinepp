@@ -989,7 +989,7 @@ static int _rl_read_init_file(const char* filename, int include_level)
 
   if (include_level == 0 && filename != last_readline_init_file)
   {
-    FREE(last_readline_init_file);
+    free(last_readline_init_file);
     last_readline_init_file= savestring(filename);
   }
 
@@ -2018,7 +2018,7 @@ static int sv_combegin(const char* value)
 {
   if (value && *value)
   {
-    FREE(_rl_comment_begin);
+    free(_rl_comment_begin);
     _rl_comment_begin= savestring(value);
     return 0;
   }
@@ -2137,7 +2137,7 @@ static int sv_isrchterm(const char* value)
 
   /* Isolate the value and translate it into a character string. */
   v= savestring(value);
-  FREE(_rl_isearch_terminators);
+  free(_rl_isearch_terminators);
   if (v[0] == '"' || v[0] == '\'')
   {
     delim= v[0];
@@ -2167,7 +2167,7 @@ static int sv_emacs_modestr(const char* value)
 {
   if (value && *value)
   {
-    FREE(_rl_emacs_mode_str);
+    free(_rl_emacs_mode_str);
     _rl_emacs_mode_str= (char*)xmalloc(2 * strlen(value) + 1);
     rl_translate_keyseq(value, _rl_emacs_mode_str, &_rl_emacs_modestr_len);
     _rl_emacs_mode_str[_rl_emacs_modestr_len]= '\0';
@@ -2175,14 +2175,14 @@ static int sv_emacs_modestr(const char* value)
   }
   else if (value)
   {
-    FREE(_rl_emacs_mode_str);
+    free(_rl_emacs_mode_str);
     _rl_emacs_mode_str                          = (char*)xmalloc(1);
     _rl_emacs_mode_str[_rl_emacs_modestr_len= 0]= '\0';
     return 0;
   }
   else if (value == 0)
   {
-    FREE(_rl_emacs_mode_str);
+    free(_rl_emacs_mode_str);
     _rl_emacs_mode_str   = 0; /* prompt_modestr does the right thing */
     _rl_emacs_modestr_len= 0;
     return 0;
@@ -2194,7 +2194,7 @@ static int sv_viins_modestr(const char* value)
 {
   if (value && *value)
   {
-    FREE(_rl_vi_ins_mode_str);
+    free(_rl_vi_ins_mode_str);
     _rl_vi_ins_mode_str= (char*)xmalloc(2 * strlen(value) + 1);
     rl_translate_keyseq(
              value, _rl_vi_ins_mode_str, &_rl_vi_ins_modestr_len);
@@ -2203,14 +2203,14 @@ static int sv_viins_modestr(const char* value)
   }
   else if (value)
   {
-    FREE(_rl_vi_ins_mode_str);
+    free(_rl_vi_ins_mode_str);
     _rl_vi_ins_mode_str                           = (char*)xmalloc(1);
     _rl_vi_ins_mode_str[_rl_vi_ins_modestr_len= 0]= '\0';
     return 0;
   }
   else if (value == 0)
   {
-    FREE(_rl_vi_ins_mode_str);
+    free(_rl_vi_ins_mode_str);
     _rl_vi_ins_mode_str   = 0; /* prompt_modestr does the right thing */
     _rl_vi_ins_modestr_len= 0;
     return 0;
@@ -2222,7 +2222,7 @@ static int sv_vicmd_modestr(const char* value)
 {
   if (value && *value)
   {
-    FREE(_rl_vi_cmd_mode_str);
+    free(_rl_vi_cmd_mode_str);
     _rl_vi_cmd_mode_str= (char*)xmalloc(2 * strlen(value) + 1);
     rl_translate_keyseq(
              value, _rl_vi_cmd_mode_str, &_rl_vi_cmd_modestr_len);
@@ -2231,14 +2231,14 @@ static int sv_vicmd_modestr(const char* value)
   }
   else if (value)
   {
-    FREE(_rl_vi_cmd_mode_str);
+    free(_rl_vi_cmd_mode_str);
     _rl_vi_cmd_mode_str                           = (char*)xmalloc(1);
     _rl_vi_cmd_mode_str[_rl_vi_cmd_modestr_len= 0]= '\0';
     return 0;
   }
   else if (value == 0)
   {
-    FREE(_rl_vi_cmd_mode_str);
+    free(_rl_vi_cmd_mode_str);
     _rl_vi_cmd_mode_str   = 0; /* prompt_modestr does the right thing */
     _rl_vi_cmd_modestr_len= 0;
     return 0;

@@ -575,7 +575,7 @@ static int rl_yank_nth_arg_internal(int count, int key, int history_skip)
   if (!arg || !*arg)
   {
     rl_ding();
-    FREE(arg);
+    free(arg);
     return 1;
   }
 

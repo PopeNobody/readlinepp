@@ -338,9 +338,9 @@ int read_history_range(const char* filename, int from, int to)
     if (file >= 0)
       close(file);
 
-    FREE(input);
+    free(input);
 #ifndef HISTORY_USE_MMAP
-    FREE(buffer);
+    free(buffer);
 #endif
 
     return (chars_read);
@@ -429,9 +429,9 @@ int read_history_range(const char* filename, int from, int to)
   if (reset_comment_char)
     history_comment_char= '\0';
 
-  FREE(input);
+  free(input);
 #ifndef HISTORY_USE_MMAP
-  FREE(buffer);
+  free(buffer);
 #else
   munmap(buffer, file_size);
 #endif
@@ -600,7 +600,7 @@ int history_truncate_file(const char* fname, int lines)
     rv= errno;
 
 truncate_exit:
-  FREE(buffer);
+  free(buffer);
 
   history_lines_written_to_file= orig_lines - lines;
 
@@ -624,7 +624,7 @@ truncate_exit:
 #endif
 
   xfree(filename);
-  FREE(tempname);
+  free(tempname);
 
   return rv;
 }
@@ -665,8 +665,8 @@ static int history_do_write(const char* filename,
   if (file == -1)
   {
     rv= errno;
-    FREE(histname);
-    FREE(tempname);
+    free(histname);
+    free(tempname);
     return (rv);
   }
 
@@ -717,8 +717,8 @@ static int history_do_write(const char* filename,
       close(file);
       if (tempname)
         unlink(tempname);
-      FREE(histname);
-      FREE(tempname);
+      free(histname);
+      free(tempname);
       return rv;
     }
 #else
@@ -729,8 +729,8 @@ static int history_do_write(const char* filename,
       close(file);
       if (tempname)
         unlink(tempname);
-      FREE(histname);
-      FREE(tempname);
+      free(histname);
+      free(tempname);
       return rv;
     }
 #endif
@@ -784,8 +784,8 @@ static int history_do_write(const char* filename,
     mode= chown(histname, finfo.st_uid, finfo.st_gid);
 #endif
 
-  FREE(histname);
-  FREE(tempname);
+  free(histname);
+  free(tempname);
 
   return (rv);
 }

@@ -33,19 +33,30 @@
 #include <readline/rltypedefs.hh>
 #endif
 
-#ifdef __STDC__
-typedef void* histdata_t;
-#else
-typedef char* histdata_t;
-#endif
+#include <string>
+using std::string;
 
-/* The structure used to store a history entry. */
-typedef struct _hist_entry
+class histdata_t
 {
-  char*      line;
-  char*      timestamp; /* char * rather than time_t for read/write */
+  public:
+  void *data;
+  histdata_t(void *data=0)
+    : data(data)
+  {
+  };
+};
+/* The structure used to store a history entry. */
+class HIST_ENTRY
+{
+  public:
+  string      line;
+  string      timestamp; /* char * rather than time_t for read/write */
   histdata_t data;
-} HIST_ENTRY;
+  HIST_ENTRY(const string &line, const string &timestamp)
+    :line(line), timestamp(timestamp)
+  {
+  };
+};
 
 /* Size of the history-library-managed space in history entry HS. */
 #define HISTENT_BYTES(hs) (strlen((hs)->line) + strlen((hs)->timestamp))

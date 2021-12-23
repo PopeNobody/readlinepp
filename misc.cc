@@ -313,8 +313,8 @@ void _rl_free_history_entry(HIST_ENTRY* entry)
   if (entry == 0)
     return;
 
-  FREE(entry->line);
-  FREE(entry->timestamp);
+  free(entry->line);
+  free(entry->timestamp);
 
   xfree(entry);
 }
@@ -331,7 +331,7 @@ int rl_maybe_replace_line(void)
     temp= replace_history_entry(
              where_history(), rl_line_buffer, (histdata_t)rl_undo_list);
     xfree(temp->line);
-    FREE(temp->timestamp);
+    free(temp->timestamp);
     xfree(temp);
   }
   return 0;
@@ -445,7 +445,7 @@ void _rl_revert_all_lines(void)
         rl_do_undo();
       /* And copy the reverted line back to the history entry, preserving
          the timestamp. */
-      FREE(entry->line);
+      free(entry->line);
       entry->line= savestring(rl_line_buffer);
     }
     entry= previous_history();
