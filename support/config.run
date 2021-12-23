@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if test -n "$*" ; then
+  set -- $(cat support/config.args) "$@"
+  printf '%q\n' "$@" |  tee support/config.args.new > /dev/null
+  mv support/config.args.new support/config.args
+fi
+
+set -- $(cat support/config.args)
+
+bash ./configure "$@"
