@@ -65,14 +65,14 @@ HISTORY_LIB = ../libhistory.a
 
 TERMCAP_LIB = @TERMCAP_LIB@
 
-.c.o:
+.cc.o:
 	${RM} $@
 	$(CC) $(CCFLAGS) -c $<
 
-SOURCES = excallback.c fileman.c histexamp.c manexamp.c rl-fgets.c rl.c \
-		rlbasic.c rlcat.c rlevent.c rlptytest.c rltest.c rlversion.c \
-		rltest2.c rl-callbacktest.c hist_erasedups.c hist_purgecmd.c \
-		rlkeymaps.c
+SOURCES = excallback.cc fileman.cc histexamp.cc manexamp.cc rl-fgets.cc rl.cc \
+		rlbasic.cc rlcat.cc rlevent.cc rlptytest.cc rltest.cc rlversion.cc \
+		rltest2.cc rl-callbacktest.cc hist_erasedups.cc hist_purgecmd.cc \
+		rlkeymaps.cc
 
 EXECUTABLES = fileman$(EXEEXT) rltest$(EXEEXT) rl$(EXEEXT) rlcat$(EXEEXT) \
 		rlevent$(EXEEXT) rlversion$(EXEEXT) histexamp$(EXEEXT) \
@@ -160,19 +160,19 @@ clean mostlyclean:
 distclean maintainer-clean: clean
 	$(RM) Makefile
 
-fileman.o: fileman.c
-rltest.o: rltest.c
-rltest2.o: rltest2.c
-rl.o: rl.c
-rlversion.o: rlversion.c
-histexamp.o: histexamp.c
-hist_erasedups.o: hist_erasedups.c
-hist_purgecmd.o: hist_purgecmd.c
-rlbasic.o: rlbasic.c
-rlkeymaps.o: rlkeymaps.c
-rlcat.o: rlcat.c
-rlptytest.o: rlptytest.c
-rl-callbacktest.o: rl-callbacktest.c
+fileman.o: fileman.cc
+rltest.o: rltest.cc
+rltest2.o: rltest2.cc
+rl.o: rl.cc
+rlversion.o: rlversion.cc
+histexamp.o: histexamp.cc
+hist_erasedups.o: hist_erasedups.cc
+hist_purgecmd.o: hist_purgecmd.cc
+rlbasic.o: rlbasic.cc
+rlkeymaps.o: rlkeymaps.cc
+rlcat.o: rlcat.cc
+rlptytest.o: rlptytest.cc
+rl-callbacktest.o: rl-callbacktest.cc
 
 fileman.o: $(top_srcdir)/readline.hh
 rltest.o: $(top_srcdir)/readline.hh

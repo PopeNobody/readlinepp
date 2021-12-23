@@ -17,14 +17,14 @@
 
    You should have received a copy of the GNU General Public License
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
-*/
+   */
 
 /* fileman.c -- A tiny application which demonstrates how to use the
    GNU Readline library.  This application interactively allows users
    to manipulate files and their modes. */
 
 #ifdef HAVE_CONFIG_H
-#  include <config.h>
+#  include <config.hh>
 #endif
 
 #include <sys/types.h>
@@ -54,40 +54,43 @@
 #include <time.h>
 
 #ifdef READLINE_LIBRARY
-#  include "readline.h"
-#  include "history.h"
+#  include "readline.hh"
+#  include "history.hh"
 #else
 #  include <readline/readline.h>
 #  include <readline/history.h>
 #endif
 
-extern char *xmalloc PARAMS((size_t));
+#include<string>
+using std::string;
 
-void initialize_readline PARAMS((void));
-void too_dangerous PARAMS((char *));
+extern char *xmalloc (size_t);
 
-int execute_line PARAMS((char *));
-int valid_argument PARAMS((char *, char *));
+void initialize_readline (void);
+void too_dangerous (const char *);
+
+int execute_line (const char *);
+int valid_argument (const char *, const char *);
 
 /* The names of functions that actually do the manipulation. */
-int com_list PARAMS((char *));
-int com_view PARAMS((char *));
-int com_rename PARAMS((char *));
-int com_stat PARAMS((char *));
-int com_pwd PARAMS((char *));
-int com_delete PARAMS((char *));
-int com_help PARAMS((char *));
-int com_cd PARAMS((char *));
-int com_quit PARAMS((char *));
+int com_list (const char *);
+int com_view (const char *);
+int com_rename (const char *);
+int com_stat (const char *);
+int com_pwd (const char *);
+int com_delete (const char *);
+int com_help (const char *);
+int com_cd (const char *);
+int com_quit (const char *);
 
 /* A structure which contains information on the commands this program
    can understand. */
 
-typedef struct {
-  char *name;			/* User printable name of the function. */
+struct COMMAND {
+  char name[8];			/* User printable name of the function. */
   rl_icpfunc_t *func;		/* Function to call to do the job. */
-  char *doc;			/* Documentation for this function.  */
-} COMMAND;
+  char doc[64];			/* Documentation for this function.  */
+};
 
 COMMAND commands[] = {
   { "cd", com_cd, "Change to directory DIR" },
@@ -101,12 +104,12 @@ COMMAND commands[] = {
   { "rename", com_rename, "Rename FILE to NEWNAME" },
   { "stat", com_stat, "Print out statistics on FILE" },
   { "view", com_view, "View the contents of FILE" },
-  { (char *)NULL, (rl_icpfunc_t *)NULL, (char *)NULL }
+  { "", (rl_icpfunc_t *)0, "" }
 };
 
 /* Forward declarations. */
-char *stripwhite ();
-COMMAND *find_command ();
+const string stripwhite (const string &text);
+COMMAND *find_command (const string &name);
 
 /* The name of this program, as taken from argv[0]. */
 char *progname;
@@ -114,9 +117,7 @@ char *progname;
 /* When non-zero, this global means the user is done using this program. */
 int done;
 
-char *
-dupstr (s)
-     char *s;
+char * dupstr (char *s)
 {
   char *r;
 
@@ -125,12 +126,9 @@ dupstr (s)
   return (r);
 }
 
-int
-main (argc, argv)
-     int argc;
-     char **argv;
+int main (int argc, char **argv)
 {
-  char *line, *s;
+  char *line;
 
   progname = argv[0];
 
@@ -138,56 +136,52 @@ main (argc, argv)
 
   /* Loop reading and executing lines until the user quits. */
   for ( ; done == 0; )
-    {
-      line = readline ("FileMan: ");
+  {
+    line = readline ("FileMan: ");
 
-      if (!line)
-        break;
+    if (!line)
+      break;
 
-      /* Remove leading and trailing whitespace from the line.
-         Then, if there is anything left, add it to the history list
-         and execute it. */
-      s = stripwhite (line);
+    /* Remove leading and trailing whitespace from the line.
+       Then, if there is anything left, add it to the history list
+       and execute it. */
+    string s = stripwhite (line);
 
-      if (*s)
-        {
-          add_history (s);
-          execute_line (s);
-        }
+    if(!s.length())
+      continue;
 
-      free (line);
-    }
+    add_history (s);
+    execute_line (s);
+
+    free (line);
+  }
   exit (0);
 }
 
 /* Execute a command line. */
-int
-execute_line (line)
-     char *line;
+int execute_line (const string &line)
 {
   register int i;
   COMMAND *command;
-  char *word;
 
-  /* Isolate the command word. */
-  i = 0;
-  while (line[i] && whitespace (line[i]))
-    i++;
-  word = line + i;
+  auto b(line.begin()), e(line.end());
+  while(b!=e && whitespace(*b))
+    ++b;
 
-  while (line[i] && !whitespace (line[i]))
-    i++;
+  auto s(b);
+  while(b!=e && !whitespace(*b))
+    ++b;
 
-  if (line[i])
-    line[i++] = '\0';
+  string word = string(s,b);
+  printf("word: %s\n", word.c_str());
 
   command = find_command (word);
 
   if (!command)
-    {
-      fprintf (stderr, "%s: No such command for FileMan.\n", word);
-      return (-1);
-    }
+  {
+    fprintf (stderr, "%s: No such command for FileMan.\n", word);
+    return (-1);
+  }
 
   /* Get argument to command, if any. */
   while (whitespace (line[i]))
@@ -201,9 +195,7 @@ execute_line (line)
 
 /* Look up NAME as the name of a command, and return a pointer to that
    command.  Return a NULL pointer if NAME isn't a command name. */
-COMMAND *
-find_command (name)
-     char *name;
+COMMAND * find_command (const string &name)
 {
   register int i;
 
@@ -216,15 +208,13 @@ find_command (name)
 
 /* Strip whitespace from the start and end of STRING.  Return a pointer
    into STRING. */
-char *
-stripwhite (string)
-     char *string;
+const char * stripwhite (const char *string)
 {
   register char *s, *t;
 
   for (s = string; whitespace (*s); s++)
     ;
-    
+
   if (*s == 0)
     return (s);
 
@@ -242,14 +232,13 @@ stripwhite (string)
 /*                                                                  */
 /* **************************************************************** */
 
-char *command_generator PARAMS((const char *, int));
-char **fileman_completion PARAMS((const char *, int, int));
+char *command_generator (const char *, int);
+char **fileman_completion (const char *, int, int);
 
 /* Tell the GNU Readline library how to complete.  We want to try to complete
    on command names if this is the first word in the line, or on filenames
    if not. */
-void
-initialize_readline ()
+void initialize_readline ()
 {
   /* Allow conditional parsing of the ~/.inputrc file. */
   rl_readline_name = "FileMan";
@@ -263,10 +252,7 @@ initialize_readline ()
    the word to complete.  We can use the entire contents of rl_line_buffer
    in case we want to do some simple parsing.  Return the array of matches,
    or NULL if there aren't any. */
-char **
-fileman_completion (text, start, end)
-     const char *text;
-     int start, end;
+char ** fileman_completion (const char **text, int start, int end)
 {
   char **matches;
 
@@ -284,10 +270,7 @@ fileman_completion (text, start, end)
 /* Generator function for command completion.  STATE lets us know whether
    to start from scratch; without any state (i.e. STATE == 0), then we
    start at the top of the list. */
-char *
-command_generator (text, state)
-     const char *text;
-     int state;
+char * command_generator (const char *text, int state)
 {
   static int list_index, len;
   char *name;
@@ -296,19 +279,19 @@ command_generator (text, state)
      saving the length of TEXT for efficiency, and initializing the index
      variable to 0. */
   if (!state)
-    {
-      list_index = 0;
-      len = strlen (text);
-    }
+  {
+    list_index = 0;
+    len = strlen (text);
+  }
 
   /* Return the next name which partially matches from the command list. */
   while (name = commands[list_index].name)
-    {
-      list_index++;
+  {
+    list_index++;
 
-      if (strncmp (name, text, len) == 0)
-        return (dupstr(name));
-    }
+    if (strncmp (name, text, len) == 0)
+      return (dupstr(name));
+  }
 
   /* If no names matched, then return NULL. */
   return ((char *)NULL);
@@ -325,9 +308,7 @@ command_generator (text, state)
 static char syscom[1024];
 
 /* List the file(s) named in arg. */
-int
-com_list (arg)
-     char *arg;
+int com_list (const char *arg)
 {
   if (!arg)
     arg = "";
@@ -336,9 +317,7 @@ com_list (arg)
   return (system (syscom));
 }
 
-int
-com_view (arg)
-     char *arg;
+int com_view (const char *arg)
 {
   if (!valid_argument ("view", arg))
     return 1;
@@ -352,17 +331,13 @@ com_view (arg)
   return (system (syscom));
 }
 
-int
-com_rename (arg)
-     char *arg;
+int com_rename (const char *arg)
 {
   too_dangerous ("rename");
   return (1);
 }
 
-int
-com_stat (arg)
-     char *arg;
+int com_stat (const char *arg)
 {
   struct stat finfo;
 
@@ -370,28 +345,26 @@ com_stat (arg)
     return (1);
 
   if (stat (arg, &finfo) == -1)
-    {
-      perror (arg);
-      return (1);
-    }
+  {
+    perror (arg);
+    return (1);
+  }
 
   printf ("Statistics for `%s':\n", arg);
 
   printf ("%s has %d link%s, and is %d byte%s in length.\n",
-	  arg,
-          finfo.st_nlink,
-          (finfo.st_nlink == 1) ? "" : "s",
-          finfo.st_size,
-          (finfo.st_size == 1) ? "" : "s");
+      arg,
+      finfo.st_nlink,
+      (finfo.st_nlink == 1) ? "" : "s",
+      finfo.st_size,
+      (finfo.st_size == 1) ? "" : "s");
   printf ("Inode Last Change at: %s", ctime (&finfo.st_ctime));
   printf ("      Last access at: %s", ctime (&finfo.st_atime));
   printf ("    Last modified at: %s", ctime (&finfo.st_mtime));
   return (0);
 }
 
-int
-com_delete (arg)
-     char *arg;
+int com_delete (const char *arg)
 {
   too_dangerous ("delete");
   return (1);
@@ -399,108 +372,96 @@ com_delete (arg)
 
 /* Print out help for ARG, or for all of the commands if ARG is
    not present. */
-int
-com_help (arg)
-     char *arg;
+int com_help (const char *arg)
 {
   register int i;
   int printed = 0;
 
   for (i = 0; commands[i].name; i++)
+  {
+    if (!*arg || (strcmp (arg, commands[i].name) == 0))
     {
-      if (!*arg || (strcmp (arg, commands[i].name) == 0))
-        {
-          printf ("%s\t\t%s.\n", commands[i].name, commands[i].doc);
-          printed++;
-        }
+      printf ("%s\t\t%s.\n", commands[i].name, commands[i].doc);
+      printed++;
     }
+  }
 
   if (!printed)
+  {
+    printf ("No commands match `%s'.  Possibilties are:\n", arg);
+
+    for (i = 0; commands[i].name; i++)
     {
-      printf ("No commands match `%s'.  Possibilties are:\n", arg);
-
-      for (i = 0; commands[i].name; i++)
-        {
-          /* Print in six columns. */
-          if (printed == 6)
-            {
-              printed = 0;
-              printf ("\n");
-            }
-
-          printf ("%s\t", commands[i].name);
-          printed++;
-        }
-
-      if (printed)
+      /* Print in six columns. */
+      if (printed == 6)
+      {
+        printed = 0;
         printf ("\n");
+      }
+
+      printf ("%s\t", commands[i].name);
+      printed++;
     }
+
+    if (printed)
+      printf ("\n");
+  }
   return (0);
 }
 
 /* Change to the directory ARG. */
-int
-com_cd (arg)
-     char *arg;
+int com_cd (const char *arg)
 {
   if (chdir (arg) == -1)
-    {
-      perror (arg);
-      return 1;
-    }
+  {
+    perror (arg);
+    return 1;
+  }
 
   com_pwd ("");
   return (0);
 }
 
 /* Print out the current working directory. */
-int
-com_pwd (ignore)
-     char *ignore;
+int com_pwd (const char *ignore)
 {
   char dir[1024], *s;
 
   s = getcwd (dir, sizeof(dir) - 1);
   if (s == 0)
-    {
-      printf ("Error getting pwd: %s\n", dir);
-      return 1;
-    }
+  {
+    printf ("Error getting pwd: %s\n", dir);
+    return 1;
+  }
 
   printf ("Current directory is %s\n", dir);
   return 0;
 }
 
 /* The user wishes to quit using this program.  Just set DONE non-zero. */
-int
-com_quit (arg)
-     char *arg;
+int com_quit (const char *arg)
 {
   done = 1;
   return (0);
 }
 
 /* Function which tells you that you can't do this. */
-void
-too_dangerous (caller)
-     char *caller;
+void too_dangerous (const char *caller)
 {
   fprintf (stderr,
-           "%s: Too dangerous for me to distribute.  Write it yourself.\n",
-           caller);
+      "%s: Too dangerous for me to distribute.  Write it yourself.\n",
+      caller);
 }
 
 /* Return non-zero if ARG is a valid argument for CALLER, else print
    an error message and return zero. */
-int
-valid_argument (caller, arg)
-     char *caller, *arg;
+int valid_argument (const char *caller, const char *arg)
 {
   if (!arg || !*arg)
-    {
-      fprintf (stderr, "%s: Argument required.\n", caller);
-      return (0);
-    }
+  {
+    fprintf (stderr, "%s: Argument required.\n", caller);
+    return (0);
+  }
 
   return (1);
 }
