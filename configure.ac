@@ -309,7 +309,7 @@ AC_SUBST(LIBVERSION)
 AC_SUBST(TERMCAP_LIB)
 AC_SUBST(TERMCAP_PKG_CONFIG_LIB)
 
-AC_OUTPUT([Makefile doc/Makefile readline.pc],
+AC_OUTPUT([Makefile doc/Makefile examples/Makefile readline++.pc],
 [
 # Makefile uses this timestamp file to record whether config.h is up to date.
 echo > stamp-h

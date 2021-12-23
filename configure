@@ -6944,7 +6944,7 @@ esac
 
 
 
-ac_config_files="$ac_config_files Makefile doc/Makefile examples/Makefile shlib/Makefile readline.pc"
+ac_config_files="$ac_config_files Makefile doc/Makefile examples/Makefile readline++.pc"
 
 ac_config_commands="$ac_config_commands default"
 
@@ -7646,8 +7646,7 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
-    "shlib/Makefile") CONFIG_FILES="$CONFIG_FILES shlib/Makefile" ;;
-    "readline.pc") CONFIG_FILES="$CONFIG_FILES readline.pc" ;;
+    "readline++.pc") CONFIG_FILES="$CONFIG_FILES readline++.pc" ;;
     "default") CONFIG_COMMANDS="$CONFIG_COMMANDS default" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
