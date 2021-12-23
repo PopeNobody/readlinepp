@@ -1,18 +1,15 @@
 /* config.hh.in.  Generated from configure.ac by autoheader.  */
 
-/* Description */
+/* Do ctype macros accept non-ascii? */
 #undef CTYPE_NON_ASCII
 
-/* Description */
+/* FIONREAD_IN_SYS_IOCTL? */
 #undef FIONREAD_IN_SYS_IOCTL
 
 /* Define to 1 if `TIOCGWINSZ' requires <sys/ioctl.h>. */
 #undef GWINSZ_IN_SYS_IOCTL
 
-/* Description */
-#undef HANDLERS
-
-/* Description */
+/* Have BSD Signals? */
 #undef HAVE_BSD_SIGNALS
 
 /* Define to 1 if your system has a working `chown' function. */
@@ -44,7 +41,7 @@
 /* Define to 1 if you have the `getpwuid' function. */
 #undef HAVE_GETPWUID
 
-/* Description */
+/* HAVE_GETPW_DECLS */
 #undef HAVE_GETPW_DECLS
 
 /* Define to 1 if you have the <inttypes.h> header file. */
@@ -68,7 +65,7 @@
 /* Define to 1 if you have the `kill' function. */
 #undef HAVE_KILL
 
-/* Description */
+/* HAVE_LANGINFO_CODESET */
 #undef HAVE_LANGINFO_CODESET
 
 /* Define to 1 if you have the <langinfo.h> header file. */
@@ -89,7 +86,7 @@
 /* Define to 1 if you have the `lstat' function. */
 #undef HAVE_LSTAT
 
-/* Description */
+/* HAVE_MBRLEN */
 #undef HAVE_MBRLEN
 
 /* Define to 1 if mbrtowc and mbstate_t are properly declared. */
@@ -98,16 +95,16 @@
 /* Define to 1 if you have the `mbschr' function. */
 #undef HAVE_MBSCHR
 
-/* Description */
+/* HAVE_MBSCMP */
 #undef HAVE_MBSCMP
 
-/* Description */
+/* HAVE_MBSNRTOWCS */
 #undef HAVE_MBSNRTOWCS
 
-/* Description */
+/* HAVE_MBSRTOWCS */
 #undef HAVE_MBSRTOWCS
 
-/* Description */
+/* HAVE_MBSTATE_T */
 #undef HAVE_MBSTATE_T
 
 /* Define to 1 if you have the <mbstr.h> header file. */
@@ -125,10 +122,10 @@
 /* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
 #undef HAVE_NDIR_H
 
-/* Description */
+/* Have POSIX signals? */
 #undef HAVE_POSIX_SIGNALS
 
-/* Description */
+/* HAVE_POSIX_SIGSETJMP */
 #undef HAVE_POSIX_SIGSETJMP
 
 /* Define to 1 if you have the `pselect' function. */
@@ -180,10 +177,10 @@
 /* Define to 1 if you have the `strpbrk' function. */
 #undef HAVE_STRPBRK
 
-/* Description */
+/* HAVE_STRUCT_DIRENT_D_FILENO */
 #undef HAVE_STRUCT_DIRENT_D_FILENO
 
-/* Description */
+/* HAVE_STRUCT_DIRENT_D_INO */
 #undef HAVE_STRUCT_DIRENT_D_INO
 
 /* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
@@ -239,7 +236,7 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
-/* Description */
+/* Have USG Sighold? */
 #undef HAVE_USG_SIGHOLD
 
 /* Define to 1 if you have the <varargs.h> header file. */
@@ -254,19 +251,19 @@
 /* systems should define this type here */
 #undef HAVE_WCHAR_T
 
-/* Description */
+/* HAVE_WCRTOMB */
 #undef HAVE_WCRTOMB
 
-/* Description */
+/* HAVE_WCSCOLL */
 #undef HAVE_WCSCOLL
 
-/* Description */
+/* HAVE_WCSDUP */
 #undef HAVE_WCSDUP
 
 /* Define to 1 if you have the `wcswidth' function. */
 #undef HAVE_WCSWIDTH
 
-/* Description */
+/* HAVE_WCTYPE */
 #undef HAVE_WCTYPE
 
 /* Define to 1 if you have the <wctype.h> header file. */
@@ -275,16 +272,16 @@
 /* systems should define this type here */
 #undef HAVE_WCTYPE_T
 
-/* Description */
+/* HAVE_WCWIDTH */
 #undef HAVE_WCWIDTH
 
 /* systems should define this type here */
 #undef HAVE_WINT_T
 
-/* Description */
+/* MUST_REINSTALL_SIGNALHANDLERS */
 #undef MUST_REINSTALL_SIGHANDLERS
 
-/* Description */
+/* NO_MULTIBYTE_SUPPORT */
 #undef NO_MULTIBYTE_SUPPORT
 
 /* Define to the address where bug reports for this package should be sent. */
@@ -314,7 +311,7 @@
 /* The size of `wchar_t', as computed by sizeof. */
 #undef SIZEOF_WCHAR_T
 
-/* Description */
+/* SPEED_T_IN_SYS_TYPES */
 #undef SPEED_T_IN_SYS_TYPES
 
 /* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */
@@ -323,7 +320,7 @@
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
-/* Description */
+/* STRCOLL_BROKEN */
 #undef STRCOLL_BROKEN
 
 /* Description */
@@ -357,7 +354,7 @@
 #endif
 
 
-/* Description */
+/* VOID_SIGHANDLER */
 #undef VOID_SIGHANDLER
 
 /* wcwidth is usually not broken */
@@ -410,3 +407,6 @@
 /* Define to `int' if <sys/types.h> doesn't define. */
 #undef uid_t
 
+/* Define to empty if the keyword `volatile' does not work. Warning: valid
+   code using `volatile' can become incorrect without. Disable with care. */
+#undef volatile

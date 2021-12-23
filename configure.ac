@@ -27,9 +27,9 @@ AC_INIT(readline, 8.0, bug-readline@gnu.org)
 dnl make sure we are using a recent autoconf version
 AC_PREREQ(2.50)
 
-AC_CONFIG_SRCDIR(readline.h)
+AC_CONFIG_SRCDIR(readline.hh)
 AC_CONFIG_AUX_DIR(./support)
-AC_CONFIG_HEADERS(config.h)
+AC_CONFIG_HEADERS(config.hh)
 
 dnl update the value of RL_READLINE_VERSION in readline.h when this changes
 LIBVERSION=8.0
@@ -59,7 +59,7 @@ AC_ARG_ENABLE(static, AC_HELP_STRING([--enable-static], [build static libraries 
 AC_ARG_ENABLE(install-examples, AC_HELP_STRING([--disable-install-examples], [don't install examples [[default=install]]]), opt_install_examples=$enableval)
 
 if test $opt_multibyte = no; then
-AC_DEFINE(NO_MULTIBYTE_SUPPORT)
+AC_DEFINE(NO_MULTIBYTE_SUPPORT,[],[NO_MULTIBYTE_SUPPORT])
 fi
 
 dnl load up the cross-building cache file -- add more cases and cache

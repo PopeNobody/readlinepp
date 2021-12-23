@@ -87,10 +87,10 @@ $2
 ], bash_cv_type_$1=yes, bash_cv_type_$1=no)])
 AC_MSG_RESULT($bash_cv_type_$1)
 ifelse($#, 4, [if test $bash_cv_type_$1 = yes; then
-	AC_DEFINE($4)
+	AC_DEFINE($4,[],[AC_DEFINE($4)])
 	fi])
 if test $bash_cv_type_$1 = no; then
-  AC_DEFINE_UNQUOTED($1, $3)
+  AC_DEFINE_UNQUOTED($1, $3, [AC_DEFINE($4)])
 fi
 ])
 
@@ -118,9 +118,9 @@ AC_CACHE_CHECK([for declaration of $1], bash_cv_decl_$1,
 bash_cv_decl_$1=yes, bash_cv_decl_$1=no)])
 bash_tr_func=HAVE_DECL_`echo $1 | tr 'abcdefghijklmnopqrstuvwxyz' 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'`
 if test $bash_cv_decl_$1 = yes; then
-  AC_DEFINE_UNQUOTED($bash_tr_func, 1)
+  AC_DEFINE_UNQUOTED($bash_tr_func, 1,[Bash tr func])
 else
-  AC_DEFINE_UNQUOTED($bash_tr_func, 0)
+  AC_DEFINE_UNQUOTED($bash_tr_func, 0,[Bash tr func])
 fi
 ])
 
@@ -146,7 +146,7 @@ exit(pf == 0);
 )])
 AC_MSG_RESULT($bash_cv_printf_declared)
 if test $bash_cv_printf_declared = yes; then
-AC_DEFINE(PRINTF_DECLARED)
+AC_DEFINE(PRINTF_DECLARED,[],[PRINTF_DECLARED])
 fi
 ])
 
@@ -157,7 +157,7 @@ AC_CACHE_VAL(bash_cv_sbrk_declared,
  bash_cv_sbrk_declared=yes, bash_cv_sbrk_declared=no)])
 AC_MSG_RESULT($bash_cv_sbrk_declared)
 if test $bash_cv_sbrk_declared = yes; then
-AC_DEFINE(SBRK_DECLARED)
+AC_DEFINE(SBRK_DECLARED,[],[SBRK_DECLARED])
 fi
 ])
 
@@ -378,7 +378,7 @@ void (*signal ()) ();],
 [int i;], bash_cv_void_sighandler=yes, bash_cv_void_sighandler=no)])dnl
 AC_MSG_RESULT($bash_cv_void_sighandler)
 if test $bash_cv_void_sighandler = yes; then
-AC_DEFINE(VOID_SIGHANDLER)
+AC_DEFINE(VOID_SIGHANDLER,[],[VOID_SIGHANDLER])
 fi
 ])
 
@@ -822,7 +822,7 @@ exit(1);
 )])
 AC_MSG_RESULT($bash_cv_func_sigsetjmp)
 if test $bash_cv_func_sigsetjmp = present; then
-AC_DEFINE(HAVE_POSIX_SIGSETJMP)
+AC_DEFINE(HAVE_POSIX_SIGSETJMP,[1],[HAVE_POSIX_SIGSETJMP])
 fi
 ])
 
@@ -871,7 +871,7 @@ char    *v[];
 )])
 AC_MSG_RESULT($bash_cv_func_strcoll_broken)
 if test $bash_cv_func_strcoll_broken = yes; then
-AC_DEFINE(STRCOLL_BROKEN)
+AC_DEFINE(STRCOLL_BROKEN,[],[STRCOLL_BROKEN])
 fi
 ])
 
@@ -1069,7 +1069,7 @@ struct dirent d; int z; z = d.d_ino;
 ], bash_cv_dirent_has_dino=yes, bash_cv_dirent_has_dino=no)])
 AC_MSG_RESULT($bash_cv_dirent_has_dino)
 if test $bash_cv_dirent_has_dino = yes; then
-AC_DEFINE(HAVE_STRUCT_DIRENT_D_INO)
+AC_DEFINE(HAVE_STRUCT_DIRENT_D_INO,[1],[HAVE_STRUCT_DIRENT_D_INO])
 fi
 ])
 
@@ -1102,7 +1102,7 @@ struct dirent d; int z; z = d.d_fileno;
 ], bash_cv_dirent_has_d_fileno=yes, bash_cv_dirent_has_d_fileno=no)])
 AC_MSG_RESULT($bash_cv_dirent_has_d_fileno)
 if test $bash_cv_dirent_has_d_fileno = yes; then
-AC_DEFINE(HAVE_STRUCT_DIRENT_D_FILENO)
+AC_DEFINE(HAVE_STRUCT_DIRENT_D_FILENO,[1],[HAVE_STRUCT_DIRENT_D_FILENO])
 fi
 ])
 
@@ -1183,10 +1183,10 @@ AC_CACHE_VAL(bash_cv_struct_winsize_header,
 ])])
 if test $bash_cv_struct_winsize_header = ioctl_h; then
   AC_MSG_RESULT(sys/ioctl.h)
-  AC_DEFINE(STRUCT_WINSIZE_IN_SYS_IOCTL)
+  AC_DEFINE(STRUCT_WINSIZE_IN_SYS_IOCTL,[],[Description])
 elif test $bash_cv_struct_winsize_header = termios_h; then
   AC_MSG_RESULT(termios.h)
-  AC_DEFINE(STRUCT_WINSIZE_IN_TERMIOS)
+  AC_DEFINE(STRUCT_WINSIZE_IN_TERMIOS,[],[Description])
 else
   AC_MSG_RESULT(not found)
 fi
@@ -1224,11 +1224,11 @@ AC_CACHE_VAL(bash_cv_signal_vintage,
 ])
 AC_MSG_RESULT($bash_cv_signal_vintage)
 if test "$bash_cv_signal_vintage" = posix; then
-AC_DEFINE(HAVE_POSIX_SIGNALS)
+AC_DEFINE(HAVE_POSIX_SIGNALS,[],[Have POSIX signals?])
 elif test "$bash_cv_signal_vintage" = "4.2bsd"; then
-AC_DEFINE(HAVE_BSD_SIGNALS)
+AC_DEFINE(HAVE_BSD_SIGNALS,[],[Have BSD Signals?])
 elif test "$bash_cv_signal_vintage" = svr3; then
-AC_DEFINE(HAVE_USG_SIGHOLD)
+AC_DEFINE(HAVE_USG_SIGHOLD,[],[Have USG Sighold?])
 fi
 ])
 
@@ -1349,7 +1349,7 @@ main()
 )])
 AC_MSG_RESULT($bash_cv_must_reinstall_sighandlers)
 if test $bash_cv_must_reinstall_sighandlers = yes; then
-AC_DEFINE(MUST_REINSTALL_SIGHANDLERS)
+AC_DEFINE(MUST_REINSTALL_SIGHANDLERS,[],[MUST_REINSTALL_SIGNALHANDLERS])
 fi
 ])
 
@@ -1498,7 +1498,7 @@ AC_CACHE_VAL(bash_cv_tiocstat_in_ioctl,
   bash_cv_tiocstat_in_ioctl=yes,bash_cv_tiocstat_in_ioctl=no)])
 AC_MSG_RESULT($bash_cv_tiocstat_in_ioctl)
 if test $bash_cv_tiocstat_in_ioctl = yes; then   
-AC_DEFINE(TIOCSTAT_IN_SYS_IOCTL)
+AC_DEFINE(TIOCSTAT_IN_SYS_IOCTL,[],[Description])
 fi
 ])
 
@@ -1510,7 +1510,7 @@ AC_CACHE_VAL(bash_cv_fionread_in_ioctl,
   bash_cv_fionread_in_ioctl=yes,bash_cv_fionread_in_ioctl=no)])
 AC_MSG_RESULT($bash_cv_fionread_in_ioctl)
 if test $bash_cv_fionread_in_ioctl = yes; then   
-AC_DEFINE(FIONREAD_IN_SYS_IOCTL)
+AC_DEFINE(FIONREAD_IN_SYS_IOCTL,[],[FIONREAD_IN_SYS_IOCTL?])
 fi
 ])
 
@@ -1527,7 +1527,7 @@ AC_CACHE_VAL(bash_cv_speed_t_in_sys_types,
   bash_cv_speed_t_in_sys_types=yes,bash_cv_speed_t_in_sys_types=no)])
 AC_MSG_RESULT($bash_cv_speed_t_in_sys_types)
 if test $bash_cv_speed_t_in_sys_types = yes; then   
-AC_DEFINE(SPEED_T_IN_SYS_TYPES)
+AC_DEFINE(SPEED_T_IN_SYS_TYPES,[],[SPEED_T_IN_SYS_TYPES])
 fi
 ])
 
@@ -1545,7 +1545,7 @@ AC_CACHE_VAL(bash_cv_getpw_declared,
 bash_cv_getpw_declared=yes,bash_cv_getpw_declared=no)])
 AC_MSG_RESULT($bash_cv_getpw_declared)
 if test $bash_cv_getpw_declared = yes; then
-AC_DEFINE(HAVE_GETPW_DECLS)
+AC_DEFINE(HAVE_GETPW_DECLS,[1],[HAVE_GETPW_DECLS])
 fi
 ])
 
@@ -1689,26 +1689,26 @@ AC_CHECK_HEADERS(langinfo.h)
 
 AC_CHECK_HEADERS(mbstr.h)
 
-AC_CHECK_FUNC(mbrlen, AC_DEFINE(HAVE_MBRLEN))
-AC_CHECK_FUNC(mbscasecmp, AC_DEFINE(HAVE_MBSCMP))
-AC_CHECK_FUNC(mbscmp, AC_DEFINE(HAVE_MBSCMP))
-AC_CHECK_FUNC(mbsnrtowcs, AC_DEFINE(HAVE_MBSNRTOWCS))
-AC_CHECK_FUNC(mbsrtowcs, AC_DEFINE(HAVE_MBSRTOWCS))
+AC_CHECK_FUNC(mbrlen, AC_DEFINE(HAVE_MBRLEN,[],[HAVE_MBRLEN]))
+AC_CHECK_FUNC(mbscasecmp, AC_DEFINE(HAVE_MBSCMP,[],[HAVE_MBSCMP]))
+AC_CHECK_FUNC(mbscmp, AC_DEFINE(HAVE_MBSCMP,[],[HAVE_MBSCMP]))
+AC_CHECK_FUNC(mbsnrtowcs, AC_DEFINE(HAVE_MBSNRTOWCS,[],[HAVE_MBSNRTOWCS]))
+AC_CHECK_FUNC(mbsrtowcs, AC_DEFINE(HAVE_MBSRTOWCS,[],[HAVE_MBSRTOWCS]))
 
 AC_REPLACE_FUNCS(mbschr)
 
-AC_CHECK_FUNC(wcrtomb, AC_DEFINE(HAVE_WCRTOMB))
-AC_CHECK_FUNC(wcscoll, AC_DEFINE(HAVE_WCSCOLL))
-AC_CHECK_FUNC(wcsdup, AC_DEFINE(HAVE_WCSDUP))
-AC_CHECK_FUNC(wcwidth, AC_DEFINE(HAVE_WCWIDTH))
-AC_CHECK_FUNC(wctype, AC_DEFINE(HAVE_WCTYPE))
+AC_CHECK_FUNC(wcrtomb, AC_DEFINE(HAVE_WCRTOMB,[],[HAVE_WCRTOMB]))
+AC_CHECK_FUNC(wcscoll, AC_DEFINE(HAVE_WCSCOLL,[],[HAVE_WCSCOLL]))
+AC_CHECK_FUNC(wcsdup, AC_DEFINE(HAVE_WCSDUP,[],[HAVE_WCSDUP]))
+AC_CHECK_FUNC(wcwidth, AC_DEFINE(HAVE_WCWIDTH,[],[HAVE_WCWIDTH]))
+AC_CHECK_FUNC(wctype, AC_DEFINE(HAVE_WCTYPE,[],[HAVE_WCTYPE]))
 
 AC_REPLACE_FUNCS(wcswidth)
 
 dnl checks for both mbrtowc and mbstate_t
 AC_FUNC_MBRTOWC
 if test $ac_cv_func_mbrtowc = yes; then
-	AC_DEFINE(HAVE_MBSTATE_T)
+	AC_DEFINE(HAVE_MBSTATE_T,[],[HAVE_MBSTATE_T])
 fi
 
 AC_CHECK_FUNCS(iswlower iswupper towlower towupper iswctype)
@@ -1719,7 +1719,7 @@ AC_CACHE_CHECK([for nl_langinfo and CODESET], bash_cv_langinfo_codeset,
 [char* cs = nl_langinfo(CODESET);],
 bash_cv_langinfo_codeset=yes, bash_cv_langinfo_codeset=no)])
 if test $bash_cv_langinfo_codeset = yes; then
-  AC_DEFINE(HAVE_LANGINFO_CODESET)
+  AC_DEFINE(HAVE_LANGINFO_CODESET,[],[HAVE_LANGINFO_CODESET])
 fi
 
 dnl check for wchar_t in <wchar.h>
@@ -1956,7 +1956,7 @@ char	*v[];
 )])
 AC_MSG_RESULT($bash_cv_func_ctype_nonascii)
 if test $bash_cv_func_ctype_nonascii = yes; then
-AC_DEFINE(CTYPE_NON_ASCII)
+AC_DEFINE(CTYPE_NON_ASCII,[],[Do ctype macros accept non-ascii?])
 fi
 ])
 
