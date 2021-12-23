@@ -1,4 +1,0 @@
---- support/install-sh
-+++ support/install-sh
-@@ -0,0 +1 @@
-+/usr/share/automake-1.15/install-sh

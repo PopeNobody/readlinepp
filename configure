@@ -586,7 +586,7 @@ PACKAGE_STRING='readline 8.0'
 PACKAGE_BUGREPORT='bug-readline@gnu.org'
 PACKAGE_URL=''
 
-ac_unique_file="readline.hh"
+ac_unique_file="readline.h"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -633,8 +633,27 @@ LOCAL_LDFLAGS
 LOCAL_CFLAGS
 BUILD_DIR
 EXAMPLES_INSTALL_TARGET
+SHARED_INSTALL_TARGET
 STATIC_INSTALL_TARGET
+SHARED_TARGET
 STATIC_TARGET
+SHLIB_MINOR
+SHLIB_MAJOR
+SHLIB_LIBS
+SHLIB_DLLVERSION
+SHLIB_LIBVERSION
+SHLIB_LIBSUFF
+SHLIB_LIBPREF
+SHLIB_DOT
+SHLIB_XLDFLAGS
+SHLIB_STATUS
+SHOBJ_STATUS
+SHOBJ_LIBS
+SHOBJ_XLDFLAGS
+SHOBJ_LDFLAGS
+SHOBJ_LD
+SHOBJ_CFLAGS
+SHOBJ_CC
 LIBOBJS
 MAKE_SHELL
 RANLIB
@@ -645,9 +664,6 @@ INSTALL_PROGRAM
 EGREP
 GREP
 CPP
-ac_ct_CXX
-CXXFLAGS
-CXX
 OBJEXT
 EXEEXT
 ac_ct_CC
@@ -709,6 +725,7 @@ ac_user_opts='
 enable_option_checking
 with_curses
 enable_multibyte
+enable_shared
 enable_static
 enable_install_examples
 enable_largefile
@@ -721,9 +738,6 @@ CFLAGS
 LDFLAGS
 LIBS
 CPPFLAGS
-CXX
-CXXFLAGS
-CCC
 CPP'
 
 
@@ -1350,9 +1364,10 @@ Optional Features:
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-multibyte      enable multibyte characters if OS supports them
+  --enable-shared         build shared libraries [[default=YES]]
   --enable-static         build static libraries [[default=YES]]
   --disable-install-examples
-                          dont install examples [[default=install]]
+                          don't install examples [[default=install]]
   --disable-largefile     omit support for large files
 
 Optional Packages:
@@ -1369,8 +1384,6 @@ Some influential environment variables:
   LIBS        libraries to pass to the linker, e.g. -l<library>
   CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
-  CXX         C++ compiler command
-  CXXFLAGS    C++ compiler flags
   CPP         C preprocessor
 
 Use these variables to override the choices made by `configure' or to help
@@ -1490,44 +1503,6 @@ fi
   as_fn_set_status $ac_retval
 
 } # ac_fn_c_try_compile
-
-# ac_fn_cxx_try_compile LINENO
-# ----------------------------
-# Try to compile conftest.$ac_ext, and return whether this succeeded.
-ac_fn_cxx_try_compile ()
-{
-  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-  rm -f conftest.$ac_objext
-  if { { ac_try="$ac_compile"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
-$as_echo "$ac_try_echo"; } >&5
-  (eval "$ac_compile") 2>conftest.err
-  ac_status=$?
-  if test -s conftest.err; then
-    grep -v '^ *+' conftest.err >conftest.er1
-    cat conftest.er1 >&5
-    mv -f conftest.er1 conftest.err
-  fi
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; } && {
-	 test -z "$ac_cxx_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then :
-  ac_retval=0
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_retval=1
-fi
-  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-  as_fn_set_status $ac_retval
-
-} # ac_fn_cxx_try_compile
 
 # ac_fn_c_try_cpp LINENO
 # ----------------------
@@ -2510,7 +2485,7 @@ ac_config_sub="$SHELL $ac_aux_dir/config.sub"  # Please don't use this var.
 ac_configure="$SHELL $ac_aux_dir/configure"  # Please don't use this var.
 
 
-ac_config_headers="$ac_config_headers config.hh"
+ac_config_headers="$ac_config_headers config.h"
 
 
 LIBVERSION=8.0
@@ -2603,11 +2578,17 @@ fi
 
 opt_multibyte=yes
 opt_static_libs=yes
+opt_shared_libs=yes
 opt_install_examples=yes
 
 # Check whether --enable-multibyte was given.
 if test "${enable_multibyte+set}" = set; then :
   enableval=$enable_multibyte; opt_multibyte=$enableval
+fi
+
+# Check whether --enable-shared was given.
+if test "${enable_shared+set}" = set; then :
+  enableval=$enable_shared; opt_shared_libs=$enableval
 fi
 
 # Check whether --enable-static was given.
@@ -3473,263 +3454,6 @@ if test "x$ac_cv_prog_cc_c89" != xno; then :
 
 fi
 
-ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-ac_ext=cpp
-ac_cpp='$CXXCPP $CPPFLAGS'
-ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
-if test -z "$CXX"; then
-  if test -n "$CCC"; then
-    CXX=$CCC
-  else
-    if test -n "$ac_tool_prefix"; then
-  for ac_prog in g++ c++ gpp aCC CC cxx cc++ cl.exe FCC KCC RCC xlC_r xlC
-  do
-    # Extract the first word of "$ac_tool_prefix$ac_prog", so it can be a program name with args.
-set dummy $ac_tool_prefix$ac_prog; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_CXX+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$CXX"; then
-  ac_cv_prog_CXX="$CXX" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_CXX="$ac_tool_prefix$ac_prog"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-fi
-fi
-CXX=$ac_cv_prog_CXX
-if test -n "$CXX"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CXX" >&5
-$as_echo "$CXX" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-    test -n "$CXX" && break
-  done
-fi
-if test -z "$CXX"; then
-  ac_ct_CXX=$CXX
-  for ac_prog in g++ c++ gpp aCC CC cxx cc++ cl.exe FCC KCC RCC xlC_r xlC
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_ac_ct_CXX+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$ac_ct_CXX"; then
-  ac_cv_prog_ac_ct_CXX="$ac_ct_CXX" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_ac_ct_CXX="$ac_prog"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-fi
-fi
-ac_ct_CXX=$ac_cv_prog_ac_ct_CXX
-if test -n "$ac_ct_CXX"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_ct_CXX" >&5
-$as_echo "$ac_ct_CXX" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$ac_ct_CXX" && break
-done
-
-  if test "x$ac_ct_CXX" = x; then
-    CXX="g++"
-  else
-    case $cross_compiling:$ac_tool_warned in
-yes:)
-{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: using cross tools not prefixed with host triplet" >&5
-$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
-ac_tool_warned=yes ;;
-esac
-    CXX=$ac_ct_CXX
-  fi
-fi
-
-  fi
-fi
-# Provide some information about the compiler.
-$as_echo "$as_me:${as_lineno-$LINENO}: checking for C++ compiler version" >&5
-set X $ac_compile
-ac_compiler=$2
-for ac_option in --version -v -V -qversion; do
-  { { ac_try="$ac_compiler $ac_option >&5"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
-$as_echo "$ac_try_echo"; } >&5
-  (eval "$ac_compiler $ac_option >&5") 2>conftest.err
-  ac_status=$?
-  if test -s conftest.err; then
-    sed '10a\
-... rest of stderr output deleted ...
-         10q' conftest.err >conftest.er1
-    cat conftest.er1 >&5
-  fi
-  rm -f conftest.er1 conftest.err
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }
-done
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether we are using the GNU C++ compiler" >&5
-$as_echo_n "checking whether we are using the GNU C++ compiler... " >&6; }
-if ${ac_cv_cxx_compiler_gnu+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-int
-main ()
-{
-#ifndef __GNUC__
-       choke me
-#endif
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_compile "$LINENO"; then :
-  ac_compiler_gnu=yes
-else
-  ac_compiler_gnu=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-ac_cv_cxx_compiler_gnu=$ac_compiler_gnu
-
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_cxx_compiler_gnu" >&5
-$as_echo "$ac_cv_cxx_compiler_gnu" >&6; }
-if test $ac_compiler_gnu = yes; then
-  GXX=yes
-else
-  GXX=
-fi
-ac_test_CXXFLAGS=${CXXFLAGS+set}
-ac_save_CXXFLAGS=$CXXFLAGS
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CXX accepts -g" >&5
-$as_echo_n "checking whether $CXX accepts -g... " >&6; }
-if ${ac_cv_prog_cxx_g+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_save_cxx_werror_flag=$ac_cxx_werror_flag
-   ac_cxx_werror_flag=yes
-   ac_cv_prog_cxx_g=no
-   CXXFLAGS="-g"
-   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_compile "$LINENO"; then :
-  ac_cv_prog_cxx_g=yes
-else
-  CXXFLAGS=""
-      cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_compile "$LINENO"; then :
-
-else
-  ac_cxx_werror_flag=$ac_save_cxx_werror_flag
-	 CXXFLAGS="-g"
-	 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_compile "$LINENO"; then :
-  ac_cv_prog_cxx_g=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-   ac_cxx_werror_flag=$ac_save_cxx_werror_flag
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_prog_cxx_g" >&5
-$as_echo "$ac_cv_prog_cxx_g" >&6; }
-if test "$ac_test_CXXFLAGS" = set; then
-  CXXFLAGS=$ac_save_CXXFLAGS
-elif test $ac_cv_prog_cxx_g = yes; then
-  if test "$GXX" = yes; then
-    CXXFLAGS="-g -O2"
-  else
-    CXXFLAGS="-g"
-  fi
-else
-  if test "$GXX" = yes; then
-    CXXFLAGS="-O2"
-  else
-    CXXFLAGS=
-  fi
-fi
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -7097,8 +6821,63 @@ case "$host_os" in
 isc*)	LOCAL_CFLAGS=-Disc386 ;;
 esac
 
-STATIC_TARGET=static
-STATIC_INSTALL_TARGET=install-static
+# shared library configuration section
+#
+# Shared object configuration section.  These values are generated by
+# ${srcdir}/support/shobj-conf
+#
+if test -f ${srcdir}/support/shobj-conf; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking configuration for building shared libraries" >&5
+$as_echo_n "checking configuration for building shared libraries... " >&6; }
+        eval `TERMCAP_LIB=$TERMCAP_LIB ${CONFIG_SHELL-/bin/sh} ${srcdir}/support/shobj-conf -C "${CC}" -c ${host_cpu} -o ${host_os} -v ${host_vendor}`
+
+#	case "$SHLIB_LIBS" in
+#	*curses*|*termcap*|*termlib*)	;;
+#	*)			SHLIB_LIBS="$SHLIB_LIBS $TERMCAP_LIB" ;;
+#	esac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SHLIB_STATUS" >&5
+$as_echo "$SHLIB_STATUS" >&6; }
+
+	# SHLIB_STATUS is either `supported' or `unsupported'.  If it's
+	# `unsupported', turn off any default shared library building
+	if test "$SHLIB_STATUS" = 'unsupported'; then
+		opt_shared_libs=no
+	fi
+
+	# shared library versioning
+	# quoted for m4 so I can use character classes
+	SHLIB_MAJOR=`expr "$LIBVERSION" : '\([0-9]\)\..*'`
+	SHLIB_MINOR=`expr "$LIBVERSION" : '[0-9]\.\([0-9]\).*'`
+
+
+fi
+
+if test "$opt_static_libs" = "yes"; then
+	STATIC_TARGET=static
+	STATIC_INSTALL_TARGET=install-static
+fi
+if test "$opt_shared_libs" = "yes"; then
+	SHARED_TARGET=shared
+	SHARED_INSTALL_TARGET=install-shared
+fi
+
+
 
 
 
@@ -7136,100 +6915,7 @@ esac
 
 
 
-
-#autoheader: Use AC_DEFINE([CTYPE_NON_ASCII], [], [Description])
-
-$as_echo "#define CTYPE_NON_ASCII /**/" >>confdefs.h
-
-
-$as_echo "#define FIONREAD_IN_SYS_IOCTL /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_BSD_SIGNALS /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_GETPW_DECLS /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_LANGINFO_CODESET /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_MBRLEN /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_MBSCMP /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_MBSNRTOWCS /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_MBSRTOWCS /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_MBSTATE_T /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_POSIX_SIGNALS /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_POSIX_SIGSETJMP /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_STRUCT_DIRENT_D_FILENO /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_STRUCT_DIRENT_D_INO /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_USG_SIGHOLD /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_WCRTOMB /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_WCSCOLL /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_WCSDUP /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_WCTYPE /**/" >>confdefs.h
-
-
-$as_echo "#define HAVE_WCWIDTH /**/" >>confdefs.h
-
-
-$as_echo "#define HANDLERS /**/" >>confdefs.h
-
-
-$as_echo "#define NO_MULTIBYTE_SUPPORT /**/" >>confdefs.h
-
-
-$as_echo "#define SPEED_T_IN_SYS_TYPES /**/" >>confdefs.h
-
-
-$as_echo "#define STRCOLL_BROKEN /**/" >>confdefs.h
-
-
-$as_echo "#define STRUCT_WINSIZE_IN_SYS_IOCTL /**/" >>confdefs.h
-
-
-$as_echo "#define STRUCT_WINSIZE_IN_TERMIOS /**/" >>confdefs.h
-
-
-$as_echo "#define TIOCSTAT_IN_SYS_IOCTL /**/" >>confdefs.h
-
-
-$as_echo "#define VOID_SIGHANDLER /**/" >>confdefs.h
-
-
-$as_echo "#define MUST_REINSTALL_SIGHANDLERS /**/" >>confdefs.h
-
-
-
-
-
-ac_config_files="$ac_config_files Makefile doc/Makefile examples/Makefile readline++.pc"
+ac_config_files="$ac_config_files Makefile doc/Makefile examples/Makefile shlib/Makefile readline.pc"
 
 ac_config_commands="$ac_config_commands default"
 
@@ -7927,11 +7613,12 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
 for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
-    "config.hh") CONFIG_HEADERS="$CONFIG_HEADERS config.hh" ;;
+    "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
-    "readline++.pc") CONFIG_FILES="$CONFIG_FILES readline++.pc" ;;
+    "shlib/Makefile") CONFIG_FILES="$CONFIG_FILES shlib/Makefile" ;;
+    "readline.pc") CONFIG_FILES="$CONFIG_FILES readline.pc" ;;
     "default") CONFIG_COMMANDS="$CONFIG_COMMANDS default" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
